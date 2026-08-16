@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan on the Road - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Sfondo grigio scuro e impostazioni di rendering testo di alta qualità */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141618;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Banner superiore pulito */
+        .top-banner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .top-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(75%);
+        }
+
+        /* Box testo coordinato con lo stile geometrico e minimale della galleria */
+        .banner-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 35px 50px;
+            border-radius: 4px;
+            background: rgba(20, 22, 24, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 75%;
+            max-width: 650px;
+            box-sizing: border-box;
+        }
+
+        .banner-text-box h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .banner-text-box p {
+            margin: 14px 0 0 0;
+            font-size: 0.95rem;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Linea di divisione orizzontale strutturale sotto il banner */
+        .structural-line {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.04);
+            margin: 0;
+        }
+
+        /* Contenitore del titolo centrale, molto arioso */
+        .section-title {
+            text-align: center;
+            padding: 60px 20px 30px 20px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* LINEE ORIZZONTALI SOPRA E SOTTO LA FILA UNICA */
+        .row-border-line {
+            width: calc(100% - 80px);
+            max-width: 1520px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.05);
+            margin: 0 auto;
+        }
+
+        /* GRIGLIA CONFIGURATA SU UN'UNICA RIGA A 5 COLONNE */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            padding: 40px 40px 50px 40px;
+            background: transparent;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Cella del singolo viaggio */
+        .grid-item-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .travel-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .travel-card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* IMMAGINI BASE (Formato Verticale Standard) */
+        .travel-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            object-position: center center;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* IMMAGINI CON FORMATO ORIZZONTALE ATTIVATO */
+        .card-horizontal .travel-card img {
+            aspect-ratio: 4 / 3;
+        }
+
+        /* IMMAGINI CON FORMATO PICCOLO */
+        .card-small .travel-card {
+            width: 80%;
+        }
+
+        .travel-card:hover img {
+            opacity: 0.95;
+            border-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Titolo del viaggio più piccolo e spaziato */
+        .travel-title {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Mese e Anno sottili */
+        .travel-year {
+            margin-top: 5px;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.35);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* STILE FOOTER MINIMALE CON LOGHI SVG */
+        .site-footer {
+            max-width: 1520px;
+            width: calc(100% - 80px);
+            margin: 60px auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        /* Mappa generale di tutti i viaggi */
+        .usa-map-section { max-width: 1520px; width: calc(100% - 80px); margin: 20px auto 0 auto; }
+        .usa-map-title { font-size: 1.1rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: rgba(255, 255, 255, 0.65); margin-bottom: 4px; }
+        .usa-map-subtitle { font-size: 0.8rem; color: rgba(255, 255, 255, 0.35); letter-spacing: 1px; margin-bottom: 20px; }
+        .usa-map-legend { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-bottom: 18px; }
+        .usa-map-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.7); }
+        .usa-map-legend-swatch { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(255,255,255,0.3); }
+        #usa-map { width: 100%; height: 720px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1c1f22; color: #ffffff; }
+        .leaflet-popup-content-wrapper { padding: 0; overflow: hidden; border-radius: 4px; }
+        .leaflet-popup-content { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.8rem; letter-spacing: 0.5px; margin: 0 !important; width: 200px !important; }
+        .map-popup-photo-slot { width: 100%; height: 110px; background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; }
+        .map-popup-photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .map-popup-photo-slot .ph-loading { font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-transform: uppercase; }
+        .map-popup-text { padding: 10px 12px; }
+        .leaflet-popup-content b { display: block; margin-bottom: 2px; }
+        .leaflet-popup-content span { color: rgba(255,255,255,0.5); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+        .leaflet-control-attribution { background-color: rgba(20, 22, 24, 0.8) !important; color: rgba(255,255,255,0.4) !important; }
+        .leaflet-control-attribution a { color: rgba(255,255,255,0.6) !important; }
+        .leaflet-control-zoom a { background-color: #1c1f22 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important; }
+        .leaflet-control-zoom a:hover { background-color: #2a2e32 !important; }
+        .usa-map-marker { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #141618; box-shadow: 0 0 0 1px rgba(255,255,255,0.5); }
+
+        .footer-social-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-social-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        /* Gestione dei loghi SVG interni */
+        .footer-social-links a svg {
+            width: 14px;
+            height: 14px;
+            fill: rgba(255, 255, 255, 0.4); /* Prende lo stesso colore del testo */
+            transition: fill 0.3s ease;
+        }
+
+        .footer-social-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-social-links a:hover svg {
+            fill: #ffffff; /* Il logo si illumina insieme al testo */
+        }
+
+        /* Responsive design per Tablet e Smartphone */
+        @media (max-width: 1100px) {
+            .home-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px 15px;
+            }
+            .card-small .travel-card {
+                width: 100%;
+            }
+        }
+        @media (max-width: 700px) {
+            .top-banner {
+                height: 240px;
+            }
+            .banner-text-box {
+                width: 85%;
+                padding: 25px 20px;
+            }
+            .banner-text-box h1 {
+                font-size: 1.4rem;
+                letter-spacing: 2px;
+            }
+            .banner-text-box p {
+                font-size: 0.8rem;
+                margin-top: 10px;
+            }
+            .home-grid {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 30px 0;
+            }
+            .row-border-line {
+                width: calc(100% - 40px);
+            }
+            .site-footer {
+                width: calc(100% - 40px);
+                flex-direction: column-reverse;
+                gap: 20px;
+                text-align: center;
+                margin: 40px auto 30px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BANNER SUPERIORE CON IMMAGINE DELLA MAPPA -->
+    <div class="top-banner">
+        <img src="main.jpeg" alt="Dan on the Road Banner">
+        <div class="banner-text-box">
+            <h1>Dan on the Road</h1>
+            <p>"Le strade sono state fatte per i viaggi, non per le destinazioni."</p>
+        </div>
+    </div>
+
+    <!-- LINEA ORIZZONTALE STRUTTURALE SOTTO IL BANNER -->
+    <div class="structural-line"></div>
+
+    <!-- TITOLO SEZIONE -->
+    <div class="section-title">
+        <h2>Seleziona un itinerario</h2>
+    </div>
+
+    <!-- LINEA ORIZZONTALE SUPERIORE DELLA FILA DEI VIAGGI -->
+    <div class="row-border-line"></div>
+
+    <!-- GRIGLIA GEOMETRICA CONTINUA (5 COLONNE SU UN'UNICA RIGA) -->
+    <div class="home-grid">
+
+        <!-- VIAGGIO 1: NY23 (Orizzontale) -->
+        <div class="grid-item-wrapper card-horizontal">
+            <a href="ny23.html" class="travel-card">
+                <img src="copertina_ny23.jpg" alt="New York 2023" loading="lazy">
+                <div class="travel-title">New York</div>
+                <div class="travel-year">SETTEMBRE 2023</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 2: NY24 (Verticale - Rimpicciolita) -->
+        <div class="grid-item-wrapper card-small">
+            <a href="ny24.html" class="travel-card">
+                <img src="copertina_ny24.jpg" alt="New York 2024" loading="lazy">
+                <div class="travel-title">New York e Niagara</div>
+                <div class="travel-year">AGOSTO 2024</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 3: OTR25 (Orizzontale - NUOVO TITOLO STATI) -->
+        <div class="grid-item-wrapper card-horizontal">
+            <a href="otr25.html" class="travel-card">
+                <img src="copertina_otr25.jpg" alt="On The Road 2025" loading="lazy">
+                <div class="travel-title">California, Arizona, Utah, Nevada</div>
+                <div class="travel-year">APRILE 2025</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 4: ARIZONA25 (Orizzontale) -->
+        <div class="grid-item-wrapper card-horizontal">
+            <a href="arizona25.html" class="travel-card">
+                <img src="copertina_arizona25.jpg" alt="Arizona 2025" loading="lazy">
+                <div class="travel-title">Arizona</div>
+                <div class="travel-year">AGOSTO 2025</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 5: OTR26 (Verticale - Rimpicciolita - NUOVO TITOLO STATI) -->
+        <div class="grid-item-wrapper card-small">
+            <a href="otr26.html" class="travel-card">
+                <img src="copertina_otr26.jpg" alt="On The Road 2026" loading="lazy">
+                <div class="travel-title">Nevada, Utah, Wyoming, Montana, South Dakota, Colorado</div>
+                <div class="travel-year">GIUGNO 2026</div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- LINEA ORIZZONTALE INFERIORE DELLA FILA DEI VIAGGI -->
+    <div class="row-border-line"></div>
+
+    <!-- ================= MAPPA GENERALE DI TUTTI I VIAGGI ================= -->
+    <section class="usa-map-section">
+        <div class="usa-map-title">Tutti i viaggi, una mappa</div>
+        <div class="usa-map-subtitle">Ogni percorso in un colore diverso</div>
+        <div class="usa-map-legend" id="usa-map-legend"></div>
+        <div id="usa-map"></div>
+    </section>
+
+    <!-- FOOTER MINIMALE CON LOGHI SVG NATIVI -->
+    <footer class="site-footer">
+        <div class="footer-copyright">
+            Dan on the Road
+        </div>
+        <div class="footer-social-links">
+            <a href="https://www.instagram.com/din_don_dani_/" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                Instagram
+            </a>
+            <a href="https://www.facebook.com/daniele.miraglia.5" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+            </a>
+        </div>
+    </footer>
+
+    <!-- ===== MAPPA GENERALE (Leaflet.js) ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const viaggi = [
+                {
+                    nome: "New York",
+                    periodo: "Settembre 2023",
+                    colore: "#e63946",
+                    tappe: [
+                        { nome: "New York", lat: 40.7128, lng: -74.0060 }
+                    ]
+                },
+                {
+                    nome: "New York e Niagara",
+                    periodo: "Agosto 2024",
+                    colore: "#f4a261",
+                    tappe: [
+                        { nome: "New York", lat: 40.7128, lng: -74.0060 },
+                        { nome: "Watkins Glen", lat: 42.3778, lng: -76.8703 },
+                        { nome: "Niagara Falls (lato canadese)", lat: 43.0896, lng: -79.0849 }
+                    ]
+                },
+                {
+                    nome: "California, Arizona, Utah, Nevada",
+                    periodo: "Aprile 2025",
+                    colore: "#2a9d8f",
+                    tappe: [
+                        { nome: "Los Angeles", lat: 34.0522, lng: -118.2437 },
+                        { nome: "Joshua Tree National Park", lat: 33.8734, lng: -115.9010 },
+                        { nome: "Barstow", lat: 34.8958, lng: -117.0173 },
+                        { nome: "Kingman", lat: 35.1894, lng: -114.0530 },
+                        { nome: "Grand Canyon", lat: 36.0544, lng: -112.1401 },
+                        { nome: "Meteor Crater", lat: 35.0275, lng: -111.0223 },
+                        { nome: "Painted Desert", lat: 35.0806, lng: -109.7862 },
+                        { nome: "Petrified Forest", lat: 34.9058, lng: -109.8064 },
+                        { nome: "Page", lat: 36.9147, lng: -111.4558 },
+                        { nome: "Monument Valley", lat: 36.9385, lng: -110.0916 },
+                        { nome: "Canyonlands National Park", lat: 38.3269, lng: -109.8783 },
+                        { nome: "Moab", lat: 38.5733, lng: -109.5498 },
+                        { nome: "Arches National Park", lat: 38.7331, lng: -109.5925 },
+                        { nome: "Las Vegas", lat: 36.1699, lng: -115.1398 },
+                        { nome: "Death Valley", lat: 36.5054, lng: -117.0794 },
+                        { nome: "Sequoia National Park", lat: 36.4864, lng: -118.5658 },
+                        { nome: "Yosemite", lat: 37.8651, lng: -119.5383 },
+                        { nome: "San Francisco", lat: 37.7749, lng: -122.4194 },
+                        { nome: "Monterey", lat: 36.6002, lng: -121.8947 },
+                        { nome: "Carmel", lat: 36.5552, lng: -121.9233 },
+                        { nome: "Los Angeles", lat: 34.0522, lng: -118.2437 }
+                    ]
+                },
+                {
+                    nome: "Arizona",
+                    periodo: "Agosto 2025",
+                    colore: "#e9c46a",
+                    tappe: [
+                        { nome: "Scottsdale", lat: 33.4949, lng: -111.9217 },
+                        { nome: "Saguaro National Park", lat: 32.1831, lng: -110.6127 },
+                        { nome: "Tombstone", lat: 31.7129, lng: -110.0676 },
+                        { nome: "Sedona", lat: 34.8618, lng: -111.8139 },
+                        { nome: "Williams (Route 66)", lat: 35.2526, lng: -112.1821 },
+                        { nome: "Grand Canyon South Rim", lat: 36.0544, lng: -112.1401 },
+                        { nome: "Page", lat: 36.9147, lng: -111.4558 },
+                        { nome: "Monument Valley", lat: 36.9385, lng: -110.0916 },
+                        { nome: "Scottsdale", lat: 33.4949, lng: -111.9217 }
+                    ]
+                },
+                {
+                    nome: "Nevada, Utah, Wyoming, Montana, South Dakota, Colorado",
+                    periodo: "Giugno 2026",
+                    colore: "#a78bfa",
+                    tappe: [
+                        { nome: "Las Vegas", lat: 36.1699, lng: -115.1398 },
+                        { nome: "Valley of Fire", lat: 36.4270, lng: -114.5342 },
+                        { nome: "Coral Pink Sand Dunes", lat: 37.0397, lng: -112.7361 },
+                        { nome: "Bryce Canyon", lat: 37.5930, lng: -112.1871 },
+                        { nome: "Salt Lake City", lat: 40.7608, lng: -111.8910 },
+                        { nome: "Jackson", lat: 43.4799, lng: -110.7624 },
+                        { nome: "Yellowstone", lat: 44.4280, lng: -110.5885 },
+                        { nome: "Cody", lat: 44.5263, lng: -109.0565 },
+                        { nome: "Devils Tower", lat: 44.5902, lng: -104.7146 },
+                        { nome: "Rapid City", lat: 44.0805, lng: -103.2310 },
+                        { nome: "Mount Rushmore", lat: 43.8791, lng: -103.4591 },
+                        { nome: "Badlands National Park", lat: 43.8554, lng: -102.3397 },
+                        { nome: "Cheyenne", lat: 41.1400, lng: -104.8202 },
+                        { nome: "Denver", lat: 39.7392, lng: -104.9903 },
+                        { nome: "Great Sand Dunes", lat: 37.7916, lng: -105.5943 },
+                        { nome: "Independence Pass", lat: 39.1058, lng: -106.5645 },
+                        { nome: "Aspen", lat: 39.1911, lng: -106.8175 },
+                        { nome: "Colorado National Monument", lat: 39.0342, lng: -108.7076 },
+                        { nome: "Moab", lat: 38.5733, lng: -109.5498 },
+                        { nome: "Las Vegas", lat: 36.1699, lng: -115.1398 }
+                    ]
+                }
+            ];
+
+            const map = L.map('usa-map', { scrollWheelZoom: false }).setView([39, -108], 6);
+
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+                maxZoom: 19
+            }).addTo(map);
+
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 19
+            }).addTo(map);
+
+            const legend = document.getElementById('usa-map-legend');
+            let tuttiPunti = [];
+
+            // Recupera una foto ufficiale (Wikimedia Commons, licenza libera) tramite l'API pubblica di Wikipedia
+            async function fetchWikiThumb(placeName) {
+                try {
+                    const resp = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(placeName));
+                    if (!resp.ok) return null;
+                    const data = await resp.json();
+                    return (data.thumbnail && data.thumbnail.source) ? data.thumbnail.source : null;
+                } catch (e) { return null; }
+            }
+
+            viaggi.forEach(v => {
+                legend.insertAdjacentHTML('beforeend', `
+                    <div class="usa-map-legend-item">
+                        <span class="usa-map-legend-swatch" style="background:${v.colore}"></span>
+                        ${v.nome} — ${v.periodo}
+                    </div>`);
+
+                const puntoIcon = L.divIcon({
+                    className: '',
+                    html: `<div style="width:10px;height:10px;border-radius:50%;background:${v.colore};border:2px solid #141618;box-shadow:0 0 0 1px rgba(255,255,255,0.5);"></div>`,
+                    iconSize: [10, 10]
+                });
+
+                const coords = v.tappe.map(t => [t.lat, t.lng]);
+                tuttiPunti = tuttiPunti.concat(coords);
+
+                if (coords.length > 1) {
+                    L.polyline(coords, {
+                        color: v.colore,
+                        weight: 5,
+                        opacity: 0.95
+                    }).addTo(map);
+                }
+
+                v.tappe.forEach(t => {
+                    const marker = L.marker([t.lat, t.lng], { icon: puntoIcon })
+                        .addTo(map)
+                        .bindPopup(
+                            `<div class="map-popup-photo-slot" data-place="${t.nome}"><span class="ph-loading">Carico foto…</span></div>` +
+                            `<div class="map-popup-text"><b>${t.nome}</b><span>${v.nome} · ${v.periodo}</span></div>`
+                        );
+
+                    marker.on('popupopen', async function(e) {
+                        const slot = e.popup.getElement().querySelector('.map-popup-photo-slot');
+                        if (!slot || slot.dataset.loaded) return;
+                        slot.dataset.loaded = '1';
+                        const url = await fetchWikiThumb(t.nome);
+                        if (url) {
+                            slot.innerHTML = `<img src="${url}" alt="${t.nome}">`;
+                        } else {
+                            slot.innerHTML = `<span class="ph-loading">Nessuna foto trovata</span>`;
+                        }
+                    });
+                });
+            });
+
+            map.fitBounds(L.latLngBounds(tuttiPunti), { padding: [30, 30] });
+        });
+    </script>
+
+</body>
+
+</html>

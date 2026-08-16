@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan on the Road - Arizona 2025</title>
+    <style>
+        /* Sfondo granulare coerente con la Home Page */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141618;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://w3.org' id='noiseFilter'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: #ffffff;
+        }
+
+        /* Tasto Back minimale per tornare alla Home */
+        .back-nav {
+            padding: 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: #ffffff; }
+        .back-link svg { width: 12px; height: 12px; fill: currentColor; }
+
+        /* Intestazione del Viaggio */
+        .travel-header { text-align: center; padding: 20px 20px 60px 20px; }
+        .travel-header h1 { margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
+        .travel-header .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Linea di divisione strutturale elegante */
+        .structural-line { width: calc(100% - 80px); max-width: 1400px; height: 1px; background-color: rgba(255, 255, 255, 0.05); margin: 0 auto; }
+
+        /* Contenitore della Timeline del Diario */
+        .timeline-container { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+        /* Blocco del Singolo Giorno */
+        .day-block { display: grid; grid-template-columns: 180px 1fr; gap: 40px; margin-bottom: 80px; }
+        .day-sticky { position: sticky; top: 40px; height: fit-content; }
+        .day-number { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #ffffff; }
+        .day-title { font-size: 0.8rem; font-weight: 500; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+        .day-date { font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); margin-top: 4px; letter-spacing: 1px; }
+
+        /* Contenuto del Giorno (Colonna Destra) */
+        .day-content { display: flex; flex-direction: column; gap: 30px; text-align: left; }
+        .day-text { font-size: 0.95rem; line-height: 1.8; color: rgba(255, 255, 255, 0.75); margin: 0; font-weight: 400; }
+
+        /* Box Dati di Viaggio */
+        .day-details { display: flex; flex-wrap: wrap; gap: 20px 30px; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; width: 100%; }
+        .detail-item { font-size: 0.75rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+
+        /* Struttura delle righe flex per le foto del diario */
+        .universal-media-wrapper { display: flex; flex-direction: column; gap: 20px; margin-top: 15px; width: 100%; }
+        .universal-flex-row { display: flex; justify-content: flex-start; align-items: center; gap: 20px; width: 100%; flex-wrap: wrap; }
+        
+        /* Cornice e miniature fisse extra-large */
+        .photo-container-frame { margin: 0; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.15); padding: 6px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s ease, background-color 0.3s ease; }
+        .photo-container-frame:hover { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.08); }
+        .photo-container-frame img { width: 100%; object-fit: cover; display: block; border-radius: 2px; cursor: pointer; }
+        
+        .size-verticale { width: 225px; }
+        .size-verticale img { height: 300px; }
+        .size-orizzontale { width: 300px; }
+        .size-orizzontale img { height: 225px; }
+
+        /* Footer coordinato */
+        .site-footer { max-width: 1100px; width: calc(100% - 80px); margin: 60px auto 20px auto; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .footer-copyright { font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
+        .footer-socials { display: flex; align-items: center; gap: 15px; }
+        .social-icon { color: rgba(255, 255, 255, 0.3); transition: color 0.3s ease; display: inline-flex; }
+        .social-icon:hover { color: #ffffff; }
+        .social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Interfaccia Lightbox con supporto Zoom attivo */
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(20, 22, 24, 0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        .lightbox-image-container { max-width: 90%; max-height: 75vh; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); position: relative; }
+        .lightbox-image { max-width: 100%; max-height: 75vh; object-fit: contain; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); cursor: zoom-in; user-select: none; }
+        .lightbox-image.is-zoomed { transform: scale(1.8); cursor: zoom-out; }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: rgba(255, 255, 255, 0.5); font-size: 2.5rem; font-family: Arial, sans-serif; cursor: pointer; transition: color 0.3s ease; line-height: 1; user-select: none; z-index: 10002; }
+        .lightbox-close:hover { color: #ffffff; }
+        .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
+        .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
+        .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
+
+        @media (max-width: 900px) {
+            .day-block { grid-template-columns: 1fr; gap: 20px; margin-bottom: 60px; }
+            .day-sticky { position: relative; top: 0; }
+            .universal-flex-row { justify-content: center; }
+            .size-verticale, .size-orizzontale { width: 44%; }
+            .photo-container-frame img { height: auto !important; aspect-ratio: 3/4; }
+            .size-orizzontale img { aspect-ratio: 4/3; }
+            .lightbox-prev, .lightbox-next { font-size: 2rem; padding: 10px; }
+            .lightbox-prev { left: 5px; } .lightbox-next { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
+            Torna alla Home
+        </a>
+    </div>
+
+    <header class="travel-header">
+        <h1>Arizona 2025</h1>
+        <div class="meta-info">Diario di Viaggio / 19 Agosto - 02 Settembre</div>
+    </header>
+
+    <div class="structural-line"></div>
+
+    <div class="timeline-container">
+        <!-- ================= GIORNO 01 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 01</div>
+                <div class="day-title">Phoenix / Scottsdale</div>
+                <div class="day-date">Martedì 19 Ago</div>
+            </div>
+            <div class="day-content">
+                <p class="day-text">
+                    L'avventura in Arizona prende ufficialmente il via alle 12:50 con l'atterraggio all'aeroporto Sky Harbor di Phoenix. Sbrigate le pratiche di rito e ritirata l'auto a noleggio, guidiamo verso Scottsdale per un rapidissimo check-in in hotel intorno alle 14:30. Giusto il tempo di sistemare i bagagli e siamo pronti a sfidare le temperature del deserto: ci dirigiamo subito al Pinnacle Peak Trail per la prima escursione del viaggio. Il percorso si snoda tra enormi massi granitici e spettacolari cactus Saguaro, regalandoci scorci panoramici pazzeschi sulla vallata circostante. Dopo una rigenerante doccia in hotel, concludiamo questo splendido Giorno 1 a Old Town Scottsdale: una suggestiva passeggiata serale tra negozi storici, saloon e la caratteristica Old Adobe Mission, immersi nel piacevole e intenso calore della notte dell'Arizona che segna ancora ben 32 gradi.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Arrivo Volo:</strong> 12:50</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Pinnacle Peak Trail</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 94 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 11,5 km</div>
+                </div>
+                <div class="universal-media-wrapper">
+                    <div class="universal-flex-row">
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250819_163549.jpg" alt="Pinnacle Peak Trail"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Pinnacle Peak Trail</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250819_164436.jpg" alt="Pinnacle Peak Trail"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Pinnacle Peak Trail</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="ARIZONA25/FOTO/20250819_165348.jpg" alt="Pinnacle Peak Trail"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Pinnacle Peak Trail</figcaption></figure>
+                    </div>
+                    <div class="universal-flex-row">
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250819_170142.jpg" alt="Pinnacle Peak Trail"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Pinnacle Peak Trail</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250819_190456.jpg" alt="Old Town Scottsdale"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Old Town Scottsdale</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="ARIZONA25/FOTO/20250819_190704.jpg" alt="Old Adobe Mission"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Old Adobe Mission</figcaption></figure>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- ================= GIORNO 02 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 02</div>
+                <div class="day-title">Scottsdale / Saguaro / Tombstone / Scottsdale</div>
+                <div class="day-date">Mercoledì 20 Ago</div>
+            </div>
+            <div class="day-content">
+                <p class="day-text">
+                    La seconda giornata in Arizona si trasforma in un viaggio epico on the road. Lasciata Scottsdale la mattina presto, puntiamo verso sud in direzione del Saguaro National Park. Qui veniamo avvolti da una foresta infinita di cactus giganti che si stagliano contro il cielo desertico, sfidando un caldo torrido con temperature che sfiorano i 40 gradi. Lungo le strade isolate e infinite, l'orizzonte è interrotto soltanto dalle caratteristiche e solitarie cassette delle lettere rurali poste sul ciglio della carreggiata, sospese nel nulla e senza alcuna casa in vista. Proseguiamo poi verso la leggendaria Tombstone; al nostro arrivo una pioggia improvvisa bagna le strade polverose della città-simbolo del cinema western, regalando alle storiche facciate in legno un'atmosfera incredibilmente suggestiva, cupa e ancora più realistica. Dopo aver respirato la storia della frontiera, ci aspetta il lungo viaggio di rientro verso Scottsdale sotto il cielo della notte dell'Arizona.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Saguaro N.P. & Tombstone</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, faceva troppo caldo!</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 520 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 8,5 km</div>
+                </div>
+                <div class="universal-media-wrapper">
+                    <!-- RIGA 1 (Forzata a riga unica con nowrap - 4 Foto) -->
+                    <div class="universal-flex-row" style="justify-content: center; flex-wrap: nowrap; overflow-x: auto; width: 100%;">
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250820_102307.jpg" alt="Saguaro National Park"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Saguaro National Park</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250820_102903.jpg" alt="Sandario Road"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Sandario Road</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250820_110114.jpg" alt="Saguaro National Park"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Saguaro National Park</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250820_111025.jpg" alt="Saguaro National Park"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Saguaro National Park</figcaption></figure>
+                    </div>
+                    <!-- RIGA 2 (Forzata a riga unica con nowrap - 3 Foto Centrate) -->
+                    <div class="universal-flex-row" style="justify-content: center; flex-wrap: nowrap; overflow-x: auto; width: 100%; margin-top: 15px;">
+                        <figure class="photo-container-frame size-orizzontale"><img src="ARIZONA25/FOTO/20250820_105740.jpg" alt="Desert Mailboxes"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Desert Mailboxes</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250820_150859.jpg" alt="Tombstone Western Town"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Tombstone Western Town</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250820_152133.jpg" alt="Tombstone Western Town"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Tombstone Western Town</figcaption></figure>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- ================= GIORNO 03 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 03</div>
+                <div class="day-title">Scottsdale / Sedona</div>
+                <div class="day-date">Giovedì 21 Ago</div>
+            </div>
+            <div class="day-content">
+                <p class="day-text">
+                    Lasciamo Scottsdale alle spalle per dirigerci verso nord, dove il paesaggio cambia drasticamente cedendo il passo alle leggendarie e imponenti rocce rosse di Sedona. La nostra prima tappa è la suggestiva Chapel of the Holy Cross, una chiesa unica nel suo genere, letteralmente incastonata nei monoliti di pietra arenaria che regala una vista spirituale e panoramica sulla vallata. Subito dopo ci aspetta la sfida più intensa della giornata: il Cathedral Rock Trail. Una scalata ripida e tecnica sulla roccia viva che ci mette a dura prova, ma la fatica scompare una volta raggiunta la sella panoramica tra le gigantesche guglie rosse. Nel pomeriggio ci concediamo un po' di meritato relax a Tlaquepaque Arts & Shopping Outdoor Village: un incantevole angolo in stile tradizionale messicano dove passeggiamo tra cortili alberati, fontane zampillanti, archi in pietra e botteghe di artisti locali.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Sedona (Chapel of the Holy Cross & Tlaquepaque)</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Cathedral Rock Trail</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 210 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 6,5 km</div>
+                </div>
+                <div class="universal-media-wrapper">
+                    <!-- RIGA 1 (Forzata a riga unica con nowrap - 4 Foto) -->
+                    <div class="universal-flex-row" style="justify-content: center; flex-wrap: nowrap; overflow-x: auto; width: 100%;">
+                        <figure class="photo-container-frame size-orizzontale"><img src="ARIZONA25/FOTO/20250821_111619.jpg" alt="Chapel of the Holy Cross"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Chapel of the Holy Cross</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250821_113751.jpg" alt="Chapel of the Holy Cross"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Chapel of the Holy Cross</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250821_121632.jpg" alt="Cathedral Rock"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Cathedral Rock</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="ARIZONA25/FOTO/20250821_122917.jpg" alt="Cathedral Rock Trail"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Cathedral Rock Trail</figcaption></figure>
+                    </div>
+                    <!-- RIGA 2 (Forzata a riga unica con nowrap - 3 Foto Centrate) -->
+                    <div class="universal-flex-row" style="justify-content: center; flex-wrap: nowrap; overflow-x: auto; width: 100%; margin-top: 15px;">
+                        <figure class="photo-container-frame size-orizzontale"><img src="ARIZONA25/FOTO/20250821_160734.jpg" alt="Tlaquepaque Village"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Tlaquepaque Village</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250821_161147.jpg" alt="Tlaquepaque Village"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Tlaquepaque Village</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="ARIZONA25/FOTO/20250821_163031.jpg" alt="Tlaquepaque Village"><figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Tlaquepaque Village</figcaption></figure>
+                    </div>
+                </div>
+            </div>
+        </article>
+         <!-- ================= GIORNO 04 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 04</div>
+                <div class="day-title">Sedona</div>
+                <div class="day-date">Venerdì 22 Ago</div>
+            </div>
+            <div class="day-content">
+                <p class="day-text">
+                    Una giornata interamente dedicata all'esplorazione dei sentieri più selvaggi e spettacolari di Sedona. Iniziamo la mattinata guidando lungo la Boynton Pass Road, immersi in uno scenario di roccia rossa che toglie il fiato. Da lì ci incamminiamo verso il celebre Subway Cave Trail, una delle escursioni più suggestive della zona, dove la roccia si apre in una maestosa conformazione a forma di tunnel sotterraneo. Il clima del deserto non dà tregua: faceva così caldo che il sudore evaporava subito sulla pelle, lasciando una costante sensazione di calore secco e intenso. Lungo il cammino abbiamo la fortuna di avvistare un bellissimo esemplare di Western Bluebird che spicca tra la vegetazione arida. Concludiamo questa intensa giornata affrontando l'Airport Mesa Loop Trail giusto in tempo per goderci lo spettacolo del tramonto, ammirando le vallate incendiate dagli ultimi raggi di luce.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Sedona (Boynton Pass & Airport Mesa)</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Subway Cave & Airport Mesa Loop</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 27 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 14,6 km (20.307 passi)</div>
+                </div>
+                <div class="universal-media-wrapper">
+                    <!-- RIGA 1 (3 Foto - Mattina ed Escursioni) -->
+                    <div class="universal-flex-row" style="justify-content: center; width: 100%;">
+                        <figure class="photo-container-frame size-verticale">
+                            <img src="ARIZONA25/FOTO/20250822_083446.jpg" alt="Boynton Pass Road" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Boynton Pass Road</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-orizzontale">
+                            <img src="ARIZONA25/FOTO/20250822_103913.jpg" alt="Subway Cave Trail" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Subway Cave Trail</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-verticale">
+                            <img src="ARIZONA25/FOTO/20250822_114454.jpg" alt="Western Bluebird" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Western Bluebird</figcaption>
+                        </figure>
+                    </div>
+                    <!-- RIGA 2 (2 Foto - Tramonto a Airport Mesa) -->
+                    <div class="universal-flex-row" style="justify-content: center; width: 100%; margin-top: 15px;">
+                        <figure class="photo-container-frame size-orizzontale">
+                            <img src="ARIZONA25/FOTO/20250822_184454.jpg" alt="Airport Mesa Loop Trail" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Airport Mesa Loop Trail</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-verticale">
+                            <img src="ARIZONA25/FOTO/20250822_184846.jpg" alt="Airport Mesa Loop Trail" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Airport Mesa Loop Trail</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- ================= GIORNO 05 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 05</div>
+                <div class="day-title">Sedona / Williams / Grand Canyon</div>
+                <div class="day-date">Sabato 23 Ago</div>
+            </div>
+            <div class="day-content">
+                <p class="day-text">
+                    Lasciamo la splendida Sedona per metterci in viaggio verso nord, facendo una sosta memorabile a Williams, celebre e storica cittadina situata lungo la leggendaria Route 66. Qui respiriamo a pieno l'atmosfera vintage americana tra vecchi distributori di benzina, insegne al neon d'epoca e negozi ricchi di cimeli storici della "Mother Road". Successivamente il viaggio riprende attraversando i fitti e suggestivi boschi della Kaibab National Forest, un panorama montano inaspettato che spezza la linea arida del deserto. Nel pomeriggio raggiungiamo finalmente la nostra meta principale: il South Rim del Grand Canyon. Iniziamo subito a percorrere il maestoso South Rim Trail a piedi; camminare lungo il cornicione mentre il canyon si apre in tutta la sua infinita e drammatica immensità è un'esperienza che lascia senza fiato e che ci accompagna fino al celebre belvedere di Mather Point. Per la notte alloggiamo in un suggestivo albergo situato direttamente dentro il parco, una struttura affascinante e intrisa di storia posizionata a pochissimi passi dal bordo del canyon, che ci permette di respirare la magia di questo luogo anche sotto il cielo stellato.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Williams (Route 66) & Grand Canyon South Rim</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Grand Canyon South Rim Trail & Mather Point</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 190 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 17,0 km (23.599 passi)</div>
+                </div>
+                <div class="universal-media-wrapper">
+                    <!-- RIGA 1 (3 Foto - Williams e primi passi sul Trail) -->
+                    <div class="universal-flex-row" style="justify-content: center; width: 100%;">
+                        <figure class="photo-container-frame size-verticale">
+                            <img src="ARIZONA25/FOTO/20250823_132104.jpg" alt="Williams" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Williams</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-orizzontale">
+                            <img src="ARIZONA25/FOTO/20250823_145144.jpg" alt="Williams" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Williams</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-verticale">
+                            <img src="ARIZONA25/FOTO/20250823_183212.jpg" alt="South Rim Trail" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">South Rim Trail</figcaption>
+                        </figure>
+                    </div>
+                    <!-- RIGA 2 (3 Foto - Foresta, Tramonto e Mather Point) -->
+                    <div class="universal-flex-row" style="justify-content: center; width: 100%; margin-top: 15px;">
+                        <figure class="photo-container-frame size-orizzontale">
+                            <img src="ARIZONA25/FOTO/20250823_155904.jpg" alt="Kaibab National Forest" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Kaibab National Forest</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-verticale">
+                            <img src="ARIZONA25/FOTO/20250823_184704.jpg" alt="Grand Canyon South Rim Trail" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Grand Canyon South Rim Trail</figcaption>
+                        </figure>
+                        <figure class="photo-container-frame size-orizzontale">
+                            <img src="ARIZONA25/FOTO/20250823_185859.jpg" alt="Mather Point Grand Canyon" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Mather Point Grand Canyon</figcaption>
+                        </figure>
+                    </div>
+                    <!-- RIGA 3 (Foto singola orizzontale in riga da sola) -->
+                    <div class="universal-flex-row" style="justify-content: center; width: 100%; margin-top: 15px;">
+                        <figure class="photo-container-frame size-orizzontale">
+                            <img src="ARIZONA25/FOTO/20250824_092552.jpg" alt="Grand Canyon National Park" class="lightbox-trigger">
+                            <figcaption style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:12px; font-style:italic; text-align:center;">Grand Canyon National Park</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div> <!-- Chiusura timeline-container -->
+
+    <footer class="site-footer">
+        <div class="footer-copyright">
+            © 2026 Dan on the Road. Tutti i diritti riservati.
+        </div>
+        <div class="footer-socials">
+            <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Elemento Overlay Lightbox -->
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev">&#10094;</span>
+        <div class="lightbox-image-container">
+            <img src="" alt="" class="lightbox-image" id="lightbox-img">
+        </div>
+        <span class="lightbox-next" id="lightbox-next">&#10095;</span>
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const images = Array.from(document.querySelectorAll(".photo-container-frame img"));
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            const lightboxClose = document.getElementById("lightbox-close");
+            const lightboxCaption = document.getElementById("lightbox-caption");
+            const prevBtn = document.getElementById("lightbox-prev");
+            const nextBtn = document.getElementById("lightbox-next");
+            
+            let currentIndex = 0;
+
+            function openLightbox(index) {
+                currentIndex = index;
+                const img = images[currentIndex];
+                lightboxImg.src = img.src;
+                lightboxImg.classList.remove("is-zoomed");
+                
+                const figcaption = img.closest(".photo-container-frame").querySelector("figcaption");
+                lightboxCaption.textContent = figcaption ? figcaption.textContent : "";
+                
+                lightbox.style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeLightbox() {
+                lightbox.style.display = "none";
+                lightboxImg.classList.remove("is-zoomed");
+                document.body.style.overflow = "auto";
+            }
+
+            function showPrev() {
+                lightboxImg.classList.remove("is-zoomed");
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                openLightbox(currentIndex);
+            }
+
+            function showNext() {
+                lightboxImg.classList.remove("is-zoomed");
+                currentIndex = (currentIndex + 1) % images.length;
+                openLightbox(currentIndex);
+            }
+
+            // Attiva e disattiva lo zoom ingrandito cliccando sulla foto dentro il popup
+            lightboxImg.addEventListener("click", function(e) {
+                e.stopPropagation();
+                this.classList.toggle("is-zoomed");
+            });
+
+            images.forEach((img, index) => {
+                img.addEventListener("click", function() {
+                    openLightbox(index);
+                });
+            });
+
+            lightboxClose.addEventListener("click", closeLightbox);
+            prevBtn.addEventListener("click", function(e) { e.stopPropagation(); showPrev(); });
+            nextBtn.addEventListener("click", function(e) { e.stopPropagation(); showNext(); });
+            lightbox.addEventListener("click", closeLightbox);
+
+            document.addEventListener("keydown", function(e) {
+                if (lightbox.style.display === "flex") {
+                    if (e.key === "Escape") closeLightbox();
+                    if (e.key === "ArrowLeft") showPrev();
+                    if (e.key === "ArrowRight") showNext();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

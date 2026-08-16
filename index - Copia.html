@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan on the Road - Home</title>
+    <style>
+        /* Sfondo grigio scuro e impostazioni di rendering testo di alta qualità */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141618;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Banner superiore pulito */
+        .top-banner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .top-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(75%);
+        }
+
+        /* Box testo coordinato con lo stile geometrico e minimale della galleria */
+        .banner-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 35px 50px;
+            border-radius: 4px;
+            background: rgba(20, 22, 24, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 75%;
+            max-width: 650px;
+            box-sizing: border-box;
+        }
+
+        .banner-text-box h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .banner-text-box p {
+            margin: 14px 0 0 0;
+            font-size: 0.95rem;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Linea di divisione orizzontale strutturale sotto il banner */
+        .structural-line {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.04);
+            margin: 0;
+        }
+
+        /* Contenitore del titolo centrale, molto arioso */
+        .section-title {
+            text-align: center;
+            padding: 60px 20px 30px 20px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* LINEE ORIZZONTALI SOPRA E SOTTO LA FILA UNICA */
+        .row-border-line {
+            width: calc(100% - 80px);
+            max-width: 1520px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.05);
+            margin: 0 auto;
+        }
+
+        /* GRIGLIA CONFIGURATA SU UN'UNICA RIGA A 5 COLONNE */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            padding: 40px 40px 50px 40px;
+            background: transparent;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Cella del singolo viaggio */
+        .grid-item-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .travel-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .travel-card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* IMMAGINI BASE (Formato Verticale Standard) */
+        .travel-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            object-position: center center;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* IMMAGINI CON FORMATO ORIZZONTALE ATTIVATO */
+        .card-horizontal .travel-card img {
+            aspect-ratio: 4 / 3;
+        }
+
+        /* IMMAGINI CON FORMATO PICCOLO */
+        .card-small .travel-card {
+            width: 80%;
+        }
+
+        .travel-card:hover img {
+            opacity: 0.95;
+            border-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Titolo del viaggio più piccolo e spaziato */
+        .travel-title {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Mese e Anno sottili */
+        .travel-year {
+            margin-top: 5px;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.35);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* STILE FOOTER MINIMALE CON LOGHI SVG */
+        .site-footer {
+            max-width: 1520px;
+            width: calc(100% - 80px);
+            margin: 60px auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-social-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        /* Gestione dei loghi SVG interni */
+        .footer-social-links a svg {
+            width: 14px;
+            height: 14px;
+            fill: rgba(255, 255, 255, 0.4); /* Prende lo stesso colore del testo */
+            transition: fill 0.3s ease;
+        }
+
+        .footer-social-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-social-links a:hover svg {
+            fill: #ffffff; /* Il logo si illumina insieme al testo */
+        }
+
+        /* Responsive design per Tablet e Smartphone */
+        @media (max-width: 1100px) {
+            .home-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px 15px;
+            }
+            .card-small .travel-card {
+                width: 100%;
+            }
+        }
+        @media (max-width: 700px) {
+            .top-banner {
+                height: 240px;
+            }
+            .banner-text-box {
+                width: 85%;
+                padding: 25px 20px;
+            }
+            .banner-text-box h1 {
+                font-size: 1.4rem;
+                letter-spacing: 2px;
+            }
+            .banner-text-box p {
+                font-size: 0.8rem;
+                margin-top: 10px;
+            }
+            .home-grid {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 30px 0;
+            }
+            .row-border-line {
+                width: calc(100% - 40px);
+            }
+            .site-footer {
+                width: calc(100% - 40px);
+                flex-direction: column-reverse;
+                gap: 20px;
+                text-align: center;
+                margin: 40px auto 30px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BANNER SUPERIORE CON IMMAGINE DELLA MAPPA -->
+    <div class="top-banner">
+        <img src="main.jpeg" alt="Dan on the Road Banner">
+        <div class="banner-text-box">
+            <h1>Dan on the Road</h1>
+            <p>"Le strade sono state fatte per i viaggi, non per le destinazioni."</p>
+        </div>
+    </div>
+
+    <!-- LINEA ORIZZONTALE STRUTTURALE SOTTO IL BANNER -->
+    <div class="structural-line"></div>
+
+    <!-- TITOLO SEZIONE -->
+    <div class="section-title">
+        <h2>Seleziona un itinerario</h2>
+    </div>
+
+    <!-- LINEA ORIZZONTALE SUPERIORE DELLA FILA DEI VIAGGI -->
+    <div class="row-border-line"></div>
+
+    <!-- GRIGLIA GEOMETRICA CONTINUA (5 COLONNE SU UN'UNICA RIGA) -->
+    <div class="home-grid">
+
+        <!-- VIAGGIO 1: NY23 (Orizzontale) -->
+        <div class="grid-item-wrapper card-horizontal">
+            <a href="ny23.html" class="travel-card">
+                <img src="copertina_ny23.jpg" alt="New York 2023" loading="lazy">
+                <div class="travel-title">New York</div>
+                <div class="travel-year">SETTEMBRE 2023</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 2: NY24 (Verticale - Rimpicciolita) -->
+        <div class="grid-item-wrapper card-small">
+            <a href="ny24.html" class="travel-card">
+                <img src="copertina_ny24.jpg" alt="New York 2024" loading="lazy">
+                <div class="travel-title">New York e Niagara</div>
+                <div class="travel-year">AGOSTO 2024</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 3: OTR25 (Orizzontale - NUOVO TITOLO STATI) -->
+        <div class="grid-item-wrapper card-horizontal">
+            <a href="otr25.html" class="travel-card">
+                <img src="copertina_otr25.jpg" alt="On The Road 2025" loading="lazy">
+                <div class="travel-title">California, Arizona, Utah, Nevada</div>
+                <div class="travel-year">APRILE 2025</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 4: ARIZONA25 (Orizzontale) -->
+        <div class="grid-item-wrapper card-horizontal">
+            <a href="arizona25.html" class="travel-card">
+                <img src="copertina_arizona25.jpg" alt="Arizona 2025" loading="lazy">
+                <div class="travel-title">Arizona</div>
+                <div class="travel-year">AGOSTO 2025</div>
+            </a>
+        </div>
+
+        <!-- VIAGGIO 5: OTR26 (Verticale - Rimpicciolita - NUOVO TITOLO STATI) -->
+        <div class="grid-item-wrapper card-small">
+            <a href="otr26.html" class="travel-card">
+                <img src="copertina_otr26.jpg" alt="On The Road 2026" loading="lazy">
+                <div class="travel-title">Nevada, Utah, Wyoming, Montana, South Dakota, Colorado</div>
+                <div class="travel-year">GIUGNO 2026</div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- LINEA ORIZZONTALE INFERIORE DELLA FILA DEI VIAGGI -->
+    <div class="row-border-line"></div>
+
+    <!-- FOOTER MINIMALE CON LOGHI SVG NATIVI -->
+    <footer class="site-footer">
+        <div class="footer-copyright">
+            © 2026 DAN ON THE ROAD. ALL RIGHTS RESERVED.
+        </div>
+        <div class="footer-social-links">
+            <a href="#" target="_blank">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                Instagram
+            </a>
+            <a href="#" target="_blank">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+            </a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
