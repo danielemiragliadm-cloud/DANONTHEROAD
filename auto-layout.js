@@ -168,7 +168,7 @@ function buildRowHTML(row) {
         if (media.type === 'youtube') {
             mediaTag = `<div class="youtube-trigger media-trigger" data-video-id="${media.videoId}">
                 <img src="https://img.youtube.com/vi/${media.videoId}/hqdefault.jpg" alt="${escapeHtml(media.alt)}" loading="lazy">
-                <span class="youtube-play-icon">&#9658;</span>
+                <span class="youtube-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
             </div>`;
         } else if (media.type === 'video') {
             mediaTag = `<video src="${media.src}" controls playsinline preload="metadata" class="media-trigger"></video>`;
