@@ -65,6 +65,16 @@
 
         /* Box Dati di Viaggio */
         .day-details { display: flex; flex-wrap: wrap; gap: 20px 30px; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; width: 100%; }
+
+        /* Mini mappa del giorno: striscia SVG con le tappe collegate */
+        .day-route { width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+        .day-route svg { display: block; height: 92px; width: auto; max-width: 100%; }
+        .day-route-line { stroke: rgba(255, 255, 255, 0.35); stroke-width: 1.5; stroke-dasharray: 5, 6; fill: none; }
+        .day-route-ring { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.5; transition: stroke 0.25s ease; }
+        .day-route-stop:hover .day-route-ring { stroke: #ffffff; }
+        .day-route-stop { cursor: default; }
+        .day-route-label { fill: rgba(255, 255, 255, 0.55); font-size: 9.5px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; letter-spacing: 0.4px; text-transform: uppercase; transition: fill 0.25s ease; }
+        .day-route-stop:hover .day-route-label { fill: #ffffff; }
         .detail-item { font-size: 0.75rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
 
         /* Struttura delle righe flex per le foto del diario (generate da auto-layout.js) */
@@ -194,6 +204,7 @@
                 <div class="day-date">Martedì 19 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno1-route"></div>
                 <p class="day-text">
                     L'avventura in Arizona prende ufficialmente il via alle 12:50 con l'atterraggio all'aeroporto Sky Harbor di Phoenix. Sbrigate le pratiche di rito e ritirata l'auto a noleggio, guidiamo verso Scottsdale per un rapidissimo check-in in hotel intorno alle 14:30. Giusto il tempo di sistemare i bagagli e siamo pronti a sfidare le temperature del deserto: ci dirigiamo subito al Pinnacle Peak Trail per la prima escursione del viaggio. Il percorso si snoda tra enormi massi granitici e spettacolari cactus Saguaro, regalandoci scorci panoramici pazzeschi sulla vallata circostante. Dopo una rigenerante doccia in hotel, concludiamo questo splendido Giorno 1 a Old Town Scottsdale: una suggestiva passeggiata serale tra negozi storici, saloon e la caratteristica Old Adobe Mission, immersi nel piacevole e intenso calore della notte dell'Arizona che segna ancora ben 32 gradi.
                 </p>
@@ -215,6 +226,7 @@
                 <div class="day-date">Mercoledì 20 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno2-route"></div>
                 <p class="day-text">
                     La seconda giornata in Arizona si trasforma in un viaggio epico on the road. Lasciata Scottsdale la mattina presto, puntiamo verso sud in direzione del Saguaro National Park. Qui veniamo avvolti da una foresta infinita di cactus giganti che si stagliano contro il cielo desertico, sfidando un caldo torrido con temperature che sfiorano i 40 gradi. Lungo le strade isolate e infinite, l'orizzonte è interrotto soltanto dalle caratteristiche e solitarie cassette delle lettere rurali poste sul ciglio della carreggiata, sospese nel nulla e senza alcuna casa in vista. Proseguiamo poi verso la leggendaria Tombstone; al nostro arrivo una pioggia improvvisa bagna le strade polverose della città-simbolo del cinema western, regalando alle storiche facciate in legno un'atmosfera incredibilmente suggestiva, cupa e ancora più realistica. Dopo aver respirato la storia della frontiera, ci aspetta il lungo viaggio di rientro verso Scottsdale sotto il cielo della notte dell'Arizona.
                 </p>
@@ -236,6 +248,7 @@
                 <div class="day-date">Giovedì 21 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno3-route"></div>
                 <p class="day-text">
                     Lasciamo Scottsdale alle spalle per dirigerci verso nord, dove il paesaggio cambia drasticamente cedendo il passo alle leggendarie e imponenti rocce rosse di Sedona. La nostra prima tappa è la suggestiva Chapel of the Holy Cross, una chiesa unica nel suo genere, letteralmente incastonata nei monoliti di pietra arenaria che regala una vista spirituale e panoramica sulla vallata. Subito dopo ci aspetta la sfida più intensa della giornata: il Cathedral Rock Trail. Una scalata ripida e tecnica sulla roccia viva che ci mette a dura prova, ma la fatica scompare una volta raggiunta la sella panoramica tra le gigantesche guglie rosse. Nel pomeriggio ci concediamo un po' di meritato relax a Tlaquepaque Arts & Shopping Outdoor Village: un incantevole angolo in stile tradizionale messicano dove passeggiamo tra cortili alberati, fontane zampillanti, archi in pietra e botteghe di artisti locali.
                 </p>
@@ -257,6 +270,7 @@
                 <div class="day-date">Venerdì 22 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno4-route"></div>
                 <p class="day-text">
                     Una giornata interamente dedicata all'esplorazione dei sentieri più selvaggi e spettacolari di Sedona. Iniziamo la mattinata guidando lungo la Boynton Pass Road, immersi in uno scenario di roccia rossa che toglie il fiato. Da lì ci incamminiamo verso il celebre Subway Cave Trail, una delle escursioni più suggestive della zona, dove la roccia si apre in una maestosa conformazione a forma di tunnel sotterraneo. Il clima del deserto non dà tregua: faceva così caldo che il sudore evaporava subito sulla pelle, lasciando una costante sensazione di calore secco e intenso. Lungo il cammino abbiamo la fortuna di avvistare un bellissimo esemplare di Western Bluebird che spicca tra la vegetazione arida. Concludiamo questa intensa giornata affrontando l'Airport Mesa Loop Trail giusto in tempo per goderci lo spettacolo del tramonto, ammirando le vallate incendiate dagli ultimi raggi di luce.
                 </p>
@@ -278,6 +292,7 @@
                 <div class="day-date">Sabato 23 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno5-route"></div>
                 <p class="day-text">
                     Lasciamo la splendida Sedona per metterci in viaggio verso nord, facendo una sosta memorabile a Williams, celebre e storica cittadina situata lungo la leggendaria Route 66. Qui respiriamo a pieno l'atmosfera vintage americana tra vecchi distributori di benzina, insegne al neon d'epoca e negozi ricchi di cimeli storici della "Mother Road". Successivamente il viaggio riprende attraversando i fitti e suggestivi boschi della Kaibab National Forest, un panorama montano inaspettato che spezza la linea arida del deserto. Nel pomeriggio raggiungiamo finalmente la nostra meta principale: il South Rim del Grand Canyon. Iniziamo subito a percorrere il maestoso South Rim Trail a piedi; camminare lungo il cornicione mentre il canyon si apre in tutta la sua infinita e drammatica immensità è un'esperienza che lascia senza fiato e che ci accompagna fino al celebre belvedere di Mather Point. Per la notte alloggiamo in un suggestivo albergo situato direttamente dentro il parco, una struttura affascinante e intrisa di storia posizionata a pochissimi passi dal bordo del canyon, che ci permette di respirare la magia di questo luogo anche sotto il cielo stellato.
                 </p>
@@ -299,6 +314,7 @@
                 <div class="day-date">Domenica 24 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno6-route"></div>
                 <p class="day-text">
                     Giornata dedicata interamente al South Rim del Grand Canyon, girando tra i vari belvedere lungo il cornicione. Ceniamo direttamente dentro il parco, e la notte che segue è di quelle che si ricordano: buia, senza il minimo inquinamento luminoso, capace di far capire davvero cosa significhi il buio vero, specialmente quando il cielo si copre di nuvole.
                 </p>
@@ -320,6 +336,7 @@
                 <div class="day-date">Lunedì 25 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno7-route"></div>
                 <p class="day-text">
                     Ci svegliamo per l'alba al Mather Point, in compagnia di uno scoiattolo particolarmente vanitoso che continua a mettersi in posa. Poi ci dirigiamo verso Page, nonostante un cielo minaccioso, per Antelope X e Horseshoe Bend. La giornata si chiude con una cena da Big John's, un classico intramontabile della zona.
                 </p>
@@ -341,6 +358,7 @@
                 <div class="day-date">Martedì 26 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno8-route"></div>
                 <p class="day-text">
                     Partiti da Page sotto una bella luce, arriviamo alla Monument Valley con un cielo nuvoloso che prometteva pioggia. All'improvviso ci troviamo nel bel mezzo di un flash flood a bordo della nostra jeep aperta: un po' spaventati, visto che le strade si erano trasformate in fiumi, ma la guida se la ride e ci calmiamo anche noi. Torniamo in hotel completamente zuppi fino alle mutande, ma siamo al The View Hotel, con uno spettacolo talmente incredibile da farci dimenticare subito di essere fradici.
                 </p>
@@ -362,6 +380,7 @@
                 <div class="day-date">Mercoledì 27 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno9-route"></div>
                 <p class="day-text">
                     Ci svegliamo con l'alba vista dalla terrazza dell'hotel: nonostante il cielo nuvoloso resta uno spettacolo. Poi lasciamo la Monument Valley per l'ultimo lungo tragitto in auto, 530 km fino a Scottsdale, dove trascorriamo l'ultima notte del viaggio.
                 </p>
@@ -382,6 +401,7 @@
                 <div class="day-date">Giovedì 28 - Venerdì 29 Ago</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno10-route"></div>
                 <p class="day-text">
                     L'ultima colazione, poi si preparano le valigie e si sale in aereo: si parte da Phoenix con uno scalo a Parigi lungo il tragitto di rientro, prima di atterrare finalmente in Italia il giorno seguente. Scende la solita lacrimuccia da fine viaggio: siamo tristi ma immensamente grati. Siamo stati fortunati a vedere tanta bellezza e, dopotutto, sappiamo bene che questo non sarà l'ultimo viaggio.
                 </p>
@@ -542,6 +562,64 @@
         renderPhotoDay('#giorno10-foto', [
             { src: 'ARIZONA25/FOTO/20250819_075623.jpg', alt: 'Scalo a Parigi', caption: 'Scalo a Parigi', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250819_075637.jpg', alt: 'Scalo a Parigi', caption: 'Scalo a Parigi', orientation: 'verticale' }
+        ]);
+
+        renderDayRoute('#giorno1-route', [
+            { nome: 'Pinnacle Peak Trail', foto: 'ARIZONA25/FOTO/20250819_163549.jpg' },
+            { nome: 'Old Town Scottsdale', foto: 'ARIZONA25/FOTO/20250819_190456.jpg' },
+            { nome: 'Old Adobe Mission', foto: 'ARIZONA25/FOTO/20250819_190704.jpg' }
+        ]);
+
+        renderDayRoute('#giorno2-route', [
+            { nome: 'Saguaro National Park', foto: 'ARIZONA25/FOTO/20250820_102307.jpg' },
+            { nome: 'Sandario Road', foto: 'ARIZONA25/FOTO/20250820_102903.jpg' },
+            { nome: 'Desert Mailboxes', foto: 'ARIZONA25/FOTO/20250820_105740.jpg' },
+            { nome: 'Tombstone', foto: 'ARIZONA25/FOTO/20250820_150859.jpg' }
+        ]);
+
+        renderDayRoute('#giorno3-route', [
+            { nome: 'Chapel of the Holy Cross', foto: 'ARIZONA25/FOTO/20250821_111619.jpg' },
+            { nome: 'Cathedral Rock', foto: 'ARIZONA25/FOTO/20250821_121632.jpg' },
+            { nome: 'Tlaquepaque Village', foto: 'ARIZONA25/FOTO/20250821_160734.jpg' }
+        ]);
+
+        renderDayRoute('#giorno4-route', [
+            { nome: 'Boynton Pass Road', foto: 'ARIZONA25/FOTO/20250822_083446.jpg' },
+            { nome: 'Subway Cave Trail', foto: 'ARIZONA25/FOTO/20250822_103913.jpg' },
+            { nome: 'Airport Mesa Loop Trail', foto: 'ARIZONA25/FOTO/20250822_184454.jpg' }
+        ]);
+
+        renderDayRoute('#giorno5-route', [
+            { nome: 'Williams', foto: 'ARIZONA25/FOTO/20250823_132104.jpg' },
+            { nome: 'Kaibab National Forest', foto: 'ARIZONA25/FOTO/20250823_155904.jpg' },
+            { nome: 'Mather Point', foto: 'ARIZONA25/FOTO/20250823_185859.jpg' }
+        ]);
+
+        renderDayRoute('#giorno6-route', [
+            { nome: 'South Rim', foto: 'ARIZONA25/FOTO/20250824_081551.jpg' },
+            { nome: 'Navajo Point', foto: 'ARIZONA25/FOTO/20250824_140814.jpg' },
+            { nome: 'Hopi Point', foto: 'ARIZONA25/FOTO/20250824_185250.jpg' }
+        ]);
+
+        renderDayRoute('#giorno7-route', [
+            { nome: 'Mather Point', foto: 'ARIZONA25/FOTO/20250825_083841.jpg' },
+            { nome: 'Antelope X', foto: 'ARIZONA25/FOTO/20250825_165152.jpg' },
+            { nome: 'Horseshoe Bend', foto: 'ARIZONA25/FOTO/20250825_185626.jpg' },
+            { nome: 'Page', foto: 'ARIZONA25/FOTO/20250825_190058.jpg' }
+        ]);
+
+        renderDayRoute('#giorno8-route', [
+            { nome: 'Monument Valley', foto: 'ARIZONA25/FOTO/20250826_112149.jpg' }
+        ]);
+
+        renderDayRoute('#giorno9-route', [
+            { nome: 'Monument Valley', foto: 'ARIZONA25/FOTO/20250827_073741.jpg' },
+            { nome: 'Scottsdale', foto: 'ARIZONA25/FOTO/20250819_190456.jpg' }
+        ]);
+
+        renderDayRoute('#giorno10-route', [
+            { nome: 'Scottsdale', foto: 'ARIZONA25/FOTO/20250819_190456.jpg' },
+            { nome: 'Scalo a Parigi', foto: 'ARIZONA25/FOTO/20250819_075623.jpg' }
         ]);
     </script>
 
