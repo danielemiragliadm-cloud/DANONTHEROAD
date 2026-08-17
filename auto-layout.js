@@ -201,6 +201,53 @@ function renderPhotoDay(containerSelector, photos, opts = {}) {
     container.innerHTML = rows.map(buildRowHTML).join('');
 }
 
+/**
+ * Disegna una mini "mappa" del giorno in puro SVG (nessuna libreria
+ * esterna): una striscia orizzontale con le tappe collegate da una
+ * linea tratteggiata, ogni tappa è una miniatura circolare presa da
+ * una foto reale di quel posto, con il nome sotto.
+ *
+ * @param {string} containerSelector - es. "#giorno2-route"
+ * @param {Array} stops - [{ nome, foto }, ...] in ordine cronologico.
+ *   `foto` è il path della foto da usare come miniatura circolare
+ *   (di solito la prima foto di quella tappa già usata più sotto
+ *   nella pagina, così non serve caricare immagini in più).
+ */
+function renderDayRoute(containerSelector, stops) {
+    const container = document.querySelector(containerSelector);
+    if (!container || !stops || !stops.length) return;
+
+    const spacing = 130;   // distanza orizzontale tra una tappa e la successiva
+    const radius = 22;     // raggio del cerchio miniatura
+    const padding = 40;    // margine laterale
+    const cy = 30;          // altezza verticale del centro dei cerchi
+    const width = padding * 2 + spacing * (stops.length - 1);
+    const height = 88;
+
+    let svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
+
+    // Linea tratteggiata che collega tutte le tappe
+    if (stops.length > 1) {
+        const points = stops.map((s, i) => `${padding + i * spacing},${cy}`).join(' ');
+        svg += `<polyline class="day-route-line" points="${points}"/>`;
+    }
+
+    stops.forEach((stop, i) => {
+        const cx = padding + i * spacing;
+        const clipId = `route-clip-${containerSelector.replace('#', '')}-${i}`;
+        svg += `
+            <g class="day-route-stop">
+                <clipPath id="${clipId}"><circle cx="${cx}" cy="${cy}" r="${radius - 2}"/></clipPath>
+                <image href="${stop.foto}" x="${cx - radius + 2}" y="${cy - radius + 2}" width="${(radius - 2) * 2}" height="${(radius - 2) * 2}" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})"/>
+                <circle class="day-route-ring" cx="${cx}" cy="${cy}" r="${radius}"/>
+                <text class="day-route-label" x="${cx}" y="${cy + radius + 16}" text-anchor="middle">${escapeHtml(stop.nome)}</text>
+            </g>`;
+    });
+
+    svg += `</svg>`;
+    container.innerHTML = svg;
+}
+
 function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;

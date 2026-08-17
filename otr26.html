@@ -64,6 +64,16 @@
 
         /* Box Dati di Viaggio */
         .day-details { display: flex; flex-wrap: wrap; gap: 20px 30px; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; width: 100%; }
+
+        /* Mini mappa del giorno: striscia SVG con le tappe collegate */
+        .day-route { width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+        .day-route svg { display: block; height: 92px; width: auto; max-width: 100%; }
+        .day-route-line { stroke: rgba(255, 255, 255, 0.35); stroke-width: 1.5; stroke-dasharray: 5, 6; fill: none; }
+        .day-route-ring { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.5; transition: stroke 0.25s ease; }
+        .day-route-stop:hover .day-route-ring { stroke: #ffffff; }
+        .day-route-stop { cursor: default; }
+        .day-route-label { fill: rgba(255, 255, 255, 0.55); font-size: 9.5px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; letter-spacing: 0.4px; text-transform: uppercase; transition: fill 0.25s ease; }
+        .day-route-stop:hover .day-route-label { fill: #ffffff; }
         .detail-item { font-size: 0.75rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
 
         /* Struttura delle righe flex per le foto del diario (generate da auto-layout.js) */
@@ -196,6 +206,7 @@
                 <div class="day-date">Lunedì 8 Giugno</div>
             </div>
             <div class="day-content">
+                <div class="day-route" id="giorno2-route"></div>
                 <p class="day-text">
                     Partiamo da Las Vegas alla volta della Hoover Dam, passando per Moapa per il pranzo. Nel pomeriggio raggiungiamo la Valley of Fire State Park, lungo Mouse Tank Road: "fire" non solo per il colore della roccia, ma anche perché faceva caldissimo! Dopo pranzo puntiamo verso la Coral Pink Sand Dunes, per poi arrivare a Kanab per la notte.
                 </p>
@@ -446,6 +457,12 @@
             { src: 'OTR26/FOTO/20260608_190229.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'orizzontale' },
             { src: 'OTR26/FOTO/20260608_183024.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'verticale' },
             { src: 'OTR26/FOTO/20260608_183741.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'orizzontale' }
+        ]);
+
+        renderDayRoute('#giorno2-route', [
+            { nome: 'Hoover Dam', foto: 'OTR26/FOTO/20260608_095734.jpg' },
+            { nome: 'Valley of Fire', foto: 'OTR26/FOTO/20260608_124727.jpg' },
+            { nome: 'Coral Pink Sand Dunes', foto: 'OTR26/FOTO/20260608_190229.jpg' }
         ]);
 
         // ===== GIORNO 03 =====
