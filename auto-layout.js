@@ -217,10 +217,23 @@ function renderDayRoute(containerSelector, stops) {
     const container = document.querySelector(containerSelector);
     if (!container || !stops || !stops.length) return;
 
+    // Stima approssimativa della larghezza di un'etichetta (in px) in base
+    // al numero di caratteri, per calcolare quanto margine laterale serve
+    // ed evitare che i nomi più lunghi vengano tagliati ai bordi dell'SVG.
+    function estimateLabelWidth(text) {
+        return text.length * 5.8; // font 9.5px, maiuscolo, letter-spacing incluso
+    }
+
     const spacing = 130;   // distanza orizzontale tra una tappa e la successiva
     const radius = 22;     // raggio del cerchio miniatura
-    const padding = 40;    // margine laterale
     const cy = 30;          // altezza verticale del centro dei cerchi
+
+    // Il margine laterale deve essere abbastanza largo da contenere metà
+    // dell'etichetta più lunga, altrimenti la prima/ultima tappa vengono
+    // tagliate ai bordi.
+    const maxLabelHalfWidth = Math.max(...stops.map(s => estimateLabelWidth(s.nome) / 2));
+    const padding = Math.max(40, maxLabelHalfWidth + 10);
+
     const width = padding * 2 + spacing * (stops.length - 1);
     const height = 88;
 
@@ -235,10 +248,14 @@ function renderDayRoute(containerSelector, stops) {
     stops.forEach((stop, i) => {
         const cx = padding + i * spacing;
         const clipId = `route-clip-${containerSelector.replace('#', '')}-${i}`;
+        // Se non c'è una foto tua (stop.foto), usiamo un id univoco sull'<image>
+        // così, se serve, possiamo aggiornarla in un secondo momento pescandola
+        // da Wikipedia (vedi sotto la foreach).
+        const imgId = `route-img-${containerSelector.replace('#', '')}-${i}`;
         svg += `
             <g class="day-route-stop">
                 <clipPath id="${clipId}"><circle cx="${cx}" cy="${cy}" r="${radius - 2}"/></clipPath>
-                <image href="${stop.foto}" x="${cx - radius + 2}" y="${cy - radius + 2}" width="${(radius - 2) * 2}" height="${(radius - 2) * 2}" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})"/>
+                <image id="${imgId}" href="${stop.foto || ''}" x="${cx - radius + 2}" y="${cy - radius + 2}" width="${(radius - 2) * 2}" height="${(radius - 2) * 2}" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})"/>
                 <circle class="day-route-ring" cx="${cx}" cy="${cy}" r="${radius}"/>
                 <text class="day-route-label" x="${cx}" y="${cy + radius + 16}" text-anchor="middle">${escapeHtml(stop.nome)}</text>
             </g>`;
@@ -246,12 +263,119 @@ function renderDayRoute(containerSelector, stops) {
 
     svg += `</svg>`;
     container.innerHTML = svg;
+
+    // Per le tappe senza foto tua ma con `wiki: 'Nome pagina Wikipedia'`,
+    // recuperiamo una foto ufficiale (Wikimedia Commons, licenza libera)
+    // e la inseriamo appena arriva, senza bloccare il resto del rendering.
+    stops.forEach((stop, i) => {
+        if (stop.foto || !stop.wiki) return;
+        const imgId = `route-img-${containerSelector.replace('#', '')}-${i}`;
+        fetchWikiThumb(stop.wiki).then(url => {
+            if (!url) return;
+            const el = document.getElementById(imgId);
+            if (el) el.setAttribute('href', url);
+        });
+    });
+}
+
+/**
+ * Recupera l'immagine di anteprima ufficiale (Wikimedia Commons,
+ * licenza libera) di una pagina Wikipedia, tramite l'API pubblica.
+ * Usata da renderDayRoute() per le tappe senza una foto tua.
+ */
+function fetchWikiThumb(pageTitle) {
+    return fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(pageTitle))
+        .then(resp => resp.ok ? resp.json() : null)
+        .then(data => (data && data.thumbnail && data.thumbnail.source) ? data.thumbnail.source : null)
+        .catch(() => null);
 }
 
 function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+}
+
+/**
+ * Fa "vivere" il banner a mosaico in cima alla pagina: raccoglie
+ * automaticamente tutte le foto già usate nei vari giorni (tramite
+ * renderPhotoDay) e, ogni tot secondi, sostituisce con una dissolvenza
+ * una delle miniature del mosaico con una nuova foto pescata a caso
+ * dal mazzo — così il banner cambia combinazione nel tempo invece di
+ * restare fisso sulle stesse 5 foto.
+ *
+ * IMPORTANTE: va chiamata DOPO tutti i renderPhotoDay() della pagina,
+ * altrimenti non trova ancora le foto nel DOM da cui pescare.
+ *
+ * @param {string} bannerSelector - es. ".trip-banner" (il contenitore del banner)
+ * @param {number} intervalMs - ogni quanto cambia una foto (default 6000ms)
+ */
+function initTripBannerMosaic(bannerSelector, intervalMs = 6000) {
+    const banner = document.querySelector(bannerSelector);
+    if (!banner) return;
+
+    const tiles = Array.from(banner.querySelectorAll('.trip-banner-tile img'));
+    if (!tiles.length) return;
+
+    // Raccoglie tutte le foto reali già usate nei giorni (esclude video/youtube)
+    const allPhotos = Array.from(document.querySelectorAll('.photo-container-frame img.lightbox-trigger'))
+        .map(img => img.getAttribute('src'))
+        .filter((src, i, arr) => src && arr.indexOf(src) === i); // dedup
+
+    if (allPhotos.length < 2) return; // troppo poche foto, non vale la pena animare
+
+    function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    let queue = shuffle(allPhotos);
+    let queueIndex = 0;
+
+    function nextPhoto() {
+        if (queueIndex >= queue.length) {
+            queue = shuffle(allPhotos);
+            queueIndex = 0;
+        }
+        return queue[queueIndex++];
+    }
+
+    // Le immagini attualmente mostrate in ciascun tassello, per evitare doppioni contemporanei
+    const currentlyShown = new Set(tiles.map(img => img.getAttribute('src')));
+
+    function swapRandomTile() {
+        const tile = tiles[Math.floor(Math.random() * tiles.length)];
+
+        // Pesca una foto non già visibile altrove nel mosaico in questo momento
+        let candidate = nextPhoto();
+        let attempts = 0;
+        while (currentlyShown.has(candidate) && attempts < allPhotos.length) {
+            candidate = nextPhoto();
+            attempts++;
+        }
+
+        const preload = new Image();
+        preload.onload = () => {
+            currentlyShown.delete(tile.getAttribute('src'));
+            tile.style.opacity = '0';
+            setTimeout(() => {
+                tile.setAttribute('src', candidate);
+                currentlyShown.add(candidate);
+                // Riavvia l'animazione Ken Burns da capo per la nuova foto
+                tile.style.animation = 'none';
+                void tile.offsetWidth; // forza il reflow
+                tile.style.animation = '';
+                tile.style.opacity = '1';
+            }, 400);
+        };
+        preload.src = candidate;
+    }
+
+    setInterval(swapRandomTile, intervalMs);
 }
 
 /* ------------------------------------------------
