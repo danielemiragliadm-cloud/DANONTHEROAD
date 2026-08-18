@@ -102,9 +102,13 @@ function compareCost(a, b) {
  * sempre peggio di una riga da 2 (anche se entrambe sono sotto la
  * soglia minima di 3), altrimenti a parità di punteggio totale
  * l'algoritmo potrebbe scegliere una riga orfana invece di una coppia.
+ * Il valore 3 (invece di 2) evita anche i pareggi tipo "1+3" contro
+ * "2+2": in quel caso entrambi davano lo stesso punteggio totale e
+ * l'algoritmo poteva scegliere la combinazione con l'orfana solo
+ * perché valutata per prima.
  */
 function rowPenalty(size) {
-    if (size === 1) return 2;
+    if (size === 1) return 3;
     if (size === 2) return 1;
     return 0;
 }
