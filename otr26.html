@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dan on the Road - Nevada, Utah, Wyoming, Montana, South Dakota, Colorado 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
         /* Sfondo granulare coerente con la Home Page */
@@ -66,11 +69,11 @@
         }
         .trip-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,24,0.35) 0%, rgba(20,22,24,0.55) 55%, rgba(20,22,24,0.85) 100%); }
         .trip-banner-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .trip-banner-text h1 { margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        .trip-banner-text h1 { margin: 0; font-family: 'Big Shoulders Display', sans-serif; font-size: 3.6rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
         .trip-banner-text .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); letter-spacing: 2px; text-transform: uppercase; }
         @media (max-width: 700px) {
             .trip-banner { height: 240px; }
-            .trip-banner-text h1 { font-size: 1.6rem; letter-spacing: 2px; }
+            .trip-banner-text h1 { font-size: 2rem; letter-spacing: 1.5px; }
             .trip-banner-text .meta-info { font-size: 0.7rem; }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -87,9 +90,9 @@
         .day-block { display: grid; grid-template-columns: 180px 1fr; gap: 40px; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; }
 
         /* Lista temperatura/altitudine media delle tappe, sotto la data del giorno */
-        .day-stats { margin-top: 16px; display: flex; flex-direction: column; gap: 7px; }
-        .day-stat-item { font-size: 0.68rem; color: rgba(255, 255, 255, 0.4); line-height: 1.4; letter-spacing: 0.3px; }
-        .day-stat-item .stat-name { display: block; color: rgba(255, 255, 255, 0.6); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.65rem; margin-bottom: 1px; }
+        .day-stats { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+        .day-stat-item { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); line-height: 1.4; letter-spacing: 0.3px; }
+        .day-stat-item .stat-name { display: block; color: rgba(255, 255, 255, 0.7); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.78rem; margin-bottom: 2px; }
         .day-sticky { position: sticky; top: 40px; height: fit-content; }
         .day-number { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #ffffff; }
         .day-title { font-size: 0.8rem; font-weight: 500; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
@@ -489,6 +492,62 @@
             </div>
         </article>
 
+        <!-- ================= GIORNO 11 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 11</div>
+                <div class="day-title">Cody / Sheridan / Devil's Tower / Rapid City</div>
+                <div class="day-date">Mercoledì 17 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Cody</span>27°C · 1.500 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Sheridan</span>25°C · 1.145 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Devil's Tower</span>26°C · 1.250 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Rapid City</span>26°C · 975 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno11-route"></div>
+                <p class="day-text">
+                    Partiamo da Cody per una giornata di tanti chilometri, prima verso Sheridan, tipica cittadina western, attraversando le Bighorn Mountains, dove avvistiamo da lontano qualche alce. La tappa finale è Devil's Tower, ma prima ci fermiamo alla Prairie Dog Town, piena di simpaticissimi cani della prateria. Devil's Tower è imponente e suggestiva, resa famosa dal film "Incontri Ravvicinati del Terzo Tipo": lungo il Tower Trail ci fanno compagnia due bellissime aquile calve. Arriviamo alla sera, dopo una lunga giornata di auto ma emozionati, a Rapid City per la notte.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Sheridan, Bighorn Mountains, Devil's Tower, Rapid City</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Prairie Dog Town, Tower Trail</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 750 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 9,0 km</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno11-foto"></div>
+            </div>
+        </article>
+
+        <!-- ================= GIORNO 12 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 12</div>
+                <div class="day-title">Rapid City / Mount Rushmore / Badlands / Cheyenne</div>
+                <div class="day-date">Giovedì 18 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Rapid City</span>26°C · 975 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Mount Rushmore</span>23°C · 1.745 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Badlands National Park</span>29°C · 750 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Cheyenne</span>24°C · 1.860 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno12-route"></div>
+                <p class="day-text">
+                    Si parte da Rapid City per visitare il vicino Mount Rushmore e poi il Badlands National Park. Segue un lungo tratto di strada nel nulla, dove però incontriamo antilocapre, cavalli e una bellissima poiana durante una deviazione non voluta di 50 km su strada sterrata, in mezzo a immense praterie quasi deserte. Sconfiniamo in Nebraska giusto il tempo di aggiungere una calamita alla collezione, prima di proseguire verso Cheyenne.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Mount Rushmore, Badlands National Park, Nebraska, Cheyenne</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Badlands National Park</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 690 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 9,7 km</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno12-foto"></div>
+            </div>
+        </article>
+
     </div> <!-- Chiusura timeline-container -->
 
     <!-- ================= MAPPA DEL VIAGGIO ================= -->
@@ -646,6 +705,27 @@
             { src: 'OTR26/FOTO/20260616_210000.jpg', alt: 'Cody Rodeo', caption: 'Cody Rodeo', orientation: 'verticale' }
         ]);
 
+        // ===== GIORNO 11 =====
+        renderPhotoDay('#giorno11-foto', [
+            { src: 'OTR26/FOTO/20260617_161440.jpg', alt: 'Prairie Dog Town', caption: 'Prairie Dog Town', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260617_162745.jpg', alt: 'Tower Trail', caption: 'Tower Trail', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260617_165038.jpg', alt: "Devil's Tower", caption: "Devil's Tower", orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260617_215529.jpg', alt: 'Rapid City', caption: 'Rapid City', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 12 =====
+        renderPhotoDay('#giorno12-foto', [
+            { src: 'OTR26/FOTO/20260618_081024.jpg', alt: 'Mount Rushmore', caption: 'Mount Rushmore', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_101900.jpg', alt: 'Badlands National Park', caption: 'Badlands National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_103858.jpg', alt: 'Badlands National Park', caption: 'Badlands National Park', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260618_131942.jpg', alt: 'Welcome to Nebraska', caption: 'Welcome to Nebraska', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_152750.jpg', alt: 'Van Tassel Road', caption: 'Van Tassel Road', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_153119.jpg', alt: 'Van Tassel Road', caption: 'Van Tassel Road', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260618_154844.jpg', alt: 'Van Tassel Road', caption: 'Van Tassel Road', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_194849.jpg', alt: 'Cheyenne', caption: 'Cheyenne', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_211837.jpg', alt: 'Cheyenne', caption: 'Cheyenne', orientation: 'verticale' }
+        ]);
+
         renderDayRoute('#giorno1-route', [
             { nome: 'Las Vegas', foto: 'OTR26/FOTO/20260607_230000.jpg' },
             { nome: "Caesars Palace", wiki: "Caesars Palace" },
@@ -699,6 +779,20 @@
             { nome: 'Cooke City', wiki: 'Cooke City, Montana' },
             { nome: 'Yellowstone', foto: 'OTR26/FOTO/20260616_062541.jpg' },
             { nome: 'Cody', foto: 'OTR26/FOTO/20260616_165236.jpg' }
+        ]);
+
+        renderDayRoute('#giorno11-route', [
+            { nome: 'Cody', foto: 'OTR26/FOTO/20260616_165236.jpg' },
+            { nome: 'Sheridan', wiki: 'Sheridan, Wyoming' },
+            { nome: "Devil's Tower", foto: 'OTR26/FOTO/20260617_165038.jpg' },
+            { nome: 'Rapid City', foto: 'OTR26/FOTO/20260617_215529.jpg' }
+        ]);
+
+        renderDayRoute('#giorno12-route', [
+            { nome: 'Rapid City', foto: 'OTR26/FOTO/20260617_215529.jpg' },
+            { nome: 'Mount Rushmore', foto: 'OTR26/FOTO/20260618_081024.jpg' },
+            { nome: 'Badlands', foto: 'OTR26/FOTO/20260618_101900.jpg' },
+            { nome: 'Cheyenne', foto: 'OTR26/FOTO/20260618_194849.jpg' }
         ]);
 
         // Fa "vivere" il banner in cima, pescando dalle foto di tutti i giorni

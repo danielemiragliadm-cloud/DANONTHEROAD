@@ -6,6 +6,9 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Dan on the Road - Arizona 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
         /* Sfondo granulare coerente con la Home Page */
@@ -67,11 +70,11 @@
         }
         .trip-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,24,0.35) 0%, rgba(20,22,24,0.55) 55%, rgba(20,22,24,0.85) 100%); }
         .trip-banner-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .trip-banner-text h1 { margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        .trip-banner-text h1 { margin: 0; font-family: 'Big Shoulders Display', sans-serif; font-size: 3.6rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
         .trip-banner-text .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); letter-spacing: 2px; text-transform: uppercase; }
         @media (max-width: 700px) {
             .trip-banner { height: 240px; }
-            .trip-banner-text h1 { font-size: 1.6rem; letter-spacing: 2px; }
+            .trip-banner-text h1 { font-size: 2rem; letter-spacing: 1.5px; }
             .trip-banner-text .meta-info { font-size: 0.7rem; }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -88,9 +91,9 @@
         .day-block { display: grid; grid-template-columns: 180px 1fr; gap: 40px; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; }
 
         /* Lista temperatura/altitudine media delle tappe, sotto la data del giorno */
-        .day-stats { margin-top: 16px; display: flex; flex-direction: column; gap: 7px; }
-        .day-stat-item { font-size: 0.68rem; color: rgba(255, 255, 255, 0.4); line-height: 1.4; letter-spacing: 0.3px; }
-        .day-stat-item .stat-name { display: block; color: rgba(255, 255, 255, 0.6); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.65rem; margin-bottom: 1px; }
+        .day-stats { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+        .day-stat-item { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); line-height: 1.4; letter-spacing: 0.3px; }
+        .day-stat-item .stat-name { display: block; color: rgba(255, 255, 255, 0.7); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.78rem; margin-bottom: 2px; }
         .day-sticky { position: sticky; top: 40px; height: fit-content; }
         .day-number { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #ffffff; }
         .day-title { font-size: 0.8rem; font-weight: 500; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
