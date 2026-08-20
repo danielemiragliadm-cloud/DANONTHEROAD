@@ -123,13 +123,16 @@
         .social-icon svg { width: 16px; height: 16px; fill: currentColor; }
 
         /* Interfaccia Lightbox con supporto Zoom attivo */
-        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(20, 22, 24, 0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; background-color: rgba(20, 22, 24, 0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; touch-action: none; }
+        
         .lightbox-image-container { max-width: 90%; max-height: 75vh; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); position: relative; }
         .lightbox-image { max-width: 100%; max-height: 75vh; object-fit: contain; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); cursor: zoom-in; user-select: none; }
         .lightbox-image.is-zoomed { transform: scale(1.8); cursor: zoom-out; }
-        .lightbox-close { position: absolute; top: 30px; right: 40px; color: rgba(255, 255, 255, 0.5); font-size: 2.5rem; font-family: Arial, sans-serif; cursor: pointer; transition: color 0.3s ease; line-height: 1; user-select: none; z-index: 10002; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255, 255, 255, 0.8); font-size: 1.8rem; font-family: Arial, sans-serif; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; line-height: 1; user-select: none; z-index: 10002; }
+        .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.18); color: #ffffff; }
         .lightbox-close:hover { color: #ffffff; }
         .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev.is-hidden, .lightbox-next.is-hidden { visibility: hidden; pointer-events: none; }
         .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
         .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
         .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
@@ -233,11 +236,29 @@
             const prevBtn = document.getElementById("lightbox-prev");
             const nextBtn = document.getElementById("lightbox-next");
 
-            let currentIndex = 0;
+            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // .universal-media-wrapper), cosi' le frecce avanti/indietro
+            // restano dentro al giorno corrente invece di sconfinare in
+            // quello successivo/precedente.
+            const dayGroups = [];
+            images.forEach(img => {
+                const wrapper = img.closest(".universal-media-wrapper");
+                let group = dayGroups.find(g => g.wrapper === wrapper);
+                if (!group) {
+                    group = { wrapper, imgs: [] };
+                    dayGroups.push(group);
+                }
+                group.imgs.push(img);
+            });
 
-            function openLightbox(index) {
-                currentIndex = index;
-                const img = images[currentIndex];
+            let currentGroup = 0;
+            let currentPos = 0;
+            let suppressNextClick = false;
+
+            function openLightboxAt(groupIndex, pos) {
+                currentGroup = groupIndex;
+                currentPos = pos;
+                const img = dayGroups[currentGroup].imgs[currentPos];
                 lightboxImg.src = img.src;
                 lightboxImg.classList.remove("is-zoomed");
 
@@ -246,24 +267,37 @@
 
                 lightbox.style.display = "flex";
                 document.body.style.overflow = "hidden";
+                updateArrows();
+            }
+
+            function updateArrows() {
+                const group = dayGroups[currentGroup];
+                prevBtn.classList.toggle("is-hidden", currentPos <= 0);
+                nextBtn.classList.toggle("is-hidden", currentPos >= group.imgs.length - 1);
             }
 
             function closeLightbox() {
                 lightbox.style.display = "none";
                 lightboxImg.classList.remove("is-zoomed");
                 document.body.style.overflow = "auto";
+                // Evita che il click che chiude la lightbox "passi" alla
+                // pagina sottostante aprendo per sbaglio un'altra foto
+                // (o attivando link/pulsanti che si trovano nello stesso punto).
+                suppressNextClick = true;
+                setTimeout(() => { suppressNextClick = false; }, 350);
             }
 
             function showPrev() {
+                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos - 1);
             }
 
             function showNext() {
+                const group = dayGroups[currentGroup];
+                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex + 1) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos + 1);
             }
 
             lightboxImg.addEventListener("click", function(e) {
@@ -271,9 +305,12 @@
                 this.classList.toggle("is-zoomed");
             });
 
-            images.forEach((img, index) => {
-                img.addEventListener("click", function() {
-                    openLightbox(index);
+            dayGroups.forEach((group, gi) => {
+                group.imgs.forEach((img, pi) => {
+                    img.addEventListener("click", function(e) {
+                        if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
+                        openLightboxAt(gi, pi);
+                    });
                 });
             });
 

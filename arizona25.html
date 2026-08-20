@@ -51,14 +51,16 @@
 
         /* Banner a mosaico con effetto Ken Burns */
         .trip-banner { position: relative; width: 100%; height: 340px; overflow: hidden; }
-        .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
+        .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
         .trip-banner-tile { position: relative; overflow: hidden; background: #0c0d0e; }
         .trip-banner-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kenburns 26s ease-in-out infinite alternate; transition: opacity 0.4s ease; }
-        .tile-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
-        .tile-2 { grid-column: 3 / 4; grid-row: 1 / 2; }
-        .tile-3 { grid-column: 4 / 5; grid-row: 1 / 2; }
-        .tile-4 { grid-column: 3 / 4; grid-row: 2 / 3; }
-        .tile-5 { grid-column: 4 / 5; grid-row: 2 / 3; }
+        /* Tasselli VERTICALI: stretti e a piena altezza, pensati per foto verticali */
+        .tile-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .tile-2 { grid-column: 2 / 3; grid-row: 1 / 3; }
+        /* Tasselli ORIZZONTALI: larghi e a mezza altezza, pensati per foto orizzontali/panoramiche */
+        .tile-3 { grid-column: 3 / 6; grid-row: 1 / 2; }
+        .tile-4 { grid-column: 3 / 5; grid-row: 2 / 3; }
+        .tile-5 { grid-column: 5 / 6; grid-row: 2 / 3; }
         .tile-1 img { animation-duration: 32s; }
         .tile-2 img { animation-duration: 22s; animation-delay: -4s; }
         .tile-3 img { animation-duration: 27s; animation-delay: -12s; }
@@ -203,6 +205,7 @@
         .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.18); color: #ffffff; }
         .lightbox-close:hover { color: #ffffff; }
         .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev.is-hidden, .lightbox-next.is-hidden { visibility: hidden; pointer-events: none; }
         .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
         .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
         .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
@@ -232,11 +235,11 @@
 
     <header class="trip-banner" id="top">
         <div class="trip-banner-mosaic">
-            <div class="trip-banner-tile tile-1"><img src="ARIZONA25/FOTO/20250826_112208.jpg" alt="Monument Valley" loading="lazy"></div>
-            <div class="trip-banner-tile tile-2"><img src="ARIZONA25/FOTO/20250821_111619.jpg" alt="Chapel of the Holy Cross" loading="lazy"></div>
-            <div class="trip-banner-tile tile-3"><img src="ARIZONA25/FOTO/20250824_092552.jpg" alt="Grand Canyon National Park" loading="lazy"></div>
-            <div class="trip-banner-tile tile-4"><img src="ARIZONA25/FOTO/20250825_165152.jpg" alt="Antelope X" loading="lazy"></div>
-            <div class="trip-banner-tile tile-5"><img src="ARIZONA25/FOTO/20250820_150859.jpg" alt="Tombstone" loading="lazy"></div>
+            <div class="trip-banner-tile tile-1" data-orientation="verticale"><img src="ARIZONA25/FOTO/20250821_121632.jpg" alt="Cathedral Rock" loading="lazy"></div>
+            <div class="trip-banner-tile tile-2" data-orientation="verticale"><img src="ARIZONA25/FOTO/20250825_165152.jpg" alt="Antelope X" loading="lazy"></div>
+            <div class="trip-banner-tile tile-3" data-orientation="orizzontale"><img src="ARIZONA25/FOTO/20250826_112208.jpg" alt="Monument Valley" loading="lazy"></div>
+            <div class="trip-banner-tile tile-4" data-orientation="orizzontale"><img src="ARIZONA25/FOTO/20250821_111619.jpg" alt="Chapel of the Holy Cross" loading="lazy"></div>
+            <div class="trip-banner-tile tile-5" data-orientation="orizzontale"><img src="ARIZONA25/FOTO/20250825_185626.jpg" alt="Horseshoe Bend" loading="lazy"></div>
         </div>
         <div class="trip-banner-overlay"></div>
         <div class="trip-banner-text">
@@ -735,12 +738,29 @@
             const prevBtn = document.getElementById("lightbox-prev");
             const nextBtn = document.getElementById("lightbox-next");
 
-            let currentIndex = 0;
+            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // .universal-media-wrapper), cosi' le frecce avanti/indietro
+            // restano dentro al giorno corrente invece di sconfinare in
+            // quello successivo/precedente.
+            const dayGroups = [];
+            images.forEach(img => {
+                const wrapper = img.closest(".universal-media-wrapper");
+                let group = dayGroups.find(g => g.wrapper === wrapper);
+                if (!group) {
+                    group = { wrapper, imgs: [] };
+                    dayGroups.push(group);
+                }
+                group.imgs.push(img);
+            });
+
+            let currentGroup = 0;
+            let currentPos = 0;
             let suppressNextClick = false;
 
-            function openLightbox(index) {
-                currentIndex = index;
-                const img = images[currentIndex];
+            function openLightboxAt(groupIndex, pos) {
+                currentGroup = groupIndex;
+                currentPos = pos;
+                const img = dayGroups[currentGroup].imgs[currentPos];
                 lightboxImg.src = img.src;
                 lightboxImg.classList.remove("is-zoomed");
 
@@ -749,6 +769,13 @@
 
                 lightbox.style.display = "flex";
                 document.body.style.overflow = "hidden";
+                updateArrows();
+            }
+
+            function updateArrows() {
+                const group = dayGroups[currentGroup];
+                prevBtn.classList.toggle("is-hidden", currentPos <= 0);
+                nextBtn.classList.toggle("is-hidden", currentPos >= group.imgs.length - 1);
             }
 
             function closeLightbox() {
@@ -763,15 +790,16 @@
             }
 
             function showPrev() {
+                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos - 1);
             }
 
             function showNext() {
+                const group = dayGroups[currentGroup];
+                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex + 1) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos + 1);
             }
 
             lightboxImg.addEventListener("click", function(e) {
@@ -779,10 +807,12 @@
                 this.classList.toggle("is-zoomed");
             });
 
-            images.forEach((img, index) => {
-                img.addEventListener("click", function(e) {
-                    if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
-                    openLightbox(index);
+            dayGroups.forEach((group, gi) => {
+                group.imgs.forEach((img, pi) => {
+                    img.addEventListener("click", function(e) {
+                        if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
+                        openLightboxAt(gi, pi);
+                    });
                 });
             });
 

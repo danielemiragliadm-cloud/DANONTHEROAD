@@ -308,6 +308,13 @@ function escapeHtml(str) {
  * dal mazzo — così il banner cambia combinazione nel tempo invece di
  * restare fisso sulle stesse 5 foto.
  *
+ * Ogni tassello ha un attributo data-orientation="verticale"|"orizzontale"
+ * nell'HTML (in base alla sua forma nella griglia): le foto pescate per
+ * quel tassello vengono sempre dal mazzo con lo stesso orientamento,
+ * così le verticali non vengono più tagliate in tasselli larghi e stretti
+ * pensati per le orizzontali (le panoramiche vengono trattate come
+ * orizzontali, essendo comunque foto larghe).
+ *
  * IMPORTANTE: va chiamata DOPO tutti i renderPhotoDay() della pagina,
  * altrimenti non trova ancora le foto nel DOM da cui pescare.
  *
@@ -318,15 +325,24 @@ function initTripBannerMosaic(bannerSelector, intervalMs = 6000) {
     const banner = document.querySelector(bannerSelector);
     if (!banner) return;
 
-    const tiles = Array.from(banner.querySelectorAll('.trip-banner-tile img'));
-    if (!tiles.length) return;
+    const tileEls = Array.from(banner.querySelectorAll('.trip-banner-tile'));
+    if (!tileEls.length) return;
 
-    // Raccoglie tutte le foto reali già usate nei giorni (esclude video/youtube)
-    const allPhotos = Array.from(document.querySelectorAll('.photo-container-frame img.lightbox-trigger'))
-        .map(img => img.getAttribute('src'))
-        .filter((src, i, arr) => src && arr.indexOf(src) === i); // dedup
+    // Raccoglie le foto reali già usate nei giorni, divise per orientamento
+    // (letto dalla classe size-verticale/size-orizzontale/size-panoramica
+    // impostata da buildRowHTML in base a photo.orientation).
+    const pools = { verticale: [], orizzontale: [] };
+    const seen = new Set();
 
-    if (allPhotos.length < 2) return; // troppo poche foto, non vale la pena animare
+    document.querySelectorAll('.photo-container-frame img.lightbox-trigger').forEach(img => {
+        const src = img.getAttribute('src');
+        if (!src || seen.has(src)) return;
+        seen.add(src);
+        const frame = img.closest('.photo-container-frame');
+        const isVerticale = frame && frame.classList.contains('size-verticale');
+        // Le panoramiche (larghe) vanno nel mazzo "orizzontale" insieme alle orizzontali normali
+        pools[isVerticale ? 'verticale' : 'orizzontale'].push(src);
+    });
 
     function shuffle(arr) {
         const a = arr.slice();
@@ -337,43 +353,59 @@ function initTripBannerMosaic(bannerSelector, intervalMs = 6000) {
         return a;
     }
 
-    let queue = shuffle(allPhotos);
-    let queueIndex = 0;
+    // Una coda mescolata per ciascun orientamento
+    const queues = {
+        verticale: shuffle(pools.verticale),
+        orizzontale: shuffle(pools.orizzontale)
+    };
+    const queueIndex = { verticale: 0, orizzontale: 0 };
 
-    function nextPhoto() {
-        if (queueIndex >= queue.length) {
-            queue = shuffle(allPhotos);
-            queueIndex = 0;
+    function nextPhoto(orientation) {
+        const pool = pools[orientation];
+        if (!pool || pool.length < 2) return null; // non abbastanza foto di quel formato
+        if (queueIndex[orientation] >= queues[orientation].length) {
+            queues[orientation] = shuffle(pool);
+            queueIndex[orientation] = 0;
         }
-        return queue[queueIndex++];
+        return queues[orientation][queueIndex[orientation]++];
     }
 
     // Le immagini attualmente mostrate in ciascun tassello, per evitare doppioni contemporanei
-    const currentlyShown = new Set(tiles.map(img => img.getAttribute('src')));
+    const currentlyShown = new Set(tileEls.map(t => t.querySelector('img').getAttribute('src')));
+
+    // Solo i tasselli il cui mazzo ha abbastanza foto da poter davvero alternare
+    const animatableTiles = tileEls.filter(t => {
+        const orientation = t.dataset.orientation === 'verticale' ? 'verticale' : 'orizzontale';
+        return pools[orientation] && pools[orientation].length >= 2;
+    });
+    if (!animatableTiles.length) return;
 
     function swapRandomTile() {
-        const tile = tiles[Math.floor(Math.random() * tiles.length)];
+        const tile = animatableTiles[Math.floor(Math.random() * animatableTiles.length)];
+        const img = tile.querySelector('img');
+        const orientation = tile.dataset.orientation === 'verticale' ? 'verticale' : 'orizzontale';
 
-        // Pesca una foto non già visibile altrove nel mosaico in questo momento
-        let candidate = nextPhoto();
+        // Pesca una foto dello stesso formato del tassello, non già visibile altrove nel mosaico
+        let candidate = nextPhoto(orientation);
         let attempts = 0;
-        while (currentlyShown.has(candidate) && attempts < allPhotos.length) {
-            candidate = nextPhoto();
+        while (candidate && currentlyShown.has(candidate) && attempts < pools[orientation].length) {
+            candidate = nextPhoto(orientation);
             attempts++;
         }
+        if (!candidate) return;
 
         const preload = new Image();
         preload.onload = () => {
-            currentlyShown.delete(tile.getAttribute('src'));
-            tile.style.opacity = '0';
+            currentlyShown.delete(img.getAttribute('src'));
+            img.style.opacity = '0';
             setTimeout(() => {
-                tile.setAttribute('src', candidate);
+                img.setAttribute('src', candidate);
                 currentlyShown.add(candidate);
                 // Riavvia l'animazione Ken Burns da capo per la nuova foto
-                tile.style.animation = 'none';
-                void tile.offsetWidth; // forza il reflow
-                tile.style.animation = '';
-                tile.style.opacity = '1';
+                img.style.animation = 'none';
+                void img.offsetWidth; // forza il reflow
+                img.style.animation = '';
+                img.style.opacity = '1';
             }, 400);
         };
         preload.src = candidate;

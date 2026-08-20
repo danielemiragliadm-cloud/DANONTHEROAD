@@ -50,14 +50,16 @@
 
         /* Banner a mosaico con effetto Ken Burns */
         .trip-banner { position: relative; width: 100%; height: 340px; overflow: hidden; }
-        .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
+        .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
         .trip-banner-tile { position: relative; overflow: hidden; background: #0c0d0e; }
         .trip-banner-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kenburns 26s ease-in-out infinite alternate; transition: opacity 0.4s ease; }
-        .tile-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
-        .tile-2 { grid-column: 3 / 4; grid-row: 1 / 2; }
-        .tile-3 { grid-column: 4 / 5; grid-row: 1 / 2; }
-        .tile-4 { grid-column: 3 / 4; grid-row: 2 / 3; }
-        .tile-5 { grid-column: 4 / 5; grid-row: 2 / 3; }
+        /* Tasselli VERTICALI: stretti e a piena altezza, pensati per foto verticali */
+        .tile-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .tile-2 { grid-column: 2 / 3; grid-row: 1 / 3; }
+        /* Tasselli ORIZZONTALI: larghi e a mezza altezza, pensati per foto orizzontali/panoramiche */
+        .tile-3 { grid-column: 3 / 6; grid-row: 1 / 2; }
+        .tile-4 { grid-column: 3 / 5; grid-row: 2 / 3; }
+        .tile-5 { grid-column: 5 / 6; grid-row: 2 / 3; }
         .tile-1 img { animation-duration: 32s; }
         .tile-2 img { animation-duration: 22s; animation-delay: -4s; }
         .tile-3 img { animation-duration: 27s; animation-delay: -12s; }
@@ -184,6 +186,7 @@
         .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.18); color: #ffffff; }
         .lightbox-close:hover { color: #ffffff; }
         .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev.is-hidden, .lightbox-next.is-hidden { visibility: hidden; pointer-events: none; }
         .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
         .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
         .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
@@ -213,11 +216,11 @@
 
     <header class="trip-banner" id="top">
         <div class="trip-banner-mosaic">
-            <div class="trip-banner-tile tile-1"><img src="OTR26/FOTO/20260613_125014.jpg" alt="Grand Prismatic Spring" loading="lazy"></div>
-            <div class="trip-banner-tile tile-2"><img src="OTR26/FOTO/20260608_124727.jpg" alt="Valley of Fire" loading="lazy"></div>
-            <div class="trip-banner-tile tile-3"><img src="OTR26/FOTO/20260609_100906.jpg" alt="Bryce Canyon" loading="lazy"></div>
-            <div class="trip-banner-tile tile-4"><img src="OTR26/FOTO/20260612_151312.jpg" alt="Grand Teton" loading="lazy"></div>
-            <div class="trip-banner-tile tile-5"><img src="OTR26/FOTO/20260616_064320.jpg" alt="Lamar Valley" loading="lazy"></div>
+            <div class="trip-banner-tile tile-1" data-orientation="verticale"><img src="OTR26/FOTO/20260609_100906.jpg" alt="Bryce Canyon" loading="lazy"></div>
+            <div class="trip-banner-tile tile-2" data-orientation="verticale"><img src="OTR26/FOTO/20260612_151312.jpg" alt="Grand Teton" loading="lazy"></div>
+            <div class="trip-banner-tile tile-3" data-orientation="orizzontale"><img src="OTR26/FOTO/20260613_125014.jpg" alt="Grand Prismatic Spring" loading="lazy"></div>
+            <div class="trip-banner-tile tile-4" data-orientation="orizzontale"><img src="OTR26/FOTO/20260608_124727.jpg" alt="Valley of Fire" loading="lazy"></div>
+            <div class="trip-banner-tile tile-5" data-orientation="orizzontale"><img src="OTR26/FOTO/20260618_103858.jpg" alt="Badlands National Park" loading="lazy"></div>
         </div>
         <div class="trip-banner-overlay"></div>
         <div class="trip-banner-text">
@@ -632,6 +635,137 @@
             </div>
         </article>
 
+        <!-- ================= GIORNO 16 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 16</div>
+                <div class="day-title">Twin Lakes / Independence Pass / Aspen</div>
+                <div class="day-date">Lunedì 22 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Alamosa</span>27°C · 2.297 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Twin Lakes</span>22°C · 2.812 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Independence Pass</span>10°C · 3.687 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Aspen</span>24°C · 2.438 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno16-route"></div>
+                <p class="day-text">
+                    Si parte da Alamosa diretti a Twin Lakes, borgo minerario che si affaccia su un lago glaciale dalle acque cristalline, ai piedi delle Sawatch Mountains. Da lì si sale verso l'Independence Pass, un incredibile passo di montagna percorribile in auto, dove si raggiungono i 12.095 piedi (3.687 metri) — tra i valichi asfaltati più alti degli Stati Uniti. Si riparte in direzione Aspen per i Grotto Trails, e si arriva per pranzo in città: pranzo, giretto a piedi, ma poi ci perdiamo tra le vie di Aspen e finiamo la giornata tra un caffè e qualche prelibatezza, seduti a goderci il panorama e la vita mondana. La sera si riparte verso la più abbordabile Carbondale.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Twin Lakes, Independence Pass, Aspen, Carbondale</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Grotto Trails, giro a piedi ad Aspen</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 320 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 15,7 km</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno16-foto"></div>
+            </div>
+        </article>
+
+        <!-- ================= GIORNO 17 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 17</div>
+                <div class="day-title">Palisade / Colorado National Monument / Moab</div>
+                <div class="day-date">Martedì 23 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Carbondale</span>26°C · 1.979 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Palisade</span>29°C · 1.457 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Colorado National Monument</span>29°C · 1.900 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Moab</span>35°C · 1.224 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno17-route"></div>
+                <p class="day-text">
+                    Partiamo da Carbondale diretti verso Moab, passando dalla graziosa Palisade, famosa per i suoi frutteti e vigneti. Visitiamo il Colorado National Monument, una chicca ancora poco conosciuta ma davvero spettacolare. Nel pomeriggio arriviamo nello Utah, a Moab, percorrendo la fantastica UT-128: ogni angolo, ogni curva meriterebbe una sosta per una foto e per ammirare il panorama. Il cielo però comincia a scurirsi e ad annuvolarsi — ma sono nuvole strane. Solo quando arriviamo a Moab capiamo che non sono nuvole: l'odore particolare, appena scesi dall'auto, ci fa capire che è il fumo degli incendi nelle zone circostanti. Anche a 200-300 km in linea d'aria, purtroppo, il fumo arriva, si vede e si sente.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Palisade, Colorado National Monument, UT-128, Moab</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Colorado National Monument, Potash Road</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 340 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 11,3 km</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno17-foto"></div>
+            </div>
+        </article>
+
+        <!-- ================= GIORNO 18 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 18</div>
+                <div class="day-title">Moab</div>
+                <div class="day-date">Mercoledì 24 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Moab</span>35°C · 1.224 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno18-route"></div>
+                <p class="day-text">
+                    Giornata interamente dedicata a Moab: avendo già visto Canyonlands e Arches nel viaggio precedente, optiamo per un percorso alternativo, anche se il cielo resta completamente coperto di fumo e il sole velato dietro la foschia. Partiamo al mattino per il Corona Arch Trail, spettacolare, per poi dirigerci verso la zona di The Needles — purtroppo per un problema al telefono questa foto è presa da un archivio! Rientriamo la sera per un giro organizzato sul fiume Colorado al tramonto, con un affascinante racconto della storia dei nativi di quelle zone proiettato con potenti fasci di luce sulle rocce rosse che contornano il fiume: uno spettacolo di luce e suono che trasforma il canyon in un vero e proprio racconto vivente.
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Corona Arch Trail, The Needles, fiume Colorado</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Corona Arch Trail</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 380 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 10,2 km</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno18-foto"></div>
+            </div>
+        </article>
+
+        <!-- ================= GIORNO 19 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 19</div>
+                <div class="day-title">Rachel / Area 51 / Las Vegas</div>
+                <div class="day-date">Giovedì 25 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Moab</span>35°C · 1.224 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Rachel</span>30°C · 1.580 m</div>
+                    <div class="day-stat-item"><span class="stat-name">Las Vegas</span>39°C · 610 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno19-route"></div>
+                <p class="day-text">
+                    Siamo quasi a fine viaggio, purtroppo. L'ultima tappa di spostamento per chiudere l'anello viene allungata parecchio, ma non potevamo non fare un giro in zona Area 51! Dopo tanti chilometri e l'emozione dell'Extraterrestrial Highway, arriviamo a Las Vegas per l'ultima notte e l'ultima puntatina alla roulette — che mi regala 250 dollari che dovrò portarmi a casa... quindi dovrò tornare negli USA per spenderli!
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Rachel, Area 51, Extraterrestrial Highway, Las Vegas</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, giornata di viaggio</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 1.140 km</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 7,7 km</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno19-foto"></div>
+            </div>
+        </article>
+
+        <!-- ================= GIORNO 20 ================= -->
+        <article class="day-block">
+            <div class="day-sticky">
+                <div class="day-number">GIORNO 20</div>
+                <div class="day-title">Las Vegas</div>
+                <div class="day-date">Venerdì 26 Giugno</div>
+                <div class="day-stats">
+                    <div class="day-stat-item"><span class="stat-name">Las Vegas</span>39°C · 610 m</div>
+                </div>
+            </div>
+            <div class="day-content">
+                <div class="day-route" id="giorno20-route"></div>
+                <p class="day-text">
+                    È l'ultimo giorno, purtroppo. Dopo una sana colazione in zona Fremont, è il momento di chiudere le valigie, riconsegnare l'auto e fare un ultimo scatto a Sin City. L'inevitabile lacrimuccia non manca di arrivare, ma siamo consapevoli che questo non sarà l'ultimo viaggio negli USA!
+                </p>
+                <div class="day-details">
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Località principali:</strong> Fremont Street, Las Vegas</div>
+                    <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, ultimo giorno</div>
+                </div>
+                <div class="universal-media-wrapper" id="giorno20-foto"></div>
+            </div>
+        </article>
+
     </div> <!-- Chiusura timeline-container -->
 
     <!-- ================= MAPPA DEL VIAGGIO ================= -->
@@ -837,6 +971,53 @@
             { src: 'OTR26/FOTO/20260621_170247.jpg', alt: 'Great Sand Dunes', caption: 'Great Sand Dunes', orientation: 'orizzontale' }
         ]);
 
+        // ===== GIORNO 16 =====
+        renderPhotoDay('#giorno16-foto', [
+            { src: 'OTR26/FOTO/20260622_103707.jpg', alt: 'Twin Lakes', caption: 'Twin Lakes', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260622_112316.jpg', alt: 'Independence Pass', caption: 'Independence Pass', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_112817.jpg', alt: 'Independence Pass', caption: 'Independence Pass', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260622_142353.jpg', alt: 'Aspen', caption: 'Aspen', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_145648.jpg', alt: 'Aspen', caption: 'Aspen', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_150537.jpg', alt: 'Aspen', caption: 'Aspen', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_201127.jpg', alt: 'Carbondale', caption: 'Carbondale', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 17 =====
+        renderPhotoDay('#giorno17-foto', [
+            { src: 'OTR26/FOTO/20260623_085652.jpg', alt: 'Palisade', caption: 'Palisade', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_095956.jpg', alt: 'Colorado National Monument', caption: 'Colorado National Monument', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_104251.jpg', alt: 'Colorado National Monument', caption: 'Colorado National Monument', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_112023.jpg', alt: 'Colorado National Monument', caption: 'Colorado National Monument', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260623_120929.jpg', alt: 'Welcome to Utah', caption: 'Welcome to Utah', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_130640.jpg', alt: 'UT-128, Moab', caption: 'UT-128, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_133135.jpg', alt: 'UT-128, Moab', caption: 'UT-128, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_152906.jpg', alt: 'Potash Road, Moab', caption: 'Potash Road, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_161141.jpg', alt: 'Potash Road, Moab', caption: 'Potash Road, Moab', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 18 =====
+        renderPhotoDay('#giorno18-foto', [
+            { src: 'OTR26/FOTO/20260624_082608.jpg', alt: 'Corona Arch Trail, Moab', caption: 'Corona Arch Trail, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_084635.jpg', alt: 'Corona Arch Trail, Moab', caption: 'Corona Arch Trail, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_085031.jpg', alt: 'Corona Arch Trail, Moab', caption: 'Corona Arch Trail, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/Needles.JPG', alt: 'The Needles', caption: 'The Needles', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_200826.jpg', alt: 'Moab', caption: 'Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_212206.jpg', alt: 'Moab', caption: 'Moab', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 19 =====
+        renderPhotoDay('#giorno19-foto', [
+            { src: 'OTR26/FOTO/20260625_153806.jpg', alt: 'Rachel, Nevada', caption: 'Rachel, Nevada', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260625_160716.jpg', alt: 'Area 51', caption: 'Area 51', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/EXTRATERR.jpg', alt: 'Extraterrestrial Highway', caption: 'Extraterrestrial Highway', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 20 =====
+        renderPhotoDay('#giorno20-foto', [
+            { src: 'OTR26/FOTO/20260626_072352.jpg', alt: 'Las Vegas', caption: 'Las Vegas', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260626_083136.jpg', alt: 'Las Vegas', caption: 'Las Vegas', orientation: 'verticale' }
+        ]);
+
         renderDayRoute('#giorno1-route', [
             { nome: 'Las Vegas', foto: 'OTR26/FOTO/20260607_230000.jpg' },
             { nome: "Caesars Palace", wiki: "Caesars Palace" },
@@ -926,6 +1107,34 @@
             { nome: 'Alamosa', wiki: 'Alamosa, Colorado' }
         ]);
 
+        renderDayRoute('#giorno16-route', [
+            { nome: 'Alamosa', wiki: 'Alamosa, Colorado' },
+            { nome: 'Twin Lakes', foto: 'OTR26/FOTO/20260622_103707.jpg' },
+            { nome: 'Independence Pass', foto: 'OTR26/FOTO/20260622_112316.jpg' },
+            { nome: 'Aspen', foto: 'OTR26/FOTO/20260622_142353.jpg' }
+        ]);
+
+        renderDayRoute('#giorno17-route', [
+            { nome: 'Carbondale', foto: 'OTR26/FOTO/20260622_201127.jpg' },
+            { nome: 'Palisade', foto: 'OTR26/FOTO/20260623_085652.jpg' },
+            { nome: 'Colorado National Monument', foto: 'OTR26/FOTO/20260623_095956.jpg' },
+            { nome: 'Moab', foto: 'OTR26/FOTO/20260623_130640.jpg' }
+        ]);
+
+        renderDayRoute('#giorno18-route', [
+            { nome: 'Moab', foto: 'OTR26/FOTO/20260624_082608.jpg' }
+        ]);
+
+        renderDayRoute('#giorno19-route', [
+            { nome: 'Moab', foto: 'OTR26/FOTO/20260624_082608.jpg' },
+            { nome: 'Rachel', foto: 'OTR26/FOTO/20260625_153806.jpg' },
+            { nome: 'Las Vegas', foto: 'OTR26/FOTO/20260607_230000.jpg' }
+        ]);
+
+        renderDayRoute('#giorno20-route', [
+            { nome: 'Las Vegas', foto: 'OTR26/FOTO/20260626_072352.jpg' }
+        ]);
+
         // Fa "vivere" il banner in cima, pescando dalle foto di tutti i giorni
         initTripBannerMosaic('.trip-banner', 3000);
     </script>
@@ -942,12 +1151,29 @@
             const prevBtn = document.getElementById("lightbox-prev");
             const nextBtn = document.getElementById("lightbox-next");
 
-            let currentIndex = 0;
+            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // .universal-media-wrapper), cosi' le frecce avanti/indietro
+            // restano dentro al giorno corrente invece di sconfinare in
+            // quello successivo/precedente.
+            const dayGroups = [];
+            images.forEach(img => {
+                const wrapper = img.closest(".universal-media-wrapper");
+                let group = dayGroups.find(g => g.wrapper === wrapper);
+                if (!group) {
+                    group = { wrapper, imgs: [] };
+                    dayGroups.push(group);
+                }
+                group.imgs.push(img);
+            });
+
+            let currentGroup = 0;
+            let currentPos = 0;
             let suppressNextClick = false;
 
-            function openLightbox(index) {
-                currentIndex = index;
-                const img = images[currentIndex];
+            function openLightboxAt(groupIndex, pos) {
+                currentGroup = groupIndex;
+                currentPos = pos;
+                const img = dayGroups[currentGroup].imgs[currentPos];
                 lightboxImg.src = img.src;
                 lightboxImg.classList.remove("is-zoomed");
 
@@ -956,6 +1182,13 @@
 
                 lightbox.style.display = "flex";
                 document.body.style.overflow = "hidden";
+                updateArrows();
+            }
+
+            function updateArrows() {
+                const group = dayGroups[currentGroup];
+                prevBtn.classList.toggle("is-hidden", currentPos <= 0);
+                nextBtn.classList.toggle("is-hidden", currentPos >= group.imgs.length - 1);
             }
 
             function closeLightbox() {
@@ -970,15 +1203,16 @@
             }
 
             function showPrev() {
+                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos - 1);
             }
 
             function showNext() {
+                const group = dayGroups[currentGroup];
+                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex + 1) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos + 1);
             }
 
             lightboxImg.addEventListener("click", function(e) {
@@ -986,10 +1220,12 @@
                 this.classList.toggle("is-zoomed");
             });
 
-            images.forEach((img, index) => {
-                img.addEventListener("click", function(e) {
-                    if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
-                    openLightbox(index);
+            dayGroups.forEach((group, gi) => {
+                group.imgs.forEach((img, pi) => {
+                    img.addEventListener("click", function(e) {
+                        if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
+                        openLightboxAt(gi, pi);
+                    });
                 });
             });
 

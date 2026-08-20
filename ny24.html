@@ -132,6 +132,7 @@
         .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.18); color: #ffffff; }
         .lightbox-close:hover { color: #ffffff; }
         .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev.is-hidden, .lightbox-next.is-hidden { visibility: hidden; pointer-events: none; }
         .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
         .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
         .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
@@ -232,12 +233,29 @@
             const prevBtn = document.getElementById("lightbox-prev");
             const nextBtn = document.getElementById("lightbox-next");
 
-            let currentIndex = 0;
+            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // .universal-media-wrapper), cosi' le frecce avanti/indietro
+            // restano dentro al giorno corrente invece di sconfinare in
+            // quello successivo/precedente.
+            const dayGroups = [];
+            images.forEach(img => {
+                const wrapper = img.closest(".universal-media-wrapper");
+                let group = dayGroups.find(g => g.wrapper === wrapper);
+                if (!group) {
+                    group = { wrapper, imgs: [] };
+                    dayGroups.push(group);
+                }
+                group.imgs.push(img);
+            });
+
+            let currentGroup = 0;
+            let currentPos = 0;
             let suppressNextClick = false;
 
-            function openLightbox(index) {
-                currentIndex = index;
-                const img = images[currentIndex];
+            function openLightboxAt(groupIndex, pos) {
+                currentGroup = groupIndex;
+                currentPos = pos;
+                const img = dayGroups[currentGroup].imgs[currentPos];
                 lightboxImg.src = img.src;
                 lightboxImg.classList.remove("is-zoomed");
 
@@ -246,6 +264,13 @@
 
                 lightbox.style.display = "flex";
                 document.body.style.overflow = "hidden";
+                updateArrows();
+            }
+
+            function updateArrows() {
+                const group = dayGroups[currentGroup];
+                prevBtn.classList.toggle("is-hidden", currentPos <= 0);
+                nextBtn.classList.toggle("is-hidden", currentPos >= group.imgs.length - 1);
             }
 
             function closeLightbox() {
@@ -260,15 +285,16 @@
             }
 
             function showPrev() {
+                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos - 1);
             }
 
             function showNext() {
+                const group = dayGroups[currentGroup];
+                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
                 lightboxImg.classList.remove("is-zoomed");
-                currentIndex = (currentIndex + 1) % images.length;
-                openLightbox(currentIndex);
+                openLightboxAt(currentGroup, currentPos + 1);
             }
 
             lightboxImg.addEventListener("click", function(e) {
@@ -276,10 +302,12 @@
                 this.classList.toggle("is-zoomed");
             });
 
-            images.forEach((img, index) => {
-                img.addEventListener("click", function(e) {
-                    if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
-                    openLightbox(index);
+            dayGroups.forEach((group, gi) => {
+                group.imgs.forEach((img, pi) => {
+                    img.addEventListener("click", function(e) {
+                        if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
+                        openLightboxAt(gi, pi);
+                    });
                 });
             });
 
