@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dan on the Road - Nevada, Utah, Wyoming, Montana, South Dakota, Colorado 2026</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<style>
+        html { scroll-behavior: smooth; }
+        /* Sfondo granulare coerente con la Home Page */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141618;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: #ffffff;
+        }
+
+        /* Tasto Back minimale per tornare alla Home */
+        .back-nav {
+            padding: 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: #ffffff; }
+        .back-link svg { width: 12px; height: 12px; fill: currentColor; }
+
+        /* Intestazione del Viaggio */
+        .travel-header { text-align: center; padding: 20px 20px 60px 20px; }
+        .travel-header h1 { margin: 0; font-size: 2.4rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+        .travel-header .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Banner a mosaico con effetto Ken Burns */
+        .trip-banner { position: relative; width: 100%; height: 340px; overflow: hidden; }
+        .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
+        .trip-banner-tile { position: relative; overflow: hidden; background: #0c0d0e; }
+        .trip-banner-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kenburns 26s ease-in-out infinite alternate; transition: opacity 0.4s ease; }
+        /* Tasselli VERTICALI: stretti e a piena altezza, pensati per foto verticali */
+        .tile-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .tile-2 { grid-column: 2 / 3; grid-row: 1 / 3; }
+        /* Tasselli ORIZZONTALI: larghi e a mezza altezza, pensati per foto orizzontali/panoramiche */
+        .tile-3 { grid-column: 3 / 6; grid-row: 1 / 2; }
+        .tile-4 { grid-column: 3 / 5; grid-row: 2 / 3; }
+        .tile-5 { grid-column: 5 / 6; grid-row: 2 / 3; }
+        .tile-1 img { animation-duration: 32s; }
+        .tile-2 img { animation-duration: 22s; animation-delay: -4s; }
+        .tile-3 img { animation-duration: 27s; animation-delay: -12s; }
+        .tile-4 img { animation-duration: 24s; animation-delay: -8s; }
+        .tile-5 img { animation-duration: 29s; animation-delay: -16s; }
+        @keyframes kenburns {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.12) translate(-1.5%, -1.5%); }
+        }
+        .trip-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,24,0.35) 0%, rgba(20,22,24,0.55) 55%, rgba(20,22,24,0.85) 100%); }
+        .trip-banner-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .trip-banner-text h1 { margin: 0; font-family: 'Big Shoulders Display', sans-serif; font-size: 3.6rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        .trip-banner-text .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); letter-spacing: 2px; text-transform: uppercase; }
+        @media (max-width: 700px) {
+            .trip-banner { height: 240px; }
+            .trip-banner-text h1 { font-size: 2rem; letter-spacing: 1.5px; }
+            .trip-banner-text .meta-info { font-size: 0.7rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .trip-banner-tile img { animation: none; }
+        }
+
+        /* Linea di divisione strutturale elegante */
+        .structural-line { width: calc(100% - 80px); max-width: 1400px; height: 1px; background-color: rgba(255, 255, 255, 0.05); margin: 0 auto; }
+
+        /* Contenitore della Timeline del Diario */
+        .timeline-container { max-width: 1160px; margin: 0 auto; padding: 60px 40px; }
+
+        /* Blocco del Singolo Giorno */
+        .day-block { display: block; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; }
+
+        /* Header orizzontale e centrato in cima al giorno: GIORNO -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
+        .day-sticky { position: static; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; text-align: center; gap: 8px 40px; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .day-sticky > .day-number, .day-sticky > .day-title, .day-sticky > .day-date { flex: 0 0 auto; }
+        .day-number { order: 1; font-size: 1.3rem; font-weight: 700; letter-spacing: 1.5px; color: #ffffff; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; background: rgba(255,255,255,0.06); }
+        .day-date { order: 2; font-size: 1.1rem; font-weight: 500; color: rgba(255, 255, 255, 0.75); letter-spacing: 1px; align-self: center; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; background: rgba(255,255,255,0.06); }
+        .day-title { display: none; }
+
+        /* Lista temperatura/altitudine media delle tappe: sempre su una riga propria */
+        .day-stats { order: 4; margin-top: 4px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 14px 22px; width: 100%; flex-basis: 100%; }
+        .day-stat-item { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); line-height: 1.4; letter-spacing: 0.3px; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; background: rgba(255,255,255,0.03); }
+        .day-stat-item .stat-name { display: block; color: rgba(255, 255, 255, 0.7); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.78rem; margin-bottom: 2px; }
+
+        /* Contenuto del Giorno, a piena larghezza */
+        .day-content { display: flex; flex-direction: column; gap: 30px; text-align: left; }
+        .day-text { font-size: 0.95rem; line-height: 1.8; color: rgba(255, 255, 255, 0.75); margin: 0; font-weight: 400; }
+
+        /* Box Dati di Viaggio, ora nell'header in cima */
+        .day-details { order: 6; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px; width: 100%; flex-basis: 100%; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* Mini mappa del giorno: striscia SVG con le tappe collegate */
+        .day-route { order: 5; width: 100%; flex-basis: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; display: flex; justify-content: center; margin-top: 6px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .day-route svg { display: block; height: 134px; width: auto; max-width: 100%; }
+        .day-route-line { stroke: rgba(255, 255, 255, 0.35); stroke-width: 1.5; stroke-dasharray: 5, 6; fill: none; }
+        .day-route-ring { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.5; transition: stroke 0.25s ease; }
+        .day-route-stop:hover .day-route-ring { stroke: #ffffff; }
+        .day-route-stop { cursor: default; }
+        .day-route-label { fill: rgba(255, 255, 255, 0.7); font-size: 14px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; letter-spacing: 0.4px; text-transform: uppercase; transition: fill 0.25s ease; }
+        .day-route-sublabel { fill: rgba(255, 255, 255, 0.45); font-size: 12px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; letter-spacing: 0.3px; transition: fill 0.25s ease; }
+        .day-route-stop:hover .day-route-label { fill: #ffffff; }
+        .day-route-stop:hover .day-route-sublabel { fill: rgba(255, 255, 255, 0.55); }
+        .detail-item { font-size: 0.75rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+
+        /* Struttura delle righe flex per le foto del diario (generate da auto-layout.js) */
+        .universal-media-wrapper { display: flex; flex-direction: column; gap: 20px; margin-top: 15px; width: 100%; }
+        .universal-flex-row { display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; flex-wrap: wrap; }
+
+        /* Cornice e miniature fisse extra-large */
+        .photo-container-frame { margin: 0; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.15); padding: 6px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s ease, background-color 0.3s ease; }
+        .photo-container-frame:hover { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.08); }
+        .photo-container-frame img { width: 100%; object-fit: cover; display: block; border-radius: 2px; cursor: pointer; }
+
+        /* Didascalia foto */
+        .photo-caption { font-size: 0.88rem; color: rgba(255, 255, 255, 0.65); margin-top: 12px; font-style: italic; text-align: center; }
+
+        .size-verticale { width: 180px; }
+        .size-verticale img { height: 240px; }
+        .size-orizzontale { width: 250px; }
+        .size-orizzontale img { height: 188px; }
+        .size-panoramica { width: 100%; }
+        .size-panoramica img { height: 350px; }
+
+        /* Nota "in preparazione" per i giorni ancora da riempire */
+        .coming-soon { text-align: center; padding: 40px 20px 20px 20px; color: rgba(255, 255, 255, 0.35); font-size: 0.85rem; letter-spacing: 1px; font-style: italic; }
+
+        /* Footer coordinato */
+        .site-footer { max-width: 1100px; width: calc(100% - 80px); margin: 60px auto 20px auto; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .footer-copyright { font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Torna all'inizio / Torna alla Home */
+        .end-nav { max-width: 1100px; width: calc(100% - 80px); margin: 40px auto 0 auto; display: flex; gap: 30px; justify-content: center; }
+        .end-nav-link { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: color 0.2s ease; }
+        .end-nav-link:hover { color: #ffffff; }
+        .end-nav-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* Mappa del viaggio */
+        .trip-map-section { max-width: 1100px; width: calc(100% - 80px); margin: 20px auto 0 auto; }
+        .trip-map-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; color: #ffffff; margin-bottom: 4px; }
+        .trip-map-subtitle { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+        #trip-map { width: 100%; height: 560px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1c1f22; color: #ffffff; }
+        .map-popup-photo-slot { width: 100%; height: 110px; background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; }
+        .map-popup-photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .map-popup-photo-slot .ph-loading { font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-transform: uppercase; }
+        .leaflet-popup-content-wrapper { padding: 0; overflow: hidden; border-radius: 4px; }
+        .leaflet-popup-content { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.8rem; letter-spacing: 0.5px; margin: 0 !important; width: 200px !important; }
+        .map-popup-text { padding: 10px 12px; }
+        .map-popup-text b { display: block; margin-bottom: 2px; }
+        .map-popup-text span { color: rgba(255,255,255,0.5); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+        .trip-map-marker { width: 14px; height: 14px; background-color: #a78bfa; border: 2px solid #141618; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,0.4); }
+        .trip-map-label { background: rgba(20, 22, 24, 0.85); border: 1px solid rgba(255,255,255,0.15); color: #ffffff; font-size: 0.7rem; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 3px; white-space: nowrap; box-shadow: none; }
+        .trip-map-label::before { display: none; }
+        .leaflet-control-attribution { background-color: rgba(20, 22, 24, 0.8) !important; color: rgba(255,255,255,0.4) !important; }
+        .leaflet-control-attribution a { color: rgba(255,255,255,0.6) !important; }
+        .leaflet-control-zoom a { background-color: #1c1f22 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important; }
+        .leaflet-control-zoom a:hover { background-color: #2a2e32 !important; }
+        .footer-socials { display: flex; align-items: center; gap: 15px; }
+        .social-icon { color: rgba(255, 255, 255, 0.3); transition: color 0.3s ease; display: inline-flex; }
+        .social-icon:hover { color: #ffffff; }
+        .social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Interfaccia Lightbox con supporto Zoom attivo */
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; background-color: rgba(20, 22, 24, 0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; touch-action: none; }
+        
+        .lightbox-image-container { max-width: 90%; max-height: 75vh; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); position: relative; }
+        .lightbox-image { max-width: 100%; max-height: 75vh; object-fit: contain; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); cursor: zoom-in; user-select: none; }
+        .lightbox-image.is-zoomed { transform: scale(1.8); cursor: zoom-out; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255, 255, 255, 0.8); font-size: 1.8rem; font-family: Arial, sans-serif; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; line-height: 1; user-select: none; z-index: 10002; }
+        .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.18); color: #ffffff; }
+        .lightbox-close:hover { color: #ffffff; }
+        .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev.is-hidden, .lightbox-next.is-hidden { visibility: hidden; pointer-events: none; }
+        .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
+        .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
+        .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
+
+        @media (max-width: 900px) {
+            .day-block { margin-bottom: 40px; padding: 22px; }
+            .day-sticky { gap: 10px 24px; }
+            .universal-flex-row { justify-content: center; }
+            .size-verticale, .size-orizzontale { width: 44%; }
+            .photo-container-frame img { height: auto !important; aspect-ratio: 3/4; }
+            .size-orizzontale img { aspect-ratio: 4/3; }
+            .size-panoramica { width: 100%; }
+            .size-panoramica img { aspect-ratio: 16/9; }
+            .lightbox-prev, .lightbox-next { font-size: 2rem; padding: 10px; }
+            .lightbox-prev { left: 5px; } .lightbox-next { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+<div class="back-nav">
+<a class="back-link" href="index.html">
+<svg viewbox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"></path></svg>
+            Torna alla Home
+        </a>
+</div>
+<header class="trip-banner" id="top">
+<div class="trip-banner-mosaic">
+<div class="trip-banner-tile tile-1" data-orientation="verticale"><img alt="Bryce Canyon" loading="lazy" src="OTR26/FOTO/20260609_100906.jpg"/></div>
+<div class="trip-banner-tile tile-2" data-orientation="verticale"><img alt="Grand Teton" loading="lazy" src="OTR26/FOTO/20260612_151312.jpg"/></div>
+<div class="trip-banner-tile tile-3" data-orientation="orizzontale"><img alt="Grand Prismatic Spring" loading="lazy" src="OTR26/FOTO/20260613_125014.jpg"/></div>
+<div class="trip-banner-tile tile-4" data-orientation="orizzontale"><img alt="Valley of Fire" loading="lazy" src="OTR26/FOTO/20260608_124727.jpg"/></div>
+<div class="trip-banner-tile tile-5" data-orientation="orizzontale"><img alt="Badlands National Park" loading="lazy" src="OTR26/FOTO/20260618_103858.jpg"/></div>
+</div>
+<div class="trip-banner-overlay"></div>
+<div class="trip-banner-text">
+<h1>Nevada, Utah, Wyoming, Montana, South Dakota, Colorado</h1>
+<div class="meta-info">Diario di Viaggio / Giugno 2026</div>
+</div>
+</header>
+<div class="structural-line"></div>
+<div class="timeline-container">
+<!-- ================= GIORNO 01 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 01</div>
+<div class="day-title">Las Vegas</div>
+<div class="day-date">Domenica 7 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Las Vegas</span>39°C · 610 m</div>
+</div>
+<div class="day-route" id="giorno1-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Las Vegas Strip a piedi</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 0 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 14,7 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Dopo un volo che ci regala viste spettacolari poco prima dell'atterraggio, tocchiamo terra alle 15:30 a Las Vegas, con la Sphere che ci osserva già dal finestrino. Ritiro auto, sistemazione in camera, e poi due ore di giretto a piedi lungo la Strip, in un'aria calda e secca. Dopo cena saliamo sulla High Roller, che si rivela un'autentica sorpresa: è quasi come essere in elicottero, con un panorama notturno mozzafiato dai suoi 170 metri di altezza massima. Non manca qualche giocata alla roulette.
+                </p>
+<div class="universal-media-wrapper" id="giorno1-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 02 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 02</div>
+<div class="day-title">Hoover Dam / Valley of Fire / Kanab</div>
+<div class="day-date">Lunedì 8 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Las Vegas</span>39°C · 610 m</div>
+<div class="day-stat-item"><span class="stat-name">Hoover Dam</span>38°C · 370 m</div>
+<div class="day-stat-item"><span class="stat-name">Valley of Fire</span>40°C · 520 m</div>
+<div class="day-stat-item"><span class="stat-name">Coral Pink Sand Dunes</span>29°C · 1.830 m</div>
+<div class="day-stat-item"><span class="stat-name">Kanab</span>30°C · 1.500 m</div>
+</div>
+<div class="day-route" id="giorno2-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Mouse Tank Road, Valley of Fire</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 460 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 11,0 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Partiamo da Las Vegas alla volta della Hoover Dam, passando per Moapa per il pranzo. Nel pomeriggio raggiungiamo la Valley of Fire State Park, lungo Mouse Tank Road: "fire" non solo per il colore della roccia, ma anche perché faceva caldissimo! Dopo pranzo puntiamo verso la Coral Pink Sand Dunes, per poi arrivare a Kanab per la notte.
+                </p>
+<div class="universal-media-wrapper" id="giorno2-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 03 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 03</div>
+<div class="day-title">Bryce Canyon National Park</div>
+<div class="day-date">Martedì 9 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Kanab</span>30°C · 1.500 m</div>
+<div class="day-stat-item"><span class="stat-name">Bryce Canyon</span>23°C · 2.400 m</div>
+</div>
+<div class="day-route" id="giorno3-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Rim Trail, Navajo Loop Trail</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 250 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 17,3 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Colazione a Kanab, poi ci mettiamo in viaggio verso il Bryce Canyon, passando dalla spettacolare Red Canyon Road, con le sue formazioni rocciose rosse che anticipano già lo spettacolo del parco. Una volta arrivati ci dedichiamo a due trail, il Rim Trail e il Navajo Loop Trail, tra hoodoo altissimi e panorami che cambiano colore a ogni passo.
+                </p>
+<div class="universal-media-wrapper" id="giorno3-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 04 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 04</div>
+<div class="day-title">Panguitch / Bonneville Salt Flats</div>
+<div class="day-date">Mercoledì 10 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Panguitch</span>27°C · 1.980 m</div>
+<div class="day-stat-item"><span class="stat-name">Bonneville Salt Flats</span>33°C · 1.280 m</div>
+</div>
+<div class="day-route" id="giorno4-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, giornata di viaggio</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 800 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> da confermare</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Colazione e poi in strada verso nord, passando per Panguitch, cittadina dal fascino old-west con le sue case in mattoni rossi. Nel pomeriggio arriviamo al Great Salt Lake e ai Bonneville Salt Flats, la sconfinata distesa di sale bianco al confine con il Nevada, tanto piatta e riflettente da sembrare un altro pianeta — è qui che si tengono da decenni le corse di velocità su terra più famose al mondo.
+                </p>
+<div class="universal-media-wrapper" id="giorno4-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 05 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 05</div>
+<div class="day-title">Hill Aerospace Museum / Antelope Island</div>
+<div class="day-date">Giovedì 11 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Salt Lake City</span>29°C · 1.300 m</div>
+<div class="day-stat-item"><span class="stat-name">Antelope Island</span>27°C · 1.280 m</div>
+</div>
+<div class="day-route" id="giorno5-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Buffalo Point Trail</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 420 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 12,2 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Dopo una visita interessante all'Hill Aerospace Museum, dove un veterano ultranovantenne ci ha fatto da guida per buona parte del percorso tra aerei storici e cimeli militari, ci dirigiamo ad Antelope Island. Una piacevole sorpresa: siamo a un passo dalla città, eppure l'isola è completamente isolata, silenziosa e tranquilla, immersa nelle acque del Great Salt Lake. Percorriamo il Buffalo Point Trail, tra bisonti al pascolo e viste sul lago.
+                </p>
+<div class="universal-media-wrapper" id="giorno5-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 06 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 06</div>
+<div class="day-title">Idaho / Afton / Jackson</div>
+<div class="day-date">Venerdì 12 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Salt Lake City</span>29°C · 1.300 m</div>
+<div class="day-stat-item"><span class="stat-name">Afton</span>24°C · 1.900 m</div>
+<div class="day-stat-item"><span class="stat-name">Grand Teton</span>22°C · 2.100 m</div>
+<div class="day-stat-item"><span class="stat-name">Jackson</span>24°C · 1.900 m</div>
+</div>
+<div class="day-route" id="giorno6-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Mormon Row, giro serale a Jackson</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 540 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 7,8 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Breve sconfinamento in Idaho, giusto il tempo di aggiungere una calamita alla collezione, poi ci dirigiamo verso Jackson, nel Wyoming: una cittadina da cartolina, con le sue insegne in legno e gli archi fatti di corna d'alce all'ingresso della piazza. Prima però ci fermiamo per pranzo ad Afton, altrettanto affascinante nel suo piccolo. Visitiamo poi la famosa Mormon Row per qualche scatto iconico alla Chapel of the Transfiguration e al T.A. Moulton Barn, circondati dalle Rocky Mountains del Grand Teton e da decine di scoiattoli curiosi. Alla sera un giro per Jackson, che si conferma davvero carina.
+                </p>
+<div class="universal-media-wrapper" id="giorno6-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 07 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 07</div>
+<div class="day-title">Yellowstone National Park</div>
+<div class="day-date">Sabato 13 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Yellowstone</span>20°C · 2.200 m</div>
+<div class="day-stat-item"><span class="stat-name">West Yellowstone</span>18°C · 2.000 m</div>
+</div>
+<div class="day-route" id="giorno7-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Upper Geyser Basin, Lower Geyser Basin</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 240 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 16,2 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    È finalmente arrivato il momento di Yellowstone: entriamo con tanta emozione ma anche curiosità, perché qualche giorno prima aveva nevicato. Ci armiamo di spray repellente per orsi e ci addentriamo nel parco: il posto è fantastico e incredibile, tra geyser che sbuffano vapore a ogni angolo, pozze termali dai colori impossibili e tanti animali — scoiattoli, bisonti e wapiti — anche se il grande incontro più atteso si fa ancora attendere. Visitiamo l'Upper Geyser Basin con Old Faithful, il geyser più famoso del parco che erutta con regolarità quasi da orologio, e il Grand Prismatic Spring, con i suoi cerchi concentrici arancio, verde e blu elettrico, oltre al Lower Geyser Basin. Poi ripartiamo verso l'hotel a West Yellowstone.
+                </p>
+<div class="universal-media-wrapper" id="giorno7-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 08 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 08</div>
+<div class="day-title">Mammoth Hot Springs / Norris Geyser Basin</div>
+<div class="day-date">Domenica 14 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">West Yellowstone</span>18°C · 2.000 m</div>
+<div class="day-stat-item"><span class="stat-name">Yellowstone</span>20°C · 2.000 m</div>
+</div>
+<div class="day-route" id="giorno8-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Beaver Pond Trail</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 200 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 18,8 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Si ritorna dentro al parco: Mammoth Hot Springs, con le sue terrazze di travertino bianco che sembrano cascate pietrificate, poi il Beaver Pond Trail, e nel pomeriggio il Norris Geyser Basin. Anche questa giornata è ricca di avvistamenti — scoiattoli, bisonti, wapiti e cervi muli — e nonostante lungo il Beaver Pond Trail altre persone ci abbiano detto di averne visti... niente, il grande incontro continua a farsi aspettare.
+                </p>
+<div class="universal-media-wrapper" id="giorno8-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 09 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 09</div>
+<div class="day-title">Canyon Village / Hayden Valley / Lake Yellowstone</div>
+<div class="day-date">Lunedì 15 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Yellowstone</span>20°C · 2.400 m</div>
+<div class="day-stat-item"><span class="stat-name">Cooke City</span>15°C · 2.400 m</div>
+</div>
+<div class="day-route" id="giorno9-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> South Rim Trail</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 180 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 16,0 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Ci dirigiamo verso l'interno del parco, direzione Canyon Village, per il South Rim Trail nel pittoresco Grand Canyon of Yellowstone. Nel pomeriggio percorriamo la strada panoramica di Hayden Valley, circondati da bisonti a perdita d'occhio, con una tappa anche alle LeHardy Rapids. Arriviamo poi nella parte nord del Lake Yellowstone, dove ci fermiamo per pranzo. Tanti animali avvistati ma nessuna novità, fino a una bellissima volpe rossa e, soprattutto, finalmente il primo orso!
+                </p>
+<div class="universal-media-wrapper" id="giorno9-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 10 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 10</div>
+<div class="day-title">Lamar Valley / Cody</div>
+<div class="day-date">Martedì 16 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Cooke City</span>15°C · 2.400 m</div>
+<div class="day-stat-item"><span class="stat-name">Yellowstone</span>20°C · 2.000 m</div>
+<div class="day-stat-item"><span class="stat-name">Cody</span>27°C · 1.500 m</div>
+</div>
+<div class="day-route" id="giorno10-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Lamar Valley</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 300 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 13,4 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Altra giornata eccitante: galvanizzati dall'incontro con l'orso del giorno prima, decidiamo di svegliarci prima dell'alba per raggiungere la Lamar Valley di primissimo mattino, perché questo è il momento migliore per gli avvistamenti di fauna selvatica. Dopo una veloce colazione a Cooke City torniamo nel parco carichi come delle molle, e facciamo bene, perché sarà una giornata stupenda: orsi, migliaia di bisonti, coyote — meglio di così non poteva andare! La Lamar Valley, non a caso soprannominata la "Serengeti d'America", si conferma il posto migliore del parco per la fauna selvatica. Nel pomeriggio ripartiamo verso est alla volta di Cody, cittadina stupenda dove, tra città fantasma e rodeo, concludiamo alla grande una giornata già trionfale.
+                </p>
+<div class="universal-media-wrapper" id="giorno10-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 11 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 11</div>
+<div class="day-title">Cody / Sheridan / Devil's Tower / Rapid City</div>
+<div class="day-date">Mercoledì 17 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Cody</span>27°C · 1.500 m</div>
+<div class="day-stat-item"><span class="stat-name">Sheridan</span>25°C · 1.145 m</div>
+<div class="day-stat-item"><span class="stat-name">Devil's Tower</span>26°C · 1.250 m</div>
+<div class="day-stat-item"><span class="stat-name">Rapid City</span>26°C · 975 m</div>
+</div>
+<div class="day-route" id="giorno11-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Prairie Dog Town, Tower Trail</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 750 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 9,0 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Partiamo da Cody per una giornata di tanti chilometri, prima verso Sheridan, tipica cittadina western, attraversando le Bighorn Mountains, dove avvistiamo da lontano qualche alce. La tappa finale è Devil's Tower, ma prima ci fermiamo alla Prairie Dog Town, piena di simpaticissimi cani della prateria. Devil's Tower è imponente e suggestiva, resa famosa dal film "Incontri Ravvicinati del Terzo Tipo": lungo il Tower Trail ci fanno compagnia due bellissime aquile calve. Arriviamo alla sera, dopo una lunga giornata di auto ma emozionati, a Rapid City per la notte.
+                </p>
+<div class="universal-media-wrapper" id="giorno11-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 12 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 12</div>
+<div class="day-title">Rapid City / Mount Rushmore / Badlands / Cheyenne</div>
+<div class="day-date">Giovedì 18 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Rapid City</span>26°C · 975 m</div>
+<div class="day-stat-item"><span class="stat-name">Mount Rushmore</span>23°C · 1.745 m</div>
+<div class="day-stat-item"><span class="stat-name">Badlands National Park</span>29°C · 750 m</div>
+<div class="day-stat-item"><span class="stat-name">Cheyenne</span>24°C · 1.860 m</div>
+</div>
+<div class="day-route" id="giorno12-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Badlands National Park</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 690 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 9,7 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Si parte da Rapid City per visitare il vicino Mount Rushmore e poi il Badlands National Park. Segue un lungo tratto di strada nel nulla, dove però incontriamo antilocapre, cavalli e una bellissima poiana durante una deviazione non voluta di 50 km su strada sterrata, in mezzo a immense praterie quasi deserte. Sconfiniamo in Nebraska giusto il tempo di aggiungere una calamita alla collezione, prima di proseguire verso Cheyenne.
+                </p>
+<div class="universal-media-wrapper" id="giorno12-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 13 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 13</div>
+<div class="day-title">Nederland / Boulder Canyon / Flagstaff Mountain / Boulder</div>
+<div class="day-date">Venerdì 19 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Cheyenne</span>24°C · 1.860 m</div>
+<div class="day-stat-item"><span class="stat-name">Mud Lake</span>21°C · 2.530 m</div>
+<div class="day-stat-item"><span class="stat-name">Lost Gulch Overlook</span>24°C · 1.900 m</div>
+<div class="day-stat-item"><span class="stat-name">Boulder</span>27°C · 1.655 m</div>
+</div>
+<div class="day-route" id="giorno13-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Tungsten and Kinnickinnick Loop, Lost Gulch Overlook</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 250 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 17,7 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Dopo colazione partiamo per il Rocky Mountain National Park, ma senza prenotazione: essendoci mossi troppo tardi, il parco vero e proprio era tutto esaurito e non siamo riusciti a entrare. Ripieghiamo quindi su Mud Lake a Nederland e il Tungsten and Kinnickinnick Loop, per poi proseguire lungo la scenic route del Boulder Canyon. Chiudiamo la giornata su Flagstaff Mountain, con la sosta al Lost Gulch Overlook, prima di scendere verso Boulder.
+                </p>
+<div class="universal-media-wrapper" id="giorno13-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 14 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 14</div>
+<div class="day-title">Red Rocks / Denver</div>
+<div class="day-date">Sabato 20 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Denver</span>28°C · 1.610 m</div>
+</div>
+<div class="day-route" id="giorno14-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Red Rocks Amphitheatre</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 150 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 16,7 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Si parte da Boulder alla volta del Red Rocks Amphitheatre, dove arriviamo proprio mentre si sta svolgendo la sessione di yoga mattutina (chissà quante persone ci partecipano ogni giorno): un posto molto particolare, con una bella vista sulla città ancora avvolta nella nebbia del mattino. Dopo una tappa all'aeroporto per accompagnare parte del gruppo di viaggio, la giornata si chiude con una cena nel centro di Denver.
+                </p>
+<div class="universal-media-wrapper" id="giorno14-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 15 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 15</div>
+<div class="day-title">Garden of the Gods / Pueblo / Great Sand Dunes / Alamosa</div>
+<div class="day-date">Domenica 21 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Denver</span>28°C · 1.610 m</div>
+<div class="day-stat-item"><span class="stat-name">Garden of the Gods</span>29°C · 1.830 m</div>
+<div class="day-stat-item"><span class="stat-name">Pueblo</span>32°C · 1.430 m</div>
+<div class="day-stat-item"><span class="stat-name">Great Sand Dunes</span>27°C · 2.470 m</div>
+<div class="day-stat-item"><span class="stat-name">Alamosa</span>27°C · 2.297 m</div>
+</div>
+<div class="day-route" id="giorno15-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Perkins Central Garden Trail, Great Sand Dunes</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 420 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 14,1 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Con il gruppo di viaggio sceso da 3 a 2, si parte per il Garden of the Gods: un posto molto carino e suggestivo, a portata di famiglia, dove percorriamo il Perkins Central Garden Trail passeggiando tra guglie di roccia rossa che sembrano scolpite apposta, con il Pikes Peak innevato sullo sfondo. Ma il pomeriggio riserva la vera sorpresa: un posto davvero incredibile e inaspettato, un deserto a 2.400 metri di altitudine, il Great Sand Dunes National Park. Un posto pazzesco, con le dune più alte del Nord America che si stagliano contro le montagne innevate. Per la sera si prosegue verso Alamosa, cittadina vivace.
+                </p>
+<div class="universal-media-wrapper" id="giorno15-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 16 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 16</div>
+<div class="day-title">Twin Lakes / Independence Pass / Aspen</div>
+<div class="day-date">Lunedì 22 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Alamosa</span>27°C · 2.297 m</div>
+<div class="day-stat-item"><span class="stat-name">Twin Lakes</span>22°C · 2.812 m</div>
+<div class="day-stat-item"><span class="stat-name">Independence Pass</span>10°C · 3.687 m</div>
+<div class="day-stat-item"><span class="stat-name">Aspen</span>24°C · 2.438 m</div>
+</div>
+<div class="day-route" id="giorno16-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Grotto Trails, giro a piedi ad Aspen</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 320 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 15,7 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Si parte da Alamosa diretti a Twin Lakes, borgo minerario che si affaccia su un lago glaciale dalle acque cristalline, ai piedi delle Sawatch Mountains. Da lì si sale verso l'Independence Pass, un incredibile passo di montagna percorribile in auto, dove si raggiungono i 12.095 piedi (3.687 metri) — tra i valichi asfaltati più alti degli Stati Uniti. Si riparte in direzione Aspen per i Grotto Trails, e si arriva per pranzo in città: pranzo, giretto a piedi, ma poi ci perdiamo tra le vie di Aspen e finiamo la giornata tra un caffè e qualche prelibatezza, seduti a goderci il panorama e la vita mondana. La sera si riparte verso la più abbordabile Carbondale.
+                </p>
+<div class="universal-media-wrapper" id="giorno16-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 17 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 17</div>
+<div class="day-title">Palisade / Colorado National Monument / Moab</div>
+<div class="day-date">Martedì 23 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Carbondale</span>26°C · 1.979 m</div>
+<div class="day-stat-item"><span class="stat-name">Palisade</span>29°C · 1.457 m</div>
+<div class="day-stat-item"><span class="stat-name">Colorado National Monument</span>29°C · 1.900 m</div>
+<div class="day-stat-item"><span class="stat-name">Moab</span>35°C · 1.224 m</div>
+</div>
+<div class="day-route" id="giorno17-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Colorado National Monument, Potash Road</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 340 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 11,3 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Partiamo da Carbondale diretti verso Moab, passando dalla graziosa Palisade, famosa per i suoi frutteti e vigneti. Visitiamo il Colorado National Monument, una chicca ancora poco conosciuta ma davvero spettacolare. Nel pomeriggio arriviamo nello Utah, a Moab, percorrendo la fantastica UT-128: ogni angolo, ogni curva meriterebbe una sosta per una foto e per ammirare il panorama. Il cielo però comincia a scurirsi e ad annuvolarsi — ma sono nuvole strane. Solo quando arriviamo a Moab capiamo che non sono nuvole: l'odore particolare, appena scesi dall'auto, ci fa capire che è il fumo degli incendi nelle zone circostanti. Anche a 200-300 km in linea d'aria, purtroppo, il fumo arriva, si vede e si sente.
+                </p>
+<div class="universal-media-wrapper" id="giorno17-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 18 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 18</div>
+<div class="day-title">Moab</div>
+<div class="day-date">Mercoledì 24 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Moab</span>35°C · 1.224 m</div>
+</div>
+<div class="day-route" id="giorno18-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Corona Arch Trail</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 380 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 10,2 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Giornata interamente dedicata a Moab: avendo già visto Canyonlands e Arches nel viaggio precedente, optiamo per un percorso alternativo, anche se il cielo resta completamente coperto di fumo e il sole velato dietro la foschia. Partiamo al mattino per il Corona Arch Trail, spettacolare, per poi dirigerci verso la zona di The Needles — purtroppo per un problema al telefono questa foto è presa da un archivio! Rientriamo la sera per un giro organizzato sul fiume Colorado al tramonto, con un affascinante racconto della storia dei nativi di quelle zone proiettato con potenti fasci di luce sulle rocce rosse che contornano il fiume: uno spettacolo di luce e suono che trasforma il canyon in un vero e proprio racconto vivente.
+                </p>
+<div class="universal-media-wrapper" id="giorno18-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 19 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 19</div>
+<div class="day-title">Rachel / Area 51 / Las Vegas</div>
+<div class="day-date">Giovedì 25 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Moab</span>35°C · 1.224 m</div>
+<div class="day-stat-item"><span class="stat-name">Rachel</span>30°C · 1.580 m</div>
+<div class="day-stat-item"><span class="stat-name">Las Vegas</span>39°C · 610 m</div>
+</div>
+<div class="day-route" id="giorno19-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, giornata di viaggio</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 1.140 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 7,7 km</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    Siamo quasi a fine viaggio, purtroppo. L'ultima tappa di spostamento per chiudere l'anello viene allungata parecchio, ma non potevamo non fare un giro in zona Area 51! Dopo tanti chilometri e l'emozione dell'Extraterrestrial Highway, arriviamo a Las Vegas per l'ultima notte e l'ultima puntatina alla roulette — che mi regala 250 dollari che dovrò portarmi a casa... quindi dovrò tornare negli USA per spenderli!
+                </p>
+<div class="universal-media-wrapper" id="giorno19-foto"></div>
+</div>
+</article>
+<!-- ================= GIORNO 20 ================= -->
+<article class="day-block">
+<div class="day-sticky">
+<div class="day-number">GIORNO 20</div>
+<div class="day-title">Las Vegas</div>
+<div class="day-date">Venerdì 26 Giugno</div>
+<div class="day-stats">
+<div class="day-stat-item"><span class="stat-name">Las Vegas</span>39°C · 610 m</div>
+</div>
+<div class="day-route" id="giorno20-route"></div><div class="day-details">
+
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, ultimo giorno</div>
+</div></div>
+<div class="day-content">
+
+<p class="day-text">
+                    È l'ultimo giorno, purtroppo. Dopo una sana colazione in zona Fremont, è il momento di chiudere le valigie, riconsegnare l'auto e fare un ultimo scatto a Sin City. L'inevitabile lacrimuccia non manca di arrivare, ma siamo consapevoli che questo non sarà l'ultimo viaggio negli USA!
+                </p>
+<div class="universal-media-wrapper" id="giorno20-foto"></div>
+</div>
+</article>
+</div> <!-- Chiusura timeline-container -->
+<!-- ================= MAPPA DEL VIAGGIO ================= -->
+<section class="trip-map-section">
+<div class="trip-map-title">Il percorso completo</div>
+<div class="trip-map-subtitle">Da Las Vegas a Denver, tra parchi e montagne</div>
+<div id="trip-map"></div>
+</section>
+<!-- ================= TORNA SU / TORNA ALLA HOME ================= -->
+<div class="end-nav">
+<a class="end-nav-link" href="#top">
+<svg viewbox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+            Torna all'inizio
+        </a>
+<a class="end-nav-link" href="index.html">
+<svg viewbox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"></path></svg>
+            Torna alla Home
+        </a>
+</div>
+<footer class="site-footer">
+<div class="footer-copyright">
+            Dan on the Road
+        </div>
+<div class="footer-socials">
+<a class="social-icon" href="https://www.instagram.com/din_don_dani_/" rel="noopener noreferrer" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+</a>
+<a class="social-icon" href="https://www.facebook.com/daniele.miraglia.5" rel="noopener noreferrer" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"></path></svg>
+</a>
+</div>
+</footer>
+<!-- Elemento Overlay Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+<span class="lightbox-close" id="lightbox-close">×</span>
+<span class="lightbox-prev" id="lightbox-prev">❮</span>
+<div class="lightbox-image-container">
+<img alt="" class="lightbox-image" id="lightbox-img" src=""/>
+</div>
+<span class="lightbox-next" id="lightbox-next">❯</span>
+<div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+<script src="auto-layout.js"></script>
+<script>
+        // ===== GIORNO 01 =====
+        renderPhotoDay('#giorno1-foto', [
+            { src: 'OTR26/FOTO/20260607_221809.jpg', alt: 'Lake Powell', caption: 'Lake Powell', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260607_222752.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260607_223922.jpg', alt: 'Grand Canyon NP', caption: 'Grand Canyon NP', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260607_230000.jpg', alt: 'Harry Reid International Airport, Las Vegas', caption: 'Harry Reid International Airport, Las Vegas', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260607_221723.jpg', alt: 'Las Vegas', caption: 'Las Vegas', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 02 =====
+        renderPhotoDay('#giorno2-foto', [
+            { src: 'OTR26/FOTO/20260608_095734.jpg', alt: 'Hoover Dam', caption: 'Hoover Dam', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_100528.jpg', alt: 'Hoover Dam', caption: 'Hoover Dam', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_103503.jpg', alt: 'Hoover Dam', caption: 'Hoover Dam', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_124727.jpg', alt: 'Valley of Fire State Park', caption: 'Valley of Fire State Park', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260608_130459.jpg', alt: 'Valley of Fire State Park', caption: 'Valley of Fire State Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_132230.jpg', alt: 'Valley of Fire State Park', caption: 'Valley of Fire State Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_131524.jpg', alt: 'Valley of Fire State Park', caption: 'Valley of Fire State Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_190229.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260608_183024.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260608_183741.jpg', alt: 'Coral Pink Sand Dunes State Park', caption: 'Coral Pink Sand Dunes State Park', orientation: 'orizzontale' }
+        ]);
+
+        renderDayRoute('#giorno2-route', [
+            { nome: 'Las Vegas', stato: 'Nevada', foto: 'OTR26/FOTO/20260607_230000.jpg' },
+            { nome: 'Hoover Dam', citta: 'Boulder City', stato: 'Nevada', foto: 'OTR26/FOTO/20260608_095734.jpg' },
+            { nome: 'Valley of Fire', citta: 'Overton', stato: 'Nevada', foto: 'OTR26/FOTO/20260608_124727.jpg' },
+            { nome: 'Coral Pink Sand Dunes', citta: 'Kanab', stato: 'Utah', foto: 'OTR26/FOTO/20260608_190229.jpg' },
+            { nome: 'Kanab', stato: 'Utah', wiki: 'Kanab, Utah' }
+        ]);
+
+        // ===== GIORNO 03 =====
+        renderPhotoDay('#giorno3-foto', [
+            { src: 'OTR26/FOTO/20260609_094442.jpg', alt: 'Red Rock Arch Road', caption: 'Red Rock Arch Road', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260609_100906.jpg', alt: 'Bryce Canyon National Park', caption: 'Bryce Canyon National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260609_112401.jpg', alt: 'Bryce Canyon National Park', caption: 'Bryce Canyon National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260609_112814.jpg', alt: 'Bryce Canyon National Park', caption: 'Bryce Canyon National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260609_121540.jpg', alt: 'Bryce Canyon National Park', caption: 'Bryce Canyon National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260609_150055.jpg', alt: 'Bryce Canyon National Park', caption: 'Bryce Canyon National Park', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260609_200835.jpg', alt: 'Bryce Canyon National Park', caption: 'Bryce Canyon National Park', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 04 =====
+        renderPhotoDay('#giorno4-foto', [
+            { src: 'OTR26/FOTO/20260610_082646.jpg', alt: 'Panguitch', caption: 'Panguitch', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260610_153557.jpg', alt: 'Bonneville Salt Flats', caption: 'Bonneville Salt Flats', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260610_153722.jpg', alt: 'Bonneville Salt Flats', caption: 'Bonneville Salt Flats', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 05 =====
+        renderPhotoDay('#giorno5-foto', [
+            { src: 'OTR26/FOTO/20260611_131602.jpg', alt: 'Antelope Island', caption: 'Antelope Island', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260611_135717.jpg', alt: 'Antelope Island', caption: 'Antelope Island', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260611_161504.jpg', alt: 'Antelope Island', caption: 'Antelope Island', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 06 =====
+        renderPhotoDay('#giorno6-foto', [
+            { src: 'OTR26/FOTO/20260612_100154.jpg', alt: 'Welcome To Wyoming!', caption: 'Welcome To Wyoming!', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260612_124722.jpg', alt: 'Afton', caption: 'Afton', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260612_151312.jpg', alt: 'Grand Teton National Park', caption: 'Grand Teton National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260612_153258.jpg', alt: 'T.A. Moulton Barn', caption: 'T.A. Moulton Barn', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260612_163709.jpg', alt: 'Chapel of the Transfiguration', caption: 'Chapel of the Transfiguration', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260612_201325.jpg', alt: 'Jackson', caption: 'Jackson', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260612_211419.jpg', alt: 'Jackson', caption: 'Jackson', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 07 =====
+        renderPhotoDay('#giorno7-foto', [
+            { src: 'OTR26/FOTO/20260613_100818.jpg', alt: 'Welcome To Yellowstone!', caption: 'Welcome To Yellowstone!', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260613_124238.jpg', alt: 'Upper Geyser Basin', caption: 'Upper Geyser Basin', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260613_125014.jpg', alt: 'Grand Prismatic Spring', caption: 'Grand Prismatic Spring', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260613_144342.jpg', alt: 'Old Faithful', caption: 'Old Faithful', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 08 =====
+        renderPhotoDay('#giorno8-foto', [
+            { src: 'OTR26/FOTO/20260614_094702.jpg', alt: 'Mammoth Hot Springs', caption: 'Mammoth Hot Springs', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260614_100048.jpg', alt: 'Mammoth Hot Springs', caption: 'Mammoth Hot Springs', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260614_112249.jpg', alt: 'Beaver Pond Trail', caption: 'Beaver Pond Trail', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260614_113414.jpg', alt: 'Beaver Pond Trail', caption: 'Beaver Pond Trail', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260614_154819.jpg', alt: 'Beaver Pond Trail', caption: 'Beaver Pond Trail', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260615_053515.jpg', alt: 'West Yellowstone', caption: 'West Yellowstone', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 09 =====
+        renderPhotoDay('#giorno9-foto', [
+            { src: 'OTR26/FOTO/20260615_101403.jpg', alt: 'Grand Canyon of Yellowstone', caption: 'Grand Canyon of Yellowstone', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260615_120915.jpg', alt: 'Hayden Valley', caption: 'Hayden Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260615_134152.jpg', alt: 'Lake Yellowstone', caption: 'Lake Yellowstone', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260615_141707.jpg', alt: 'LeHardy Rapids', caption: 'LeHardy Rapids', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260615_144839.jpg', alt: 'Hayden Valley', caption: 'Hayden Valley', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260615_173703.jpg', alt: 'Hayden Valley', caption: 'Hayden Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260615_163844.jpg', alt: 'Hayden Valley', caption: 'Hayden Valley', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260615_161324.jpg', alt: 'Hayden Valley', caption: 'Hayden Valley', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 10 =====
+        renderPhotoDay('#giorno10-foto', [
+            { src: 'OTR26/FOTO/20260616_062541.jpg', alt: 'Lamar Valley', caption: 'Lamar Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_064320.jpg', alt: 'Lamar Valley', caption: 'Lamar Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_080550.jpg', alt: 'Lamar Valley', caption: 'Lamar Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_081940.jpg', alt: 'Lamar Valley', caption: 'Lamar Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_094133.jpg', alt: 'Lamar Valley', caption: 'Lamar Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_103059.jpg', alt: 'Lamar Valley', caption: 'Lamar Valley', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_165236.jpg', alt: 'Cody Old Town', caption: 'Cody Old Town', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260616_210000.jpg', alt: 'Cody Rodeo', caption: 'Cody Rodeo', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 11 =====
+        renderPhotoDay('#giorno11-foto', [
+            { src: 'OTR26/FOTO/20260617_161440.jpg', alt: 'Prairie Dog Town', caption: 'Prairie Dog Town', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260617_162745.jpg', alt: 'Tower Trail', caption: 'Tower Trail', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260617_165038.jpg', alt: "Devil's Tower", caption: "Devil's Tower", orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260617_215529.jpg', alt: 'Rapid City', caption: 'Rapid City', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 12 =====
+        renderPhotoDay('#giorno12-foto', [
+            { src: 'OTR26/FOTO/20260618_081024.jpg', alt: 'Mount Rushmore', caption: 'Mount Rushmore', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_101900.jpg', alt: 'Badlands National Park', caption: 'Badlands National Park', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_103858.jpg', alt: 'Badlands National Park', caption: 'Badlands National Park', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260618_131942.jpg', alt: 'Welcome to Nebraska', caption: 'Welcome to Nebraska', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_152750.jpg', alt: 'Van Tassel Road', caption: 'Van Tassel Road', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_153119.jpg', alt: 'Van Tassel Road', caption: 'Van Tassel Road', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260618_154844.jpg', alt: 'Van Tassel Road', caption: 'Van Tassel Road', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_194849.jpg', alt: 'Cheyenne', caption: 'Cheyenne', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260618_211837.jpg', alt: 'Cheyenne', caption: 'Cheyenne', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 13 =====
+        renderPhotoDay('#giorno13-foto', [
+            { src: 'OTR26/FOTO/20260618_181956.jpg', alt: 'Welcome to Colorado', caption: 'Welcome to Colorado', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260619_111809.jpg', alt: 'Mud Lake', caption: 'Mud Lake', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260619_142319.jpg', alt: 'Lost Gulch Overlook', caption: 'Lost Gulch Overlook', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 14 =====
+        renderPhotoDay('#giorno14-foto', [
+            { src: 'OTR26/FOTO/20260620_090310.jpg', alt: 'Red Rocks Amphitheatre', caption: 'Red Rocks Amphitheatre', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260620_084753.jpg', alt: 'Denver Skyline', caption: 'Denver Skyline', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260620_194350.jpg', alt: 'Larimer Square', caption: 'Larimer Square', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260620_210009.jpg', alt: 'Denver', caption: 'Denver', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 15 =====
+        renderPhotoDay('#giorno15-foto', [
+            { src: 'OTR26/FOTO/20260621_100148.jpg', alt: 'Garden of the Gods', caption: 'Garden of the Gods', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260621_092532.jpg', alt: 'Garden of the Gods', caption: 'Garden of the Gods', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260621_100434.jpg', alt: 'Balance Rock, Garden of the Gods', caption: 'Balance Rock, Garden of the Gods', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260621_123812.jpg', alt: 'Pueblo', caption: 'Pueblo', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260621_160934.jpg', alt: 'Great Sand Dunes', caption: 'Great Sand Dunes', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260621_162052.jpg', alt: 'Great Sand Dunes', caption: 'Great Sand Dunes', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260621_162745.jpg', alt: 'Great Sand Dunes', caption: 'Great Sand Dunes', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260621_170247.jpg', alt: 'Great Sand Dunes', caption: 'Great Sand Dunes', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 16 =====
+        renderPhotoDay('#giorno16-foto', [
+            { src: 'OTR26/FOTO/20260622_103707.jpg', alt: 'Twin Lakes', caption: 'Twin Lakes', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260622_112316.jpg', alt: 'Independence Pass', caption: 'Independence Pass', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_112817.jpg', alt: 'Independence Pass', caption: 'Independence Pass', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260622_142353.jpg', alt: 'Aspen', caption: 'Aspen', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_145648.jpg', alt: 'Aspen', caption: 'Aspen', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_150537.jpg', alt: 'Aspen', caption: 'Aspen', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260622_201127.jpg', alt: 'Carbondale', caption: 'Carbondale', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 17 =====
+        renderPhotoDay('#giorno17-foto', [
+            { src: 'OTR26/FOTO/20260623_085652.jpg', alt: 'Palisade', caption: 'Palisade', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_095956.jpg', alt: 'Colorado National Monument', caption: 'Colorado National Monument', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_104251.jpg', alt: 'Colorado National Monument', caption: 'Colorado National Monument', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_112023.jpg', alt: 'Colorado National Monument', caption: 'Colorado National Monument', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260623_120929.jpg', alt: 'Welcome to Utah', caption: 'Welcome to Utah', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_130640.jpg', alt: 'UT-128, Moab', caption: 'UT-128, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_133135.jpg', alt: 'UT-128, Moab', caption: 'UT-128, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_152906.jpg', alt: 'Potash Road, Moab', caption: 'Potash Road, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260623_161141.jpg', alt: 'Potash Road, Moab', caption: 'Potash Road, Moab', orientation: 'orizzontale' }
+        ]);
+
+        // ===== GIORNO 18 =====
+        renderPhotoDay('#giorno18-foto', [
+            { src: 'OTR26/FOTO/20260624_082608.jpg', alt: 'Corona Arch Trail, Moab', caption: 'Corona Arch Trail, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_084635.jpg', alt: 'Corona Arch Trail, Moab', caption: 'Corona Arch Trail, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_085031.jpg', alt: 'Corona Arch Trail, Moab', caption: 'Corona Arch Trail, Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/Needles.JPG', alt: 'The Needles', caption: 'The Needles', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_200826.jpg', alt: 'Moab', caption: 'Moab', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260624_212206.jpg', alt: 'Moab', caption: 'Moab', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 19 =====
+        renderPhotoDay('#giorno19-foto', [
+            { src: 'OTR26/FOTO/20260625_153806.jpg', alt: 'Rachel, Nevada', caption: 'Rachel, Nevada', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/20260625_160716.jpg', alt: 'Area 51', caption: 'Area 51', orientation: 'verticale' },
+            { src: 'OTR26/FOTO/EXTRATERR.jpg', alt: 'Extraterrestrial Highway', caption: 'Extraterrestrial Highway', orientation: 'verticale' }
+        ]);
+
+        // ===== GIORNO 20 =====
+        renderPhotoDay('#giorno20-foto', [
+            { src: 'OTR26/FOTO/20260626_072352.jpg', alt: 'Las Vegas', caption: 'Las Vegas', orientation: 'orizzontale' },
+            { src: 'OTR26/FOTO/20260626_083136.jpg', alt: 'Las Vegas', caption: 'Las Vegas', orientation: 'verticale' }
+        ]);
+
+        renderDayRoute('#giorno1-route', [
+            { nome: 'Las Vegas', stato: 'Nevada', foto: 'OTR26/FOTO/20260607_230000.jpg' },
+            { nome: 'Casinos', citta: 'Las Vegas', stato: 'Nevada', wiki: 'Casino' }
+        ]);
+
+        renderDayRoute('#giorno3-route', [
+            { nome: 'Kanab', stato: 'Utah', wiki: 'Kanab, Utah' },
+            { nome: 'Red Canyon Road', citta: 'Panguitch', stato: 'Utah', foto: 'OTR26/FOTO/20260609_094442.jpg' },
+            { nome: 'Bryce Canyon', citta: 'Bryce Canyon City', stato: 'Utah', foto: 'OTR26/FOTO/20260609_100906.jpg' }
+        ]);
+
+        renderDayRoute('#giorno4-route', [
+            { nome: 'Bryce Canyon City', stato: 'Utah', wiki: 'Bryce Canyon City, Utah' },
+            { nome: 'Panguitch', stato: 'Utah', foto: 'OTR26/FOTO/20260610_082646.jpg' },
+            { nome: 'Bonneville Salt Flats', citta: 'Wendover', stato: 'Utah', foto: 'OTR26/FOTO/20260610_153557.jpg' },
+            { nome: 'Salt Lake City', stato: 'Utah', wiki: 'Salt Lake City' }
+        ]);
+
+        renderDayRoute('#giorno5-route', [
+            { nome: 'Salt Lake City', stato: 'Utah', wiki: 'Salt Lake City' },
+            { nome: 'Hill Aerospace Museum', citta: 'Ogden', stato: 'Utah', wiki: 'Hill Aerospace Museum' },
+            { nome: 'Antelope Island', citta: 'Syracuse', stato: 'Utah', foto: 'OTR26/FOTO/20260611_131602.jpg' },
+            { nome: 'Salt Lake City', stato: 'Utah', wiki: 'Salt Lake City' }
+        ]);
+
+        renderDayRoute('#giorno6-route', [
+            { nome: 'Salt Lake City', stato: 'Utah', wiki: 'Salt Lake City' },
+            { nome: 'Afton', stato: 'Wyoming', foto: 'OTR26/FOTO/20260612_124722.jpg' },
+            { nome: 'Grand Teton', citta: 'Jackson', stato: 'Wyoming', foto: 'OTR26/FOTO/20260612_151312.jpg' },
+            { nome: 'Jackson', stato: 'Wyoming', foto: 'OTR26/FOTO/20260612_201325.jpg' }
+        ]);
+
+        renderDayRoute('#giorno7-route', [
+            { nome: 'Jackson', stato: 'Wyoming', foto: 'OTR26/FOTO/20260612_201325.jpg' },
+            { nome: 'Yellowstone', citta: 'West Yellowstone', stato: 'Wyoming', foto: 'OTR26/FOTO/20260613_100818.jpg' },
+            { nome: 'West Yellowstone', stato: 'Montana', wiki: 'West Yellowstone, Montana' }
+        ]);
+
+        renderDayRoute('#giorno8-route', [
+            { nome: 'West Yellowstone', stato: 'Montana', wiki: 'West Yellowstone, Montana' },
+            { nome: 'Yellowstone', citta: 'West Yellowstone', stato: 'Wyoming', foto: 'OTR26/FOTO/20260614_094702.jpg' }
+        ]);
+
+        renderDayRoute('#giorno9-route', [
+            { nome: 'Yellowstone', citta: 'Canyon Village', stato: 'Wyoming', foto: 'OTR26/FOTO/20260615_101403.jpg' },
+            { nome: 'Cooke City', stato: 'Montana', wiki: 'Cooke City, Montana' }
+        ]);
+
+        renderDayRoute('#giorno10-route', [
+            { nome: 'Cooke City', stato: 'Montana', wiki: 'Cooke City, Montana' },
+            { nome: 'Yellowstone', citta: 'Lamar Valley', stato: 'Wyoming', foto: 'OTR26/FOTO/20260616_062541.jpg' },
+            { nome: 'Cody', stato: 'Wyoming', foto: 'OTR26/FOTO/20260616_165236.jpg' }
+        ]);
+
+        renderDayRoute('#giorno11-route', [
+            { nome: 'Cody', stato: 'Wyoming', foto: 'OTR26/FOTO/20260616_165236.jpg' },
+            { nome: 'Sheridan', stato: 'Wyoming', wiki: 'Sheridan, Wyoming' },
+            { nome: "Devil's Tower", citta: 'Sundance', stato: 'Wyoming', foto: 'OTR26/FOTO/20260617_165038.jpg' },
+            { nome: 'Rapid City', stato: 'South Dakota', foto: 'OTR26/FOTO/20260617_215529.jpg' }
+        ]);
+
+        renderDayRoute('#giorno12-route', [
+            { nome: 'Rapid City', stato: 'South Dakota', foto: 'OTR26/FOTO/20260617_215529.jpg' },
+            { nome: 'Mount Rushmore', citta: 'Keystone', stato: 'South Dakota', foto: 'OTR26/FOTO/20260618_081024.jpg' },
+            { nome: 'Badlands', citta: 'Interior', stato: 'South Dakota', foto: 'OTR26/FOTO/20260618_101900.jpg' },
+            { nome: 'Cheyenne', stato: 'Wyoming', foto: 'OTR26/FOTO/20260618_194849.jpg' }
+        ]);
+
+        renderDayRoute('#giorno13-route', [
+            { nome: 'Cheyenne', stato: 'Wyoming', foto: 'OTR26/FOTO/20260618_194849.jpg' },
+            { nome: 'Nederland', stato: 'Colorado', foto: 'OTR26/FOTO/20260619_111809.jpg' },
+            { nome: 'Boulder Canyon', citta: 'Boulder', stato: 'Colorado', wiki: 'Boulder Canyon (Colorado)' },
+            { nome: 'Flagstaff Mountain', citta: 'Boulder', stato: 'Colorado', foto: 'OTR26/FOTO/20260619_142319.jpg' },
+            { nome: 'Boulder', stato: 'Colorado', wiki: 'Boulder, Colorado' }
+        ]);
+
+        renderDayRoute('#giorno14-route', [
+            { nome: 'Denver', stato: 'Colorado', foto: 'OTR26/FOTO/20260620_084753.jpg' }
+        ]);
+
+        renderDayRoute('#giorno15-route', [
+            { nome: 'Denver', stato: 'Colorado', foto: 'OTR26/FOTO/20260620_084753.jpg' },
+            { nome: 'Garden of the Gods', citta: 'Colorado Springs', stato: 'Colorado', foto: 'OTR26/FOTO/20260621_100148.jpg' },
+            { nome: 'Pueblo', stato: 'Colorado', foto: 'OTR26/FOTO/20260621_123812.jpg' },
+            { nome: 'Great Sand Dunes', citta: 'Alamosa', stato: 'Colorado', foto: 'OTR26/FOTO/20260621_160934.jpg' },
+            { nome: 'Alamosa', stato: 'Colorado', wiki: 'Alamosa, Colorado' }
+        ]);
+
+        renderDayRoute('#giorno16-route', [
+            { nome: 'Alamosa', stato: 'Colorado', wiki: 'Alamosa, Colorado' },
+            { nome: 'Twin Lakes', stato: 'Colorado', foto: 'OTR26/FOTO/20260622_103707.jpg' },
+            { nome: 'Independence Pass', citta: 'Aspen', stato: 'Colorado', foto: 'OTR26/FOTO/20260622_112316.jpg' },
+            { nome: 'Aspen', stato: 'Colorado', foto: 'OTR26/FOTO/20260622_142353.jpg' }
+        ]);
+
+        renderDayRoute('#giorno17-route', [
+            { nome: 'Carbondale', stato: 'Colorado', foto: 'OTR26/FOTO/20260622_201127.jpg' },
+            { nome: 'Palisade', stato: 'Colorado', foto: 'OTR26/FOTO/20260623_085652.jpg' },
+            { nome: 'Colorado National Monument', citta: 'Fruita', stato: 'Colorado', foto: 'OTR26/FOTO/20260623_095956.jpg' },
+            { nome: 'Moab', stato: 'Utah', foto: 'OTR26/FOTO/20260623_130640.jpg' }
+        ]);
+
+        renderDayRoute('#giorno18-route', [
+            { nome: 'Moab', stato: 'Utah', foto: 'OTR26/FOTO/20260624_082608.jpg' }
+        ]);
+
+        renderDayRoute('#giorno19-route', [
+            { nome: 'Moab', stato: 'Utah', foto: 'OTR26/FOTO/20260624_082608.jpg' },
+            { nome: 'Rachel', stato: 'Nevada', foto: 'OTR26/FOTO/20260625_153806.jpg' },
+            { nome: 'Las Vegas', stato: 'Nevada', foto: 'OTR26/FOTO/20260607_230000.jpg' }
+        ]);
+
+        renderDayRoute('#giorno20-route', [
+            { nome: 'Las Vegas', stato: 'Nevada', foto: 'OTR26/FOTO/20260626_072352.jpg' }
+        ]);
+
+        // Fa "vivere" il banner in cima, pescando dalle foto di tutti i giorni
+        initTripBannerMosaic('.trip-banner', 3000);
+    </script>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ripeto il setup del lightbox DOPO che auto-layout.js ha già
+            // iniettato le foto (i due script sopra girano prima di questo).
+            const images = Array.from(document.querySelectorAll(".photo-container-frame img"));
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            const lightboxClose = document.getElementById("lightbox-close");
+            const lightboxCaption = document.getElementById("lightbox-caption");
+            const prevBtn = document.getElementById("lightbox-prev");
+            const nextBtn = document.getElementById("lightbox-next");
+
+            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // .universal-media-wrapper), cosi' le frecce avanti/indietro
+            // restano dentro al giorno corrente invece di sconfinare in
+            // quello successivo/precedente.
+            const dayGroups = [];
+            images.forEach(img => {
+                const wrapper = img.closest(".universal-media-wrapper");
+                let group = dayGroups.find(g => g.wrapper === wrapper);
+                if (!group) {
+                    group = { wrapper, imgs: [] };
+                    dayGroups.push(group);
+                }
+                group.imgs.push(img);
+            });
+
+            let currentGroup = 0;
+            let currentPos = 0;
+            let suppressNextClick = false;
+
+            function openLightboxAt(groupIndex, pos) {
+                currentGroup = groupIndex;
+                currentPos = pos;
+                const img = dayGroups[currentGroup].imgs[currentPos];
+                lightboxImg.src = img.src;
+                lightboxImg.classList.remove("is-zoomed");
+
+                const figcaption = img.closest(".photo-container-frame").querySelector("figcaption");
+                lightboxCaption.textContent = figcaption ? figcaption.textContent : "";
+
+                lightbox.style.display = "flex";
+                document.body.style.overflow = "hidden";
+                updateArrows();
+            }
+
+            function updateArrows() {
+                const group = dayGroups[currentGroup];
+                prevBtn.classList.toggle("is-hidden", currentPos <= 0);
+                nextBtn.classList.toggle("is-hidden", currentPos >= group.imgs.length - 1);
+            }
+
+            function closeLightbox() {
+                lightbox.style.display = "none";
+                lightboxImg.classList.remove("is-zoomed");
+                document.body.style.overflow = "auto";
+                // Evita che il click che chiude la lightbox "passi" alla
+                // pagina sottostante aprendo per sbaglio un'altra foto
+                // (o attivando link/pulsanti che si trovano nello stesso punto).
+                suppressNextClick = true;
+                setTimeout(() => { suppressNextClick = false; }, 350);
+            }
+
+            function showPrev() {
+                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
+                lightboxImg.classList.remove("is-zoomed");
+                openLightboxAt(currentGroup, currentPos - 1);
+            }
+
+            function showNext() {
+                const group = dayGroups[currentGroup];
+                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
+                lightboxImg.classList.remove("is-zoomed");
+                openLightboxAt(currentGroup, currentPos + 1);
+            }
+
+            lightboxImg.addEventListener("click", function(e) {
+                e.stopPropagation();
+                this.classList.toggle("is-zoomed");
+            });
+
+            dayGroups.forEach((group, gi) => {
+                group.imgs.forEach((img, pi) => {
+                    img.addEventListener("click", function(e) {
+                        if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
+                        openLightboxAt(gi, pi);
+                    });
+                });
+            });
+
+            lightboxClose.addEventListener("click", closeLightbox);
+            prevBtn.addEventListener("click", function(e) { e.stopPropagation(); showPrev(); });
+            nextBtn.addEventListener("click", function(e) { e.stopPropagation(); showNext(); });
+            lightbox.addEventListener("click", closeLightbox);
+
+            document.addEventListener("keydown", function(e) {
+                if (lightbox.style.display === "flex") {
+                    if (e.key === "Escape") closeLightbox();
+                    if (e.key === "ArrowLeft") showPrev();
+                    if (e.key === "ArrowRight") showNext();
+                }
+            });
+        });
+    </script>
+<!-- ===== MAPPA DEL VIAGGIO (Leaflet.js) ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tappe = [
+                { nome: "Las Vegas", nota: "Partenza", lat: 36.1699, lng: -115.1398 },
+                { nome: "Valley of Fire", nota: "", lat: 36.4270, lng: -114.5342 },
+                { nome: "Coral Pink Sand Dunes", nota: "", lat: 37.0397, lng: -112.7361 },
+                { nome: "Bryce Canyon", nota: "", lat: 37.5930, lng: -112.1871 },
+                { nome: "Salt Lake City", nota: "", lat: 40.7608, lng: -111.8910 },
+                { nome: "Jackson", nota: "", lat: 43.4799, lng: -110.7624 },
+                { nome: "Yellowstone", nota: "", lat: 44.4280, lng: -110.5885 },
+                { nome: "Cody", nota: "", lat: 44.5263, lng: -109.0565 },
+                { nome: "Devils Tower", nota: "", lat: 44.5902, lng: -104.7146 },
+                { nome: "Rapid City", nota: "", lat: 44.0805, lng: -103.2310 },
+                { nome: "Mount Rushmore", nota: "", lat: 43.8791, lng: -103.4591 },
+                { nome: "Badlands National Park", nota: "", lat: 43.8554, lng: -102.3397 },
+                { nome: "Cheyenne", nota: "", lat: 41.1400, lng: -104.8202 },
+                { nome: "Denver", nota: "", lat: 39.7392, lng: -104.9903 },
+                { nome: "Great Sand Dunes", nota: "", lat: 37.7916, lng: -105.5943 },
+                { nome: "Independence Pass", nota: "", lat: 39.1058, lng: -106.5645 },
+                { nome: "Aspen", nota: "", lat: 39.1911, lng: -106.8175 },
+                { nome: "Colorado National Monument", nota: "", lat: 39.0342, lng: -108.7076 },
+                { nome: "Moab", nota: "", lat: 38.5733, lng: -109.5498 },
+                { nome: "Las Vegas", nota: "Rientro", lat: 36.1699, lng: -115.1398 }
+            ];
+
+            const map = L.map('trip-map', { scrollWheelZoom: false }).setView([40, -108], 5);
+
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Layer di riferimento: confini di stato/contea e nomi città, trasparente sopra il satellite
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 19
+            }).addTo(map);
+
+            const puntoIcon = L.divIcon({ className: 'trip-map-marker', iconSize: [14, 14] });
+
+            // Recupera una foto ufficiale (Wikimedia Commons, licenza libera) tramite l'API pubblica di Wikipedia
+            async function fetchWikiThumb(placeName) {
+                try {
+                    const resp = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(placeName));
+                    if (!resp.ok) return null;
+                    const data = await resp.json();
+                    return (data.thumbnail && data.thumbnail.source) ? data.thumbnail.source : null;
+                } catch (e) { return null; }
+            }
+
+            const percorso = tappe.map(t => [t.lat, t.lng]);
+            L.polyline(percorso, {
+                color: '#a78bfa',
+                weight: 4,
+                opacity: 0.9
+            }).addTo(map);
+
+            tappe.forEach(t => {
+                const marker = L.marker([t.lat, t.lng], { icon: puntoIcon })
+                    .addTo(map)
+                    .bindTooltip(t.nome, { permanent: true, direction: 'top', offset: [0, -8], className: 'trip-map-label' })
+                    .bindPopup(
+                        `<div class="map-popup-photo-slot" data-place="${t.nome}"><span class="ph-loading">Carico foto…</span></div>` +
+                        `<div class="map-popup-text"><b>${t.nome}</b>${t.nota ? '<span>' + t.nota + '</span>' : ''}</div>`
+                    );
+
+                marker.on('popupopen', async function(e) {
+                    const slot = e.popup.getElement().querySelector('.map-popup-photo-slot');
+                    if (!slot || slot.dataset.loaded) return;
+                    slot.dataset.loaded = '1';
+                    const url = await fetchWikiThumb(t.nome);
+                    if (url) {
+                        slot.innerHTML = `<img src="${url}" alt="${t.nome}">`;
+                    } else {
+                        slot.innerHTML = `<span class="ph-loading">Nessuna foto trovata</span>`;
+                    }
+                });
+            });
+
+            map.fitBounds(L.latLngBounds(percorso), { padding: [30, 30] });
+        });
+    </script>
+</body>
+</html>

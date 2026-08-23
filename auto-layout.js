@@ -39,18 +39,18 @@ const CARD_WIDTHS = {
  *   Una foto 'panoramica' va sempre da sola nella sua riga, a piena
  *   larghezza, per allinearsi esattamente ai bordi delle righe sopra.
  * @param {Object} opts
- * @param {number} opts.maxPerRow - foto massime per riga (default 4)
+ * @param {number} opts.maxPerRow - foto massime per riga (default 5)
  * @param {number} opts.containerWidth - larghezza utile del contenitore in px
- *   (default 800: è la larghezza reale della colonna .day-content in
- *   arizona25.html — .timeline-container è 1020px di larghezza utile,
- *   meno 180px della colonna .day-sticky e 40px di gap tra le colonne)
+ *   (default 1000 in questa versione "temp": .timeline-container è stato
+ *   allargato a 1160px, .day-content ora a piena larghezza senza colonna
+ *   .day-sticky laterale, quindi c'è più spazio per riga)
  * @param {number} opts.gap - spazio tra le foto in px
  * @returns {Array<Array>} array di righe, ogni riga è un array di foto
  */
 function packPhotosIntoRows(photos, opts = {}) {
     const {
-        maxPerRow = 4,
-        containerWidth = 800,
+        maxPerRow = 5,
+        containerWidth = 1000,
         gap = 20
     } = opts;
 
@@ -209,10 +209,17 @@ function renderPhotoDay(containerSelector, photos, opts = {}) {
  * Disegna una mini "mappa" del giorno in puro SVG (nessuna libreria
  * esterna): una striscia orizzontale con le tappe collegate da una
  * linea tratteggiata, ogni tappa è una miniatura circolare presa da
- * una foto reale di quel posto, con il nome sotto.
+ * una foto reale di quel posto, con il nome sotto (ed eventualmente
+ * città e stato, su righe separate).
  *
  * @param {string} containerSelector - es. "#giorno2-route"
- * @param {Array} stops - [{ nome, foto }, ...] in ordine cronologico.
+ * @param {Array} stops - [{ nome, citta, stato, foto }, ...] in ordine
+ *   cronologico.
+ *   `nome` è sempre mostrato (es. "Cathedral Rock" o "Scottsdale").
+ *   `citta` è opzionale: usala solo quando `nome` NON è già una città
+ *   (es. "Cathedral Rock" -> citta: "Sedona"); se `nome` è già una
+ *   città (es. "Scottsdale") ometti `citta`.
+ *   `stato` è opzionale, mostrato come ultima riga (es. "Arizona").
  *   `foto` è il path della foto da usare come miniatura circolare
  *   (di solito la prima foto di quella tappa già usata più sotto
  *   nella pagina, così non serve caricare immagini in più).
@@ -221,25 +228,48 @@ function renderDayRoute(containerSelector, stops) {
     const container = document.querySelector(containerSelector);
     if (!container || !stops || !stops.length) return;
 
-    // Stima approssimativa della larghezza di un'etichetta (in px) in base
-    // al numero di caratteri, per calcolare quanto margine laterale serve
-    // ed evitare che i nomi più lunghi vengano tagliati ai bordi dell'SVG.
-    function estimateLabelWidth(text) {
-        return text.length * 5.8; // font 9.5px, maiuscolo, letter-spacing incluso
+    // Stima approssimativa della larghezza di una riga di testo (in px) in
+    // base al numero di caratteri, per calcolare quanto margine laterale
+    // serve ed evitare che i nomi più lunghi vengano tagliati ai bordi.
+    function estimateLabelWidth(text, isSubLabel) {
+        return text.length * (isSubLabel ? 7.65 : 8.55); // ricalibrato per il font ancora più grande (14px / 12px)
     }
 
-    const spacing = 130;   // distanza orizzontale tra una tappa e la successiva
-    const radius = 22;     // raggio del cerchio miniatura
-    const cy = 30;          // altezza verticale del centro dei cerchi
+    // Le righe di testo di una tappa: nome (sempre), poi eventualmente
+    // città e stato, su righe separate sotto.
+    function stopLines(stop) {
+        const lines = [{ text: stop.nome, sub: false }];
+        if (stop.citta) lines.push({ text: stop.citta, sub: true });
+        if (stop.stato) lines.push({ text: stop.stato, sub: true });
+        return lines;
+    }
+
+    const radius = 28;     // raggio del cerchio miniatura
+    const cy = 34;          // altezza verticale del centro dei cerchi
+    const lineHeight = 18;  // spazio verticale tra una riga di etichetta e la successiva (aumentato per il font più grande)
+
+    // La larghezza massima di una riga di testo (nome, città o stato) tra
+    // tutte le tappe: serve sia per il margine laterale (prima/ultima tappa)
+    // sia per la distanza tra una tappa e la successiva, altrimenti i nomi
+    // più lunghi si sovrappongono a quelli delle tappe vicine.
+    const maxLabelFullWidth = Math.max(...stops.map(s =>
+        Math.max(...stopLines(s).map(l => estimateLabelWidth(l.text, l.sub)))
+    ));
+
+    // Distanza orizzontale tra una tappa e la successiva: mai sotto i 150px,
+    // ma cresce se serve più spazio per non far toccare i testi adiacenti.
+    const spacing = Math.max(150, maxLabelFullWidth + 30);
 
     // Il margine laterale deve essere abbastanza largo da contenere metà
-    // dell'etichetta più lunga, altrimenti la prima/ultima tappa vengono
+    // della riga più lunga, altrimenti la prima/ultima tappa vengono
     // tagliate ai bordi.
-    const maxLabelHalfWidth = Math.max(...stops.map(s => estimateLabelWidth(s.nome) / 2));
-    const padding = Math.max(40, maxLabelHalfWidth + 10);
+    const padding = Math.max(40, maxLabelFullWidth / 2 + 10);
 
     const width = padding * 2 + spacing * (stops.length - 1);
-    const height = 88;
+    // Altezza fissa (sempre spazio per 3 righe: nome + città + stato), così
+    // tutte le mini-mappe del sito restano della stessa dimensione anche
+    // quando alcune tappe hanno meno righe di altre.
+    const height = 98 + 2 * lineHeight;
 
     let svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
 
@@ -256,12 +286,19 @@ function renderDayRoute(containerSelector, stops) {
         // così, se serve, possiamo aggiornarla in un secondo momento pescandola
         // da Wikipedia (vedi sotto la foreach).
         const imgId = `route-img-${containerSelector.replace('#', '')}-${i}`;
+        const lines = stopLines(stop);
+        const firstLineY = cy + radius + 16;
+        const linesHtml = lines.map((l, li) => {
+            const cls = li === 0 ? 'day-route-label' : 'day-route-sublabel';
+            const y = firstLineY + li * lineHeight;
+            return `<text class="${cls}" x="${cx}" y="${y}" text-anchor="middle">${escapeHtml(l.text)}</text>`;
+        }).join('');
         svg += `
             <g class="day-route-stop">
                 <clipPath id="${clipId}"><circle cx="${cx}" cy="${cy}" r="${radius - 2}"/></clipPath>
                 <image id="${imgId}" href="${stop.foto || ''}" x="${cx - radius + 2}" y="${cy - radius + 2}" width="${(radius - 2) * 2}" height="${(radius - 2) * 2}" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})"/>
                 <circle class="day-route-ring" cx="${cx}" cy="${cy}" r="${radius}"/>
-                <text class="day-route-label" x="${cx}" y="${cy + radius + 16}" text-anchor="middle">${escapeHtml(stop.nome)}</text>
+                ${linesHtml}
             </g>`;
     });
 
