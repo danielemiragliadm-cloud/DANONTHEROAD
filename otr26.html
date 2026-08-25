@@ -50,7 +50,7 @@
         .travel-header .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; }
 
         /* Banner a mosaico con effetto Ken Burns */
-        .trip-banner { position: relative; width: 100%; height: 340px; overflow: hidden; }
+        .trip-banner { position: relative; width: 100%; height: 480px; overflow: hidden; }
         .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
         .trip-banner-tile { position: relative; overflow: hidden; background: #0c0d0e; }
         .trip-banner-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kenburns 26s ease-in-out infinite alternate; transition: opacity 0.4s ease; }
@@ -72,12 +72,21 @@
         }
         .trip-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,24,0.35) 0%, rgba(20,22,24,0.55) 55%, rgba(20,22,24,0.85) 100%); }
         .trip-banner-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .trip-banner-text h1 { margin: 0; font-family: 'Big Shoulders Display', sans-serif; font-size: 3.6rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
-        .trip-banner-text .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); letter-spacing: 2px; text-transform: uppercase; }
+        .trip-banner-text h1 { box-sizing: border-box; max-width: calc(100% - 56px); margin: 0; padding: 11px 25px 13px; border: 1px solid rgba(255,255,255,0.42); border-radius: 8px; background: rgba(12,13,14,0.58); box-shadow: 0 12px 35px rgba(0,0,0,0.32); backdrop-filter: blur(5px); font-family: 'Big Shoulders Display', sans-serif; font-size: 3.6rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        .trip-banner-text .meta-info { margin-top: 15px; font-size: 1.08rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); letter-spacing: 2.4px; text-transform: uppercase; text-shadow: 0 2px 14px rgba(0,0,0,0.65); }
+        .trip-recap { width: min(1120px, calc(100% - 56px)); max-height: 150px; overflow-y: auto; box-sizing: border-box; margin-top: 28px; padding: 15px 20px 17px; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; background: rgba(12,13,14,0.66); box-shadow: 0 12px 35px rgba(0,0,0,0.35); backdrop-filter: blur(5px); }
+        .trip-recap-title { margin-bottom: 11px; color: rgba(255,255,255,0.62); font-size: 0.68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+        .trip-recap-route { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px 8px; }
+        .trip-recap-place { color: rgba(255,255,255,0.92); font-size: 0.72rem; line-height: 1.25; letter-spacing: 0.45px; white-space: nowrap; }
+        .trip-recap-arrow { color: #a78bfa; font-size: 0.76rem; line-height: 1; }
         @media (max-width: 700px) {
-            .trip-banner { height: 240px; }
-            .trip-banner-text h1 { font-size: 2rem; letter-spacing: 1.5px; }
-            .trip-banner-text .meta-info { font-size: 0.7rem; }
+            .trip-banner { height: 430px; }
+            .trip-banner-text h1 { max-width: calc(100% - 16px); padding: 9px 12px 11px; font-size: 2rem; letter-spacing: 1.5px; }
+            .trip-banner-text .meta-info { margin-top: 12px; font-size: 0.82rem; letter-spacing: 1.5px; }
+            .trip-banner-text { padding: 18px 12px; }
+            .trip-recap { width: calc(100% - 16px); max-height: 185px; margin-top: 20px; padding: 13px 14px 15px; }
+            .trip-recap-route { justify-content: flex-start; gap: 7px; }
+            .trip-recap-place { font-size: 0.66rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             .trip-banner-tile img { animation: none; }
@@ -253,7 +262,47 @@
 <div class="trip-banner-overlay"></div>
 <div class="trip-banner-text">
 <h1>Nevada, Utah, Wyoming, Montana, South Dakota, Colorado</h1>
-<div class="meta-info">Diario di Viaggio / Giugno 2026</div>
+<div class="meta-info">Diario di Viaggio / OTR Giugno 2026</div>
+<div class="trip-recap">
+<div class="trip-recap-title">Il viaggio, tappa dopo tappa</div>
+<div class="trip-recap-route">
+<span class="trip-recap-place">Las Vegas</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Hoover Dam · Lake Mead</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Valley of Fire</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Coral Pink Sand Dunes</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Kanab</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Bryce Canyon</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Bonneville Salt Flats</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Salt Lake City</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Antelope Island</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Grand Teton</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Jackson</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Yellowstone</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Cooke City</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Cody</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Sheridan</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Devil's Tower</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Rapid City</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Mount Rushmore</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Badlands</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Cheyenne</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Nederland</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Flagstaff Mountain</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Boulder</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Denver</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Garden of the Gods</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Great Sand Dunes</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Alamosa</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Twin Lakes</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Independence Pass</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Aspen</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Carbondale</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Colorado National Monument</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Moab</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Rachel · Area 51</span><span class="trip-recap-arrow">→</span>
+<span class="trip-recap-place">Las Vegas</span>
+</div>
+</div>
 </div>
 </header>
 <div class="structural-line"></div>
