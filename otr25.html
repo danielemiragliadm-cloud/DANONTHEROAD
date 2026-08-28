@@ -119,7 +119,21 @@
         .size-verticale img { height: 240px; }
         .size-orizzontale { width: 250px; }
         .size-orizzontale img { height: 188px; }
-        .youtube-embed { width: 100%; height: 188px; display: block; border: 0; border-radius: 2px; background: #000; }
+        /* Anteprima video YouTube coordinata con le cornici delle foto */
+        .youtube-trigger { position: relative; display: block; width: 100%; height: 188px; padding: 0; overflow: hidden; border: 0; border-radius: 2px; background: #000; cursor: pointer; }
+        .youtube-trigger img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .youtube-play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(0,0,0,0.72); border: 1px solid rgba(255,255,255,0.65); transition: transform 0.2s ease, background 0.2s ease; }
+        .youtube-play-icon svg { width: 25px; height: 25px; fill: #ffffff; margin-left: 3px; }
+        .youtube-trigger:hover .youtube-play-icon { transform: translate(-50%, -50%) scale(1.08); background: #ff0000; }
+
+        /* Popup video YouTube, come in OTR26 */
+        .youtube-modal { display: none; position: fixed; inset: 0; z-index: 10020; padding: 70px 24px 30px; box-sizing: border-box; align-items: center; justify-content: center; background: rgba(10, 11, 12, 0.94); }
+        .youtube-modal.is-open { display: flex; }
+        .youtube-modal-dialog { position: relative; width: min(960px, 94vw); background: #000; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; box-shadow: 0 24px 70px rgba(0,0,0,0.75); }
+        .youtube-modal-player { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 5px; }
+        .youtube-modal-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .youtube-modal-close { position: absolute; top: -54px; right: 0; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.25); border-radius: 50%; background: rgba(255,255,255,0.08); color: #fff; font: 300 1.8rem/1 Arial, sans-serif; cursor: pointer; }
+        body.youtube-modal-open { overflow: hidden; }
         .size-panoramica { width: 100%; }
         .size-panoramica img { height: 350px; }
 
@@ -819,7 +833,7 @@
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409_192814.jpg" alt="Virgil's Real BBQ"><figcaption class="photo-caption">Virgil’s Real BBQ</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409-223618.jpg" alt="Fountains of Bellagio"><figcaption class="photo-caption">Fountains of Bellagio</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><iframe class="youtube-embed" src="https://www.youtube.com/embed/Z0TfQzxCFwE" title="Fountains of Bellagio – Video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><figcaption class="photo-caption">Fountains of Bellagio – Video</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><button class="youtube-trigger" type="button" data-video-id="Z0TfQzxCFwE" aria-label="Guarda Fountains of Bellagio"><img class="youtube-thumbnail" src="https://i.ytimg.com/vi/Z0TfQzxCFwE/hqdefault.jpg" alt="Fountains of Bellagio" loading="lazy"><span class="youtube-play-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button><figcaption class="photo-caption">Fountains of Bellagio – Video</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1332,6 +1346,55 @@
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
+    <!-- Popup riutilizzabile per i video YouTube -->
+    <div class="youtube-modal" id="youtube-modal" role="dialog" aria-modal="true" aria-label="Video YouTube" aria-hidden="true">
+        <div class="youtube-modal-dialog">
+            <button class="youtube-modal-close" id="youtube-modal-close" type="button" aria-label="Chiudi il video">&times;</button>
+            <div class="youtube-modal-player" id="youtube-modal-player"></div>
+        </div>
+    </div>
+
+    <script>
+        (function setupYouTubeModal() {
+            const modal = document.getElementById('youtube-modal');
+            const player = document.getElementById('youtube-modal-player');
+            const closeButton = document.getElementById('youtube-modal-close');
+            let lastTrigger = null;
+
+            function openVideo(trigger) {
+                const videoId = trigger.dataset.videoId;
+                if (!videoId) return;
+                lastTrigger = trigger;
+                player.innerHTML = '<iframe src="https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1&rel=0" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('youtube-modal-open');
+                closeButton.focus();
+            }
+
+            function closeVideo() {
+                if (!modal.classList.contains('is-open')) return;
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('youtube-modal-open');
+                player.innerHTML = '';
+                if (lastTrigger) lastTrigger.focus();
+            }
+
+            document.addEventListener('click', function(event) {
+                const trigger = event.target.closest('.youtube-trigger');
+                if (trigger) openVideo(trigger);
+            });
+            closeButton.addEventListener('click', closeVideo);
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) closeVideo();
+            });
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') closeVideo();
+            });
+        })();
+    </script>
+
     <script src="auto-layout.js"></script>
     <script>
         renderDayRoute('#giorno1-route', [
@@ -1831,7 +1894,7 @@
 
             // Ripeto il setup del lightbox DOPO che auto-layout.js ha già
             // iniettato le foto (i due script sopra girano prima di questo).
-            const images = Array.from(document.querySelectorAll(".photo-container-frame img"));
+            const images = Array.from(document.querySelectorAll(".photo-container-frame img:not(.youtube-thumbnail)"));
             const lightbox = document.getElementById("lightbox");
             const lightboxImg = document.getElementById("lightbox-img");
             const lightboxClose = document.getElementById("lightbox-close");
