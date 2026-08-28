@@ -65,7 +65,11 @@
         .timeline-container { max-width: 1160px; margin: 0 auto; padding: 60px 40px; }
 
         /* Blocco del Singolo Giorno */
-        .day-block { display: block; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; }
+        .day-block { position: relative; display: block; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; isolation: isolate; }
+
+        /* Numero del giorno in filigrana: accompagna lo scorrimento del contenuto */
+        .day-watermark { position: sticky; top: 46vh; height: 0; overflow: visible; display: flex; justify-content: center; align-items: center; z-index: 0; pointer-events: none; user-select: none; font-family: 'Big Shoulders Display', sans-serif; font-size: clamp(4.5rem, 11vw, 9rem); font-weight: 700; line-height: 1; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.026); text-transform: uppercase; white-space: nowrap; }
+        .day-sticky, .day-content { position: relative; z-index: 1; }
 
         /* Header orizzontale e centrato in cima al giorno: GIORNO -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
         .day-sticky { position: static; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; text-align: center; gap: 8px 40px; padding: 0 0 22px; margin: 0 0 26px; border-bottom: 1px solid rgba(255,255,255,0.08); background: transparent; }
@@ -176,6 +180,7 @@
             .hero-tile:nth-child(2), .hero-tile:nth-child(3) { display: none; }
             .travel-header .meta-info { font-size: 0.72rem; letter-spacing: 1.4px; }
             .day-block { margin-bottom: 40px; padding: 22px; }
+            .day-watermark { top: 44vh; font-size: clamp(3.3rem, 17vw, 6rem); color: rgba(255, 255, 255, 0.032); }
             .day-sticky { position: static; gap: 10px 24px; padding: 0 0 22px; margin: 0 0 26px; border-width: 0 0 1px; border-radius: 0; background: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
             .universal-flex-row { justify-content: center; }
             .size-verticale, .size-orizzontale { width: 44%; }
@@ -1813,6 +1818,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Inserisce la filigrana semitrasparente del giorno durante lo scorrimento.
+            document.querySelectorAll('.day-block').forEach(function(dayBlock) {
+                const dayNumber = dayBlock.querySelector('.day-number');
+                if (!dayNumber || dayBlock.querySelector('.day-watermark')) return;
+                const watermark = document.createElement('div');
+                watermark.className = 'day-watermark';
+                watermark.setAttribute('aria-hidden', 'true');
+                watermark.textContent = dayNumber.textContent.trim();
+                dayBlock.insertBefore(watermark, dayBlock.firstChild);
+            });
+
             // Ripeto il setup del lightbox DOPO che auto-layout.js ha già
             // iniettato le foto (i due script sopra girano prima di questo).
             const images = Array.from(document.querySelectorAll(".photo-container-frame img"));
