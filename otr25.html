@@ -55,7 +55,7 @@
         .hero-shade { position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(10,12,13,0.30), rgba(10,12,13,0.70)); }
         .travel-header { position: absolute; z-index: 3; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; box-sizing: border-box; }
         .travel-header h1 { margin: 0; font-family: 'Big Shoulders Display', sans-serif; font-size: clamp(2.5rem, 5vw, 4.7rem); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 3px 18px rgba(0,0,0,0.65); }
-        .travel-header .meta-info { margin-top: 22px; padding: 11px 22px; border: 1px solid rgba(255,255,255,0.7); border-radius: 5px; background: rgba(10,12,13,0.45); font-size: 0.9rem; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
+        .travel-header .meta-info { max-width: 1180px; margin-top: 22px; padding: 11px 22px; border: 1px solid rgba(255,255,255,0.7); border-radius: 5px; background: rgba(10,12,13,0.45); font-size: clamp(0.62rem, 1.05vw, 0.9rem); line-height: 1.75; color: #fff; letter-spacing: 1.5px; }
         @keyframes heroKenBurns { from { transform: scale(1.04); } to { transform: scale(1.13); } }
 
         /* Linea di divisione strutturale elegante */
@@ -115,6 +115,7 @@
         .size-verticale img { height: 240px; }
         .size-orizzontale { width: 250px; }
         .size-orizzontale img { height: 188px; }
+        .youtube-embed { width: 100%; height: 188px; display: block; border: 0; border-radius: 2px; background: #000; }
         .size-panoramica { width: 100%; }
         .size-panoramica img { height: 350px; }
 
@@ -207,7 +208,7 @@
         <div class="hero-shade"></div>
         <header class="travel-header">
             <h1>Diario di Viaggio / OTR Aprile 2025</h1>
-            <div class="meta-info">Los Angeles – Los Angeles</div>
+            <div class="meta-info">Los Angeles – Santa Monica – Joshua Tree National Park – Kingman – Williams – Grand Canyon National Park – Meteor Crater – Painted Desert – Petrified Forest – Page – Horseshoe Bend – Oljato Monument Valley – Moab – Canyonlands National Park – Dead Horse Point – Arches National Park – Las Vegas – Death Valley National Park – Sequoia National Park – Yosemite National Park – San Francisco – Monterey – Venice Beach – Los Angeles</div>
         </header>
     </section>
 
@@ -813,6 +814,7 @@
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409_192814.jpg" alt="Virgil's Real BBQ"><figcaption class="photo-caption">Virgil’s Real BBQ</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409-223618.jpg" alt="Fountains of Bellagio"><figcaption class="photo-caption">Fountains of Bellagio</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><iframe class="youtube-embed" src="https://www.youtube.com/embed/Z0TfQzxCFwE" title="Fountains of Bellagio – Video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><figcaption class="photo-caption">Fountains of Bellagio – Video</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1745,35 +1747,67 @@
             }
         ]);
 
-        // Alternanza delle foto del banner: ogni tassello mantiene il proprio orientamento.
+        // Banner casuale: pesca da tutte le foto del diario, senza ordine cronologico
+        // e senza ripetere subito immagini già visibili o appena utilizzate.
         document.addEventListener("DOMContentLoaded", function() {
-            const heroPools = {
-                verticale: [
-                    "OTR25/FOTO/20250330_181602.jpg",
-                    "OTR25/FOTO/20250330_182253.jpg",
-                    "OTR25/FOTO/20250330_183528.jpg"
-                ],
-                orizzontale: [
-                    "OTR25/FOTO/20250330_182002.jpg",
-                    "OTR25/FOTO/20250330_182329.jpg",
-                    "OTR25/FOTO/20250330_183217.jpg"
-                ]
-            };
-            const heroIndexes = { verticale: 0, orizzontale: 0 };
+            const heroImages = Array.from(document.querySelectorAll(".hero-tile img"));
+            const allDiaryImages = Array.from(document.querySelectorAll(".photo-container-frame img"));
+            const pools = { verticale: [], orizzontale: [] };
 
-            setInterval(function() {
-                document.querySelectorAll(".hero-tile img").forEach(function(img, tileIndex) {
+            allDiaryImages.forEach(function(img) {
+                const frame = img.closest(".photo-container-frame");
+                const src = img.getAttribute("src");
+                if (!src) return;
+                const orientation = frame && frame.classList.contains("size-verticale")
+                    ? "verticale"
+                    : "orizzontale";
+                if (!pools[orientation].includes(src)) pools[orientation].push(src);
+            });
+
+            function shuffle(list) {
+                const copy = list.slice();
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
+
+            const bags = { verticale: [], orizzontale: [] };
+            const recent = { verticale: [], orizzontale: [] };
+
+            function nextRandom(orientation, visible) {
+                if (!bags[orientation].length) {
+                    const excluded = new Set(visible.concat(recent[orientation]));
+                    let candidates = pools[orientation].filter(function(src) { return !excluded.has(src); });
+                    if (!candidates.length) candidates = pools[orientation].filter(function(src) { return !visible.includes(src); });
+                    bags[orientation] = shuffle(candidates.length ? candidates : pools[orientation]);
+                }
+                const src = bags[orientation].pop();
+                recent[orientation].push(src);
+                if (recent[orientation].length > 8) recent[orientation].shift();
+                return src;
+            }
+
+            function changeBanner(immediate) {
+                const visible = heroImages.map(function(img) { return img.getAttribute("src"); });
+                heroImages.forEach(function(img, index) {
                     const orientation = img.dataset.heroOrientation;
-                    const pool = heroPools[orientation];
-                    heroIndexes[orientation] = (heroIndexes[orientation] + 1) % pool.length;
-                    const nextIndex = (heroIndexes[orientation] + tileIndex) % pool.length;
-                    img.style.opacity = "0";
+                    const nextSrc = nextRandom(orientation, visible);
+                    if (!nextSrc) return;
+                    const delay = immediate ? 0 : index * 120;
                     setTimeout(function() {
-                        img.src = pool[nextIndex];
-                        img.style.opacity = "1";
-                    }, 650);
+                        img.style.opacity = "0";
+                        setTimeout(function() {
+                            img.src = nextSrc;
+                            img.style.opacity = "1";
+                        }, immediate ? 0 : 650);
+                    }, delay);
                 });
-            }, 6000);
+            }
+
+            changeBanner(true);
+            setInterval(function() { changeBanner(false); }, 4500);
         });
     </script>
 
