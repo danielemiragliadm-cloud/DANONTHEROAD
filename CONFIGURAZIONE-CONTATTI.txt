@@ -28,3 +28,62 @@ FROM contact_messages
 ORDER BY id DESC;
 
 I messaggi sono privati e non vengono mostrati sul sito.
+
+
+GUESTBOOK PUBBLICO
+
+Il guestbook usa lo stesso binding D1 chiamato DB.
+La tabella guestbook_messages viene creata automaticamente al primo utilizzo.
+I messaggi pubblicati appaiono subito online.
+
+Protezione inclusa:
+- campo antispam invisibile;
+- massimo 600 caratteri;
+- collegamenti bloccati;
+- massimo un messaggio ogni 5 minuti per visitatore.
+
+Secret facoltativo ma consigliato:
+1. Cloudflare > Workers & Pages > danontheroad > Settings.
+2. Variables and Secrets > Add.
+3. Variable name: GUESTBOOK_SALT
+4. Value: una frase lunga e casuale conosciuta soltanto da te.
+5. Type: Secret
+
+Per cancellare un messaggio dalla console D1:
+
+DELETE FROM guestbook_messages WHERE id = NUMERO_DEL_MESSAGGIO;
+
+Se RESEND_API_KEY è configurata, ogni firma del guestbook genera anche una
+notifica a duaneberry@libero.it.
+
+
+INVIO AUTOMATICO VIA EMAIL
+
+Destinatario configurato:
+duaneberry@libero.it
+
+Mittente configurato:
+Dan on the Road <contatti@danontheroad.com>
+
+1. Crea un account su https://resend.com
+2. In Resend apri Domains e aggiungi danontheroad.com.
+3. Resend mostrerà alcuni record DNS.
+4. Apri Cloudflare > danontheroad.com > DNS > Records.
+5. Aggiungi esattamente i record indicati da Resend.
+6. Attendi che in Resend il dominio risulti Verified.
+7. In Resend crea una API Key.
+8. Apri Cloudflare > Workers & Pages > danontheroad > Settings.
+9. Vai in Variables and Secrets e aggiungi:
+
+Variable name: RESEND_API_KEY
+Value: incolla qui la chiave generata da Resend
+Type: Secret
+
+10. Salva ed esegui un nuovo deployment.
+
+IMPORTANTE:
+- Non inserire mai la chiave Resend nei file del sito o su GitHub.
+- Ogni messaggio viene prima salvato in D1.
+- Se l'invio email fallisce, il messaggio rimane comunque nel database.
+- Rispondendo all'email ricevuta, la risposta viene indirizzata direttamente
+  all'indirizzo indicato dal visitatore nel modulo.
