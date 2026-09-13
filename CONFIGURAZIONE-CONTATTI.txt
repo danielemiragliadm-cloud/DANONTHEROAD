@@ -1,0 +1,30 @@
+PROVA PAGINA CONTATTI — CLOUDFLARE PAGES FUNCTIONS
+
+File da copiare nel repository:
+- index.html
+- contatti.html
+- cartella functions completa, mantenendo il percorso functions/api/contact.js
+
+Configurazione Cloudflare:
+1. Apri la dashboard Cloudflare.
+2. Vai in Storage & databases > D1 SQL database.
+3. Crea un database chiamato danontheroad-messaggi.
+4. Torna in Workers & Pages > danontheroad > Settings > Bindings.
+5. Aggiungi un binding D1 database.
+6. Variable name: DB
+7. Seleziona il database danontheroad-messaggi e salva.
+8. Esegui un nuovo deployment del progetto.
+
+La tabella viene creata automaticamente al primo messaggio.
+
+Per leggere i messaggi:
+1. Apri Storage & databases > D1 SQL database.
+2. Seleziona danontheroad-messaggi.
+3. Apri Console.
+4. Esegui:
+
+SELECT id, name, email, subject, message, created_at
+FROM contact_messages
+ORDER BY id DESC;
+
+I messaggi sono privati e non vengono mostrati sul sito.
