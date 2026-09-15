@@ -149,8 +149,9 @@
                         </select>
                     </div>
                     <div class="field field-full">
-                        <label for="message">Messaggio *</label>
-                        <textarea id="message" name="message" maxlength="3000" required></textarea>
+                        <label for="message">Messaggio * <span style="font-weight:400;opacity:.7;text-transform:none;letter-spacing:0;">(minimo 5 caratteri)</span></label>
+                        <textarea id="message" name="message" minlength="5" maxlength="3000" required aria-describedby="message-help"></textarea>
+                        <small id="message-help" style="display:block;margin-top:7px;color:rgba(255,255,255,.58);">Scrivi almeno 5 caratteri.</small>
                     </div>
                     <div class="honeypot" aria-hidden="true">
                         <label for="website">Lascia vuoto questo campo</label>
@@ -200,8 +201,18 @@
                 const result = await response.json().catch(() => ({}));
                 if (!response.ok) throw new Error(result.error || 'Invio non riuscito.');
                 form.reset();
-                statusEl.className = 'form-status success';
-                statusEl.textContent = 'Messaggio ricevuto, grazie!';
+                if (result.emailSent) {
+                    statusEl.className = 'form-status success';
+                    statusEl.textContent = 'Messaggio salvato e email inviata correttamente!';
+                } else {
+                    statusEl.className = 'form-status error';
+                    const details = {
+                        missing_key: 'La chiave RESEND_API_KEY non è disponibile nel deployment.',
+                        resend_rejected: 'Resend ha rifiutato l’invio: controlla i log di Resend e la verifica del dominio.',
+                        delivery_error: 'Errore di collegamento a Resend: controlla i log di Cloudflare.'
+                    };
+                    statusEl.textContent = 'Messaggio salvato, ma email non inviata. ' + (details[result.emailStatus] || 'Controlla la configurazione Resend.');
+                }
             } catch (error) {
                 statusEl.className = 'form-status error';
                 statusEl.textContent = error.message || 'Si è verificato un problema. Riprova tra poco.';

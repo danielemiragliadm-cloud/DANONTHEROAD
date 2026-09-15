@@ -59,6 +59,7 @@ export async function onRequestPost(context) {
   ).bind(name, email, subject, message).run();
 
   let emailSent = false;
+  let emailStatus = "missing_key";
   if (context.env.RESEND_API_KEY) {
     try {
       const mailResponse = await fetch("https://api.resend.com/emails", {
@@ -89,15 +90,18 @@ export async function onRequestPost(context) {
       if (!mailResponse.ok) {
         const detail = await mailResponse.text();
         console.error("Resend error:", mailResponse.status, detail);
+        emailStatus = "resend_rejected";
       } else {
         emailSent = true;
+        emailStatus = "sent";
       }
     } catch (error) {
       console.error("Email delivery error:", error);
+      emailStatus = "delivery_error";
     }
   }
 
-  return json({ ok: true, emailSent });
+  return json({ ok: true, emailSent, emailStatus });
 }
 
 export function onRequestGet() {
