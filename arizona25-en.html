@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- Riesportato il 2026-09-05 per aggiornamento GitHub Pages -->
 
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -57,10 +57,10 @@
         .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
         .trip-banner-tile { position: relative; overflow: hidden; background: #0c0d0e; }
         .trip-banner-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kenburns 26s ease-in-out infinite alternate; transition: opacity 0.4s ease; }
-        /* Tasselli VERTICALI: stretti e a piena altezza, pensati per foto verticali */
+        /* Tasselli VERTICALI: stretti e a piena altezza, pensati per photo verticali */
         .tile-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
         .tile-2 { grid-column: 2 / 3; grid-row: 1 / 3; }
-        /* Tasselli ORIZZONTALI: larghi e a mezza altezza, pensati per foto orizzontali/panoramiche */
+        /* Tasselli ORIZZONTALI: larghi e a mezza altezza, pensati per photo orizzontali/panoramiche */
         .tile-3 { grid-column: 3 / 6; grid-row: 1 / 2; }
         .tile-4 { grid-column: 3 / 5; grid-row: 2 / 3; }
         .tile-5 { grid-column: 5 / 6; grid-row: 2 / 3; }
@@ -104,7 +104,7 @@
         /* Blocco del Singolo Giorno */
         .day-block { display: block; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; }
 
-        /* Header orizzontale e centrato in cima al giorno: GIORNO -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
+        /* Header orizzontale e centrato in cima al giorno: DAY -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
         .day-sticky { position: static; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; text-align: center; gap: 8px 40px; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,0.08); }
         .day-sticky > .day-number, .day-sticky > .day-title, .day-sticky > .day-date { flex: 0 0 auto; }
         .day-number { order: 1; font-size: 1.3rem; font-weight: 700; letter-spacing: 1.5px; color: #ffffff; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; background: rgba(255,255,255,0.06); }
@@ -136,7 +136,7 @@
         .day-route-stop:hover .day-route-sublabel { fill: rgba(255, 255, 255, 0.55); }
         .detail-item { font-size: 0.75rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
 
-        /* Struttura delle righe flex per le foto del diario (generate da auto-layout.js) */
+        /* Struttura delle righe flex per le photo del diario (generate da auto-layout.js) */
         .universal-media-wrapper { display: flex; flex-direction: column; gap: 20px; margin-top: 15px; width: 100%; }
         .universal-flex-row { display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; flex-wrap: wrap; }
 
@@ -167,7 +167,7 @@
         .youtube-popup-close { position: absolute; top: -40px; right: 0; color: rgba(255, 255, 255, 0.6); font-size: 2rem; font-family: Arial, sans-serif; cursor: pointer; line-height: 1; user-select: none; transition: color 0.2s ease; }
         .youtube-popup-close:hover { color: #ffffff; }
 
-        /* Didascalia foto (prima era uno style inline ripetuto su ogni figcaption) */
+        /* Didascalia photo (prima era uno style inline ripetuto su ogni figcaption) */
         .photo-caption { font-size: 1rem; line-height: 1.45; color: rgba(255, 255, 255, 0.7); margin-top: 12px; font-style: italic; text-align: center; }
 
         .size-verticale { width: 180px; }
@@ -181,7 +181,7 @@
         .site-footer { max-width: 1100px; width: calc(100% - 80px); margin: 60px auto 20px auto; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
         .footer-copyright { font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
-        /* Torna all'inizio / Torna alla Home */
+        /* Back to top / Back to Home */
         .end-nav { max-width: 1100px; width: calc(100% - 80px); margin: 40px auto 0 auto; display: flex; gap: 30px; justify-content: center; }
         .end-nav-link { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: color 0.2s ease; }
         .end-nav-link:hover { color: #ffffff; }
@@ -239,7 +239,7 @@
             .lightbox-prev, .lightbox-next { font-size: 2rem; padding: 10px; }
             .lightbox-prev { left: 5px; } .lightbox-next { right: 5px; }
         }
-        /* ===== ANTEPRIMA BIS: diario fotografico coordinato ===== */
+        /* ===== ANTEPRIMA BIS: diario photografico coordinato ===== */
         :root { --brand-blue:#063b67; --brand-navy:#061521; --brand-orange:#e77928; --brand-sand:#f4bd67; }
         body { background-color:#06131c; background-image:radial-gradient(circle at 50% 0,rgba(9,55,83,.2),transparent 28%); }
         .trip-banner { height:440px; border-bottom:1px solid rgba(231,121,40,.55); }
@@ -288,21 +288,21 @@
 </head>
 <body>
 <div class="back-nav">
-<a class="back-link" href="index.html">
+<a class="back-link" href="index-en.html">
 <svg viewbox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"></path></svg>
-            Torna alla Home
+            Back to Home
         </a>
 </div>
 <header class="trip-banner" id="top">
-<a class="language-switch" href="arizona25-en.html" lang="en">ENGLISH</a>
-<a class="trip-brand" href="index.html" aria-label="Torna alla Home"><img src="logo-danontheroad-nuovo-pulito.png" alt="Dan on the Road"></a>
-<img class="trip-banner-static" src="ARIZONA25/FOTO/20250824_092552.jpg" alt="Panorama del Grand Canyon">
+<a class="language-switch" href="arizona25.html" lang="it">ITALIANO</a>
+<a class="trip-brand" href="index-en.html" aria-label="Back to Home"><img src="logo-danontheroad-nuovo-pulito.png" alt="Dan on the Road"></a>
+<img class="trip-banner-static" src="ARIZONA25/FOTO/20250824_092552.jpg" alt="Grand Canyon panorama">
 <div class="trip-banner-overlay"></div>
 <div class="trip-banner-text">
 <h1>Arizona 2025</h1>
-<div class="meta-info">Diario di Viaggio / OTR Arizona Agosto 2025</div>
+<div class="meta-info">Travel Diary / Arizona Road Trip · August 2025</div>
 <div class="trip-recap">
-<div class="trip-recap-title">Il viaggio, tappa dopo tappa</div>
+<div class="trip-recap-title">The journey, stop by stop</div>
 <div class="trip-recap-route">
 <span class="trip-recap-place">Phoenix</span><span class="trip-recap-arrow">→</span>
 <span class="trip-recap-place">Scottsdale</span><span class="trip-recap-arrow">→</span>
@@ -323,15 +323,15 @@
     <aside class="facebook-invite" aria-label="Facebook" style="max-width:760px;width:calc(100% - 32px);margin:18px auto;box-sizing:border-box;">
         <a href="https://www.facebook.com/profile.php?id=61593659232613" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid rgba(255,255,255,.16);border-radius:11px;background:rgba(12,13,14,.72);color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.22);backdrop-filter:blur(5px);">
             <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;flex:0 0 24px;fill:#1877f2;"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073z"/></svg>
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Seguimi anche su Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Foto sparse, luoghi, ricordi e curiosità di viaggio. La pagina è appena nata: lavori in corso!</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Follow me on Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Travel photos, places, memories and curiosities. The page is brand new: work in progress!</span></span>
         </a>
-    </aside>    <div class="community-actions" aria-label="Contatti e Guestbook" style="max-width:760px;width:calc(100% - 32px);margin:-6px auto 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:10px;box-sizing:border-box;">
+    </aside>    <div class="community-actions" aria-label="Contact and Guestbook" style="max-width:760px;width:calc(100% - 32px);margin:-6px auto 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:10px;box-sizing:border-box;">
         <a href="contatti.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Scrivimi in privato</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Domande sui viaggi o suggerimenti.</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Send me a message</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Questions about my trips or suggestions.</span></span>
             <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
         </a>
         <a href="guestbook.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Firma il Guestbook</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Lascia un saluto visibile a tutti.</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Sign the Guestbook</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Leave a message for everyone to see.</span></span>
             <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
         </a>
     </div>
@@ -340,38 +340,38 @@
 
 <div class="structural-line"></div>
 <div class="timeline-container">
-<!-- ================= GIORNO 01 ================= -->
+<!-- ================= DAY 01 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 01</div>
+<div class="day-number">DAY 01</div>
 <div class="day-title">Phoenix / Scottsdale</div>
-<div class="day-date">Martedì 19 Ago</div>
+<div class="day-date">Tuesday 19 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Scottsdale</span>40°C · 370 m</div>
 </div>
 <div class="day-route" id="giorno1-route"></div><div class="day-details">
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Pinnacle Peak Trail</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 94 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 11,5 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 94 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 11,5 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    L'avventura in Arizona prende ufficialmente il via alle 12:50 con l'atterraggio all'aeroporto Sky Harbor di Phoenix. Sbrigate le pratiche di rito e ritirata l'auto a noleggio, guidiamo verso Scottsdale per un rapidissimo check-in in hotel intorno alle 14:30. Giusto il tempo di sistemare i bagagli e siamo pronti a sfidare le temperature del deserto: ci dirigiamo subito al Pinnacle Peak Trail per la prima escursione del viaggio. Il percorso si snoda tra enormi massi granitici e spettacolari cactus Saguaro, regalandoci scorci panoramici pazzeschi sulla vallata circostante.
+                    Our Arizona adventure officially begins at 12:50 p.m. when we land at Phoenix Sky Harbor Airport. After collecting our rental car and making a very quick hotel check-in in Scottsdale, we head straight to Pinnacle Peak Trail. Huge granite boulders, towering saguaros and sweeping views over the valley make this the perfect first hike.
                 </p>
-<div class="universal-media-wrapper" id="giorno1-foto-a"></div>
+<div class="universal-media-wrapper" id="giorno1-photo-a"></div>
 <p class="day-text">
-                    Dopo una rigenerante doccia in hotel, concludiamo questa splendida anche se torrida giornata a Old Town Scottsdale: una suggestiva passeggiata serale tra negozi storici, saloon e la caratteristica Old Adobe Mission, immersi nel piacevole e intenso calore della notte dell'Arizona che segna ancora ben 32 gradi.
+                    After a refreshing shower, we end this beautiful but scorching day in Old Town Scottsdale, strolling among historic shops, saloons and the distinctive Old Adobe Mission while the Arizona night still holds at 32°C.
                 </p>
-<div class="universal-media-wrapper" id="giorno1-foto-b"></div>
+<div class="universal-media-wrapper" id="giorno1-photo-b"></div>
 </div>
 </article>
-<!-- ================= GIORNO 02 ================= -->
+<!-- ================= DAY 02 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 02</div>
+<div class="day-number">DAY 02</div>
 <div class="day-title">Scottsdale / Saguaro / Tombstone / Scottsdale</div>
-<div class="day-date">Mercoledì 20 Ago</div>
+<div class="day-date">Wednesday 20 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Scottsdale</span>40°C · 370 m</div>
 <div class="day-stat-item"><span class="stat-name">Saguaro National Park</span>38°C · 820 m</div>
@@ -379,28 +379,28 @@
 </div>
 <div class="day-route" id="giorno2-route"></div><div class="day-details">
 
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, faceva troppo caldo!</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 520 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 8,5 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Hiking:</strong> none—it was far too hot!</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 520 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 8,5 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    La seconda giornata in Arizona si svolge lasciando Scottsdale la mattina presto e puntando verso sud in direzione del Saguaro National Park. Qui veniamo avvolti da una foresta infinita di cactus giganti che si stagliano contro il cielo desertico, sfidando un caldo torrido con temperature che sfiorano i 40 gradi. Lungo le strade isolate e infinite, l'orizzonte è interrotto soltanto dalle caratteristiche e solitarie cassette delle lettere rurali poste sul ciglio della carreggiata, sospese nel nulla e senza alcuna casa in vista.
+                    We leave Scottsdale early and drive south to Saguaro National Park, surrounded by an endless forest of giant cacti beneath the desert sky. Along the isolated roads, rows of rural mailboxes appear in the middle of nowhere, with no houses in sight.
                 </p>
-<div class="universal-media-wrapper" id="giorno2-foto-a"></div>
+<div class="universal-media-wrapper" id="giorno2-photo-a"></div>
 <p class="day-text">
-                    Proseguiamo poi verso la leggendaria Tombstone. Al nostro arrivo, una pioggia improvvisa bagna le strade polverose della città-simbolo del West, regalando alle storiche facciate in legno un'atmosfera ancora più suggestiva, cupa e incredibilmente realistica. Dopo aver respirato la storia della frontiera, ci concediamo un caffè in un locale tipico ricavato da un vecchio saloon. Per fortuna, questa volta, niente pistoleri!
+                    We continue to legendary Tombstone. A sudden shower darkens the dusty streets and wooden façades, making the Old West setting feel even more authentic. After exploring the town, we stop for coffee in a former saloon—fortunately, with no gunfighters in sight.
                 </p>
-<div class="universal-media-wrapper" id="giorno2-foto-b"></div>
+<div class="universal-media-wrapper" id="giorno2-photo-b"></div>
 </div>
 </article>
-<!-- ================= GIORNO 03 ================= -->
+<!-- ================= DAY 03 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 03</div>
+<div class="day-number">DAY 03</div>
 <div class="day-title">Scottsdale / Sedona</div>
-<div class="day-date">Giovedì 21 Ago</div>
+<div class="day-date">Thursday 21 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Scottsdale</span>40°C · 370 m</div>
 <div class="day-stat-item"><span class="stat-name">Sedona</span>33°C · 1.330 m</div>
@@ -408,57 +408,57 @@
 <div class="day-route" id="giorno3-route"></div><div class="day-details">
 
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Cathedral Rock Trail</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 210 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 6,5 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 210 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 6,5 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    Lasciamo definitivamente Scottsdale alle spalle per dirigerci verso nord, dove il paesaggio cambia drasticamente cedendo il passo alle leggendarie e imponenti rocce rosse di Sedona, cittadina che ci ha letteralmente affascinato. La nostra prima tappa è la suggestiva Chapel of the Holy Cross, una chiesa unica nel suo genere, letteralmente incastonata nei monoliti di pietra arenaria che regala una vista spirituale e panoramica sulla vallata. Subito dopo ci aspetta la sfida più intensa della giornata: il Cathedral Rock Trail. Una scalata ripida e tecnica sulla roccia viva che ci mette a dura prova, ma la fatica scompare una volta raggiunta la sella panoramica tra le gigantesche guglie rosse.
+                    Leaving Scottsdale behind, we drive north as the landscape gives way to Sedona's monumental red rocks. We visit the Chapel of the Holy Cross and then tackle the steep, technical Cathedral Rock Trail. The climb is demanding, but the panoramic saddle between the red spires rewards every effort.
                 </p>
-<div class="universal-media-wrapper" id="giorno3-foto-a"></div>
+<div class="universal-media-wrapper" id="giorno3-photo-a"></div>
 <p class="day-text">
-                    Nel pomeriggio ci concediamo un po' di meritato relax a Tlaquepaque Arts &amp; Shopping Outdoor Village: un incantevole angolo in stile tradizionale messicano dove passeggiamo tra cortili alberati, fontane zampillanti, archi in pietra e botteghe di artisti locali, senza disdegnare un simpatico e squisito cupcake a forma di cactus.
+                    In the afternoon we relax at Tlaquepaque Arts & Shopping Village, wandering through shady courtyards, fountains, stone arches and local artists' shops—and enjoying a delicious cactus-shaped cupcake.
                 </p>
-<div class="universal-media-wrapper" id="giorno3-foto-b"></div>
+<div class="universal-media-wrapper" id="giorno3-photo-b"></div>
 </div>
 </article>
-<!-- ================= GIORNO 04 ================= -->
+<!-- ================= DAY 04 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 04</div>
+<div class="day-number">DAY 04</div>
 <div class="day-title">Sedona</div>
-<div class="day-date">Venerdì 22 Ago</div>
+<div class="day-date">Friday 22 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Sedona</span>33°C · 1.330 m</div>
 </div>
 <div class="day-route" id="giorno4-route"></div><div class="day-details">
 
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Subway Cave &amp; Airport Mesa Loop</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 27 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 14,6 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 27 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 14,6 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    Una giornata interamente dedicata all'esplorazione dei sentieri più selvaggi e spettacolari di Sedona. Iniziamo la mattinata percorrendo la Boynton Pass Road, immersi in un paesaggio di roccia rossa che lascia senza fiato. Il Subway Cave Trail non è affatto semplice da trovare: si tratta di una deviazione nascosta lungo il Boynton Canyon Trail, ma alla fine riusciamo a individuarla e la fatica viene ampiamente ripagata. Davanti a noi si apre una spettacolare conformazione rocciosa che ricorda un vero e proprio tunnel sotterraneo.
+                    A full day is devoted to Sedona's wildest trails. The hidden turnoff to Subway Cave is not easy to find along Boynton Canyon Trail, but the striking tunnel-shaped rock formation makes the effort worthwhile.
                 </p>
 <p class="day-text">
-                    Il clima del deserto non dà tregua: fa così caldo che il sudore sembra evaporare all'istante sulla pelle, lasciando una costante sensazione di calore secco e intenso. Per fortuna, parte del sentiero corre all'ombra, immerso nella quiete della Coconino National Forest. Lungo il cammino abbiamo anche la fortuna di avvistare uno splendido Western Bluebird, che con il suo piumaggio spicca tra la vegetazione arida e i colori caldi del paesaggio.
+                    The desert heat is relentless, although parts of the trail run through the welcome shade of Coconino National Forest. Along the way we are lucky enough to spot a beautiful Western Bluebird among the warm colours of the landscape.
                 </p>
-<div class="universal-media-wrapper" id="giorno4-foto-a"></div>
+<div class="universal-media-wrapper" id="giorno4-photo-a"></div>
 <p class="day-text">
-                    Concludiamo questa intensa giornata affrontando l'Airport Mesa Loop Trail giusto in tempo per goderci lo spettacolo del tramonto, ammirando le vallate incendiate dagli ultimi raggi di luce. A questo punto avevamo già una voglia matta di "pizza", dopo 4 giorni di soli piatti tex-mex e barbecue.
+                    We finish the day on Airport Mesa Loop Trail in time for sunset, watching the last light set Sedona's valleys ablaze. By then, after four days of Tex-Mex and barbecue, we are desperately craving pizza.
                 </p>
-<div class="universal-media-wrapper" id="giorno4-foto-b"></div>
+<div class="universal-media-wrapper" id="giorno4-photo-b"></div>
 </div>
 </article>
-<!-- ================= GIORNO 05 ================= -->
+<!-- ================= DAY 05 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 05</div>
+<div class="day-number">DAY 05</div>
 <div class="day-title">Sedona / Williams / Grand Canyon</div>
-<div class="day-date">Sabato 23 Ago</div>
+<div class="day-date">Saturday 23 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Sedona</span>33°C · 1.330 m</div>
 <div class="day-stat-item"><span class="stat-name">Williams</span>28°C · 2.020 m</div>
@@ -467,54 +467,54 @@
 <div class="day-route" id="giorno5-route"></div><div class="day-details">
 
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Soldier Pass Trail &amp; Grand Canyon South Rim Trail</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 190 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 17,0 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 190 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 17,0 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    Prima di lasciare Sedona ci concediamo un ultimo trail: il Soldier Pass Trail, dove incontriamo un affascinante sinkhole, il Devil's Kitchen, e le suggestive Seven Sacred Pools, piccole vasche scavate nella roccia dall'erosione.
+                    Before leaving Sedona we hike Soldier Pass Trail, encountering the Devil's Kitchen sinkhole and the Seven Sacred Pools, small basins carved into the rock by erosion.
                 </p>
-<div class="universal-media-wrapper" id="giorno5-foto-a"></div>
+<div class="universal-media-wrapper" id="giorno5-photo-a"></div>
 <p class="day-text">
-                    Lasciamo la splendida Sedona per metterci in viaggio verso nord, facendo una sosta memorabile a Williams, celebre e storica cittadina situata lungo la leggendaria Route 66. Qui respiriamo a pieno l'atmosfera vintage americana tra vecchi distributori di benzina, insegne al neon d'epoca e negozi ricchi di cimeli storici della "Mother Road". Successivamente il viaggio riprende attraversando i fitti e suggestivi boschi della Kaibab National Forest, un panorama montano inaspettato che spezza la linea arida del deserto.
+                    We then drive north to Williams, a historic Route 66 town filled with vintage gas stations, neon signs and Mother Road memorabilia. Beyond town, the dense forests of Kaibab National Forest provide an unexpected mountain landscape.
                 </p>
-<div class="universal-media-wrapper" id="giorno5-foto-b"></div>
+<div class="universal-media-wrapper" id="giorno5-photo-b"></div>
 <p class="day-text">
-                    Nel pomeriggio raggiungiamo finalmente la nostra meta principale: il South Rim del Grand Canyon. Iniziamo subito a percorrere il maestoso South Rim Trail a piedi; camminare lungo il cornicione mentre il canyon si apre in tutta la sua infinita e drammatica immensità è un'esperienza che lascia senza fiato e che ci accompagna fino al celebre belvedere di Mather Point. Per la notte alloggiamo in un suggestivo albergo situato direttamente dentro il parco, una struttura affascinante e intrisa di storia posizionata a pochissimi passi dal bordo del canyon, che ci permette di respirare la magia di questo luogo anche sotto il cielo stellato.
+                    In the afternoon we finally reach the Grand Canyon's South Rim. Walking along the rim towards Mather Point, the canyon opens before us in all its immense drama. We spend the night inside the park, only steps from the edge and beneath an unforgettable starry sky.
                 </p>
-<div class="universal-media-wrapper" id="giorno5-foto-c"></div>
+<div class="universal-media-wrapper" id="giorno5-photo-c"></div>
 </div>
 </article>
-<!-- ================= GIORNO 06 ================= -->
+<!-- ================= DAY 06 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 06</div>
+<div class="day-number">DAY 06</div>
 <div class="day-title">Grand Canyon South Rim</div>
-<div class="day-date">Domenica 24 Ago</div>
+<div class="day-date">Sunday 24 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Grand Canyon South Rim</span>27°C · 2.100 m</div>
 </div>
 <div class="day-route" id="giorno6-route"></div><div class="day-details">
 
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> South Rim Trail</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 0 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 15,1 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 0 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 15,1 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    Un risveglio magico dà il via a una giornata indimenticabile: nel parcheggio, un cervo e i suoi cerbiatti ci accolgono regalandoci un tenero spettacolo mattutino. Subito dopo ci attende il South Rim del Grand Canyon, a cui dedichiamo l'intera giornata, camminando lungo il cornicione e lasciandoci incantare dai suoi infiniti belvedere. Per cena restiamo direttamente nel cuore del parco, ma è la notte che ci regala l'emozione più grande. Una di quelle notti che restano impresse nella memoria: il buio diventa assoluto, privo di qualsiasi inquinamento luminoso, e quando il cielo si copre di nuvole si scopre il significato del silenzio e dell'oscurità più profonda.
+                    A deer and her fawns welcome us in the car park at the start of an unforgettable day. We devote the day to the South Rim and its viewpoints. After dinner inside the park, absolute darkness and silence reveal the true magic of a night without light pollution.
                 </p>
-<div class="universal-media-wrapper" id="giorno6-foto"></div>
+<div class="universal-media-wrapper" id="giorno6-photo"></div>
 </div>
 </article>
-<!-- ================= GIORNO 07 ================= -->
+<!-- ================= DAY 07 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 07</div>
+<div class="day-number">DAY 07</div>
 <div class="day-title">Grand Canyon / Page</div>
-<div class="day-date">Lunedì 25 Ago</div>
+<div class="day-date">Monday 25 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Grand Canyon South Rim</span>27°C · 2.100 m</div>
 <div class="day-stat-item"><span class="stat-name">Page</span>38°C · 1.300 m</div>
@@ -522,27 +522,27 @@
 <div class="day-route" id="giorno7-route"></div><div class="day-details">
 
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Antelope X &amp; Horseshoe Bend</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 480 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 13,7 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 480 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 13,7 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    La giornata inizia con una magia: sveglia presto per godersi l'alba al Mather Point, resa ancora più speciale dalla compagnia di uno scoiattolo decisamente vanitoso che continua a mettersi in posa per noi. Salutiamo a malincuore le meraviglie del Grand Canyon e ci mettiamo alla guida, ripercorrendo la splendida Desert View Drive, la strada panoramica immersa nella Kaibab National Forest.
+                    We wake early for sunrise at Mather Point, made even more memorable by a very photogenic squirrel. We reluctantly leave the Grand Canyon and follow Desert View Drive through Kaibab National Forest.
                 </p>
-<div class="universal-media-wrapper" id="giorno7-foto-a"></div>
+<div class="universal-media-wrapper" id="giorno7-photo-a"></div>
 <p class="day-text">
-                    Chilometro dopo chilometro, gli alberi lasciano il passo a scenari più aridi e desertici, mentre ci dirigiamo decisi verso Page, percorrendo la desolata US-89. Nonostante un cielo carico e minaccioso che rende l'atmosfera quasi surreale, riusciamo a esplorare le spettacolari curve dell'Antelope Canyon X e a sporgerci davanti all'immensità di Horseshoe Bend. Chiudiamo in bellezza la giornata con una cena da Big John's Texas BBQ, un cult assoluto della zona: la fila all'ingresso è chilometrica ma scorre veloce, e una volta dentro la fatica scompare grazie al profumo del barbecue e alle note della musica country dal vivo. Una tappa obbligatoria, un vero rito di passaggio per chiunque visiti la città!
+                    The trees gradually give way to arid scenery as we follow US-89 towards Page. Despite threatening skies, we explore the sculpted curves of Antelope Canyon X and stand above the vast Horseshoe Bend. Dinner at Big John's Texas BBQ, with live country music, provides the perfect ending.
                 </p>
-<div class="universal-media-wrapper" id="giorno7-foto-b"></div>
+<div class="universal-media-wrapper" id="giorno7-photo-b"></div>
 </div>
 </article>
-<!-- ================= GIORNO 08 ================= -->
+<!-- ================= DAY 08 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 08</div>
+<div class="day-number">DAY 08</div>
 <div class="day-title">Page / Monument Valley</div>
-<div class="day-date">Martedì 26 Ago</div>
+<div class="day-date">Tuesday 26 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Page</span>38°C · 1.300 m</div>
 <div class="day-stat-item"><span class="stat-name">Monument Valley</span>33°C · 1.740 m</div>
@@ -550,78 +550,78 @@
 <div class="day-route" id="giorno8-route"></div><div class="day-details">
 
 <div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> Monument Valley Loop</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 200 km</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">A piedi:</strong> 12,2 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 200 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">On foot:</strong> 12,2 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    Partiti da Page sotto una bella luce, arriviamo alla Monument Valley con un cielo nuvoloso che prometteva pioggia. All'improvviso ci troviamo nel bel mezzo di un flash flood a bordo della nostra jeep aperta: un po' spaventati, visto che le strade si erano trasformate in fiumi, ma la guida se la ride e ci calmiamo anche noi. Torniamo in hotel completamente zuppi fino alle mutande, ma siamo al The View Hotel, con uno spettacolo talmente incredibile da farci dimenticare subito di essere fradici.
+                    Leaving Page in beautiful light, we reach Monument Valley beneath rain-heavy clouds. A sudden flash flood catches us in an open jeep and turns the tracks into streams. We return soaked to The View Hotel, where the extraordinary panorama makes us forget everything else.
                 </p>
-<div class="universal-media-wrapper" id="giorno8-foto"></div>
+<div class="universal-media-wrapper" id="giorno8-photo"></div>
 </div>
 </article>
-<!-- ================= GIORNO 09 ================= -->
+<!-- ================= DAY 09 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 09</div>
+<div class="day-number">DAY 09</div>
 <div class="day-title">Monument Valley / Scottsdale</div>
-<div class="day-date">Mercoledì 27 Ago</div>
+<div class="day-date">Wednesday 27 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Monument Valley</span>33°C · 1.740 m</div>
 <div class="day-stat-item"><span class="stat-name">Scottsdale</span>40°C · 370 m</div>
 </div>
 <div class="day-route" id="giorno9-route"></div><div class="day-details">
 
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, giornata di viaggio</div>
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">In auto:</strong> 530 km</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Hiking:</strong> none—travel day</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">By car:</strong> 530 km</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    Ci svegliamo con l'alba vista dalla terrazza dell'hotel: nonostante il cielo nuvoloso resta uno spettacolo. Poi lasciamo la Monument Valley per l'ultimo lungo tragitto in auto, 530 km fino a Scottsdale, dove trascorriamo l'ultima notte del viaggio, un po' preoccupati per il clima che ci aspetta tornando a Phoenix.
+                    We watch sunrise from the hotel terrace before leaving Monument Valley for the long 530-kilometre drive back to Scottsdale, where we spend the final night of the trip.
                 </p>
-<div class="universal-media-wrapper" id="giorno9-foto"></div>
+<div class="universal-media-wrapper" id="giorno9-photo"></div>
 </div>
 </article>
-<!-- ================= GIORNO 10 ================= -->
+<!-- ================= DAY 10 ================= -->
 <article class="day-block">
 <div class="day-sticky">
-<div class="day-number">GIORNO 10</div>
-<div class="day-title">Scottsdale / Rientro in Italia</div>
-<div class="day-date">Giovedì 28 - Venerdì 29 Ago</div>
+<div class="day-number">DAY 10</div>
+<div class="day-title">Scottsdale / Return to Italy</div>
+<div class="day-date">Thursday 28 - Friday 29 Aug</div>
 <div class="day-stats">
 <div class="day-stat-item"><span class="stat-name">Scottsdale</span>40°C · 370 m</div>
-<div class="day-stat-item"><span class="stat-name">Scalo a Parigi</span>25°C · 35 m</div>
+<div class="day-stat-item"><span class="stat-name">Paris layover</span>25°C · 35 m</div>
 </div>
 <div class="day-route" id="giorno10-route"></div><div class="day-details">
 
-<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Trekking:</strong> nessuno, giornata di viaggio</div>
+<div class="detail-item"><strong style="color: #fff; font-weight: 600;">Hiking:</strong> none—travel day</div>
 </div></div>
 <div class="day-content">
 
 <p class="day-text">
-                    L'ultima colazione, poi si preparano le valigie e si sale in aereo: si parte da Phoenix con uno scalo a Parigi lungo il tragitto di rientro, prima di atterrare finalmente in Italia il giorno seguente. Scende la solita lacrimuccia da fine viaggio: siamo tristi ma immensamente grati. Siamo stati fortunati a vedere tanta bellezza e, dopotutto, sappiamo bene che questo non sarà l'ultimo viaggio.
+                    After our last breakfast, we pack and fly from Phoenix, connecting in Paris before landing in Italy the following day. The usual end-of-trip tear appears, but gratitude wins: we have seen extraordinary beauty and know this will not be our last journey.
                 </p>
-<div class="universal-media-wrapper" id="giorno10-foto"></div>
+<div class="universal-media-wrapper" id="giorno10-photo"></div>
 </div>
 </article>
 </div> <!-- Chiusura timeline-container -->
 <!-- ================= MAPPA DEL VIAGGIO ================= -->
 <section class="trip-map-section">
-<div class="trip-map-title">Il percorso completo</div>
-<div class="trip-map-subtitle">11 giorni on the road tra deserto, canyon e rocce rosse</div>
+<div class="trip-map-title">The complete route</div>
+<div class="trip-map-subtitle">11 days on the road through deserts, canyons and red rocks</div>
 <div id="trip-map"></div>
 </section>
 <!-- ================= TORNA SU / TORNA ALLA HOME ================= -->
 <div class="end-nav">
 <a class="end-nav-link" href="#top">
 <svg viewbox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
-            Torna all'inizio
+            Back to top
         </a>
-<a class="end-nav-link" href="index.html">
+<a class="end-nav-link" href="index-en.html">
 <svg viewbox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"></path></svg>
-            Torna alla Home
+            Back to Home
         </a>
 </div><footer class="site-footer">
 <div class="footer-copyright">
@@ -653,149 +653,149 @@
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" id="youtube-popup-iframe" referrerpolicy="strict-origin-when-cross-origin" src=""></iframe>
 </div>
 </div>
-<!-- auto-layout.js impacchetta le foto di ogni giorno in righe (max 4, senza sforare la larghezza) -->
+<!-- auto-layout.js impacchetta le photo di ogni giorno in righe (max 4, senza sforare la larghezza) -->
 <script src="auto-layout.js"></script>
 <script>
-        // ===== GIORNO 01 =====
-        renderPhotoDay('#giorno1-foto-a', [
-            { src: 'ARIZONA25/FOTO/20250819_163549.jpg', alt: 'Pinnacle Peak Trail', caption: 'Pinnacle Peak Trail — tra montagne e cactus', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250819_164436.jpg', alt: 'Pinnacle Peak Trail', caption: 'Un grande saguaro lungo il Pinnacle Peak Trail', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250819_165348.jpg', alt: 'Pinnacle Peak Trail', caption: 'La vallata osservata dal Pinnacle Peak Trail', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250819_170142.jpg', alt: 'Pinnacle Peak Trail', caption: 'Cactus e rocce lungo il sentiero', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250819_170158.jpg', alt: 'Pinnacle Peak Trail', caption: 'Il tramonto tra i saguaro di Pinnacle Peak', orientation: 'verticale' }
+        // ===== DAY 01 =====
+        renderPhotoDay('#giorno1-photo-a', [
+            { src: 'ARIZONA25/FOTO/20250819_163549.jpg', alt: 'Pinnacle Peak Trail', caption: 'Pinnacle Peak Trail — among mountains and cacti', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250819_164436.jpg', alt: 'Pinnacle Peak Trail', caption: 'A giant saguaro along Pinnacle Peak Trail', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250819_165348.jpg', alt: 'Pinnacle Peak Trail', caption: 'The valley seen from Pinnacle Peak Trail', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250819_170142.jpg', alt: 'Pinnacle Peak Trail', caption: 'Cacti and rocks along the trail', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250819_170158.jpg', alt: 'Pinnacle Peak Trail', caption: 'Sunset among the saguaros of Pinnacle Peak', orientation: 'verticale' }
         ]);
-        renderPhotoDay('#giorno1-foto-b', [
-            { src: 'ARIZONA25/FOTO/20250819_190456.jpg', alt: 'Old Town Scottsdale', caption: 'Old Town Scottsdale — il fascino western nel cuore della città', orientation: 'verticale' },
+        renderPhotoDay('#giorno1-photo-b', [
+            { src: 'ARIZONA25/FOTO/20250819_190456.jpg', alt: 'Old Town Scottsdale', caption: 'Old Town Scottsdale — Wild West charm in the heart of the city', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250819_190704.jpg', alt: 'Old Adobe Mission', caption: 'Old Adobe Mission', orientation: 'orizzontale' }
         ]);
 
-        // ===== GIORNO 02 =====
-        renderPhotoDay('#giorno2-foto-a', [
-            { src: 'ARIZONA25/FOTO/20250820_102307.jpg', alt: 'Saguaro National Park', caption: 'Gli avvoltoi del Saguaro National Park', orientation: 'verticale' },
+        // ===== DAY 02 =====
+        renderPhotoDay('#giorno2-photo-a', [
+            { src: 'ARIZONA25/FOTO/20250820_102307.jpg', alt: 'Saguaro National Park', caption: 'Turkey vultures in Saguaro National Park', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250820_102903.jpg', alt: 'Desert Mailboxes', caption: 'Desert Mailboxes', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250820_110114.jpg', alt: 'Saguaro National Park', caption: 'Un saguaro monumentale nel deserto', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250820_111025.jpg', alt: 'Saguaro National Park', caption: 'Cactus protesi verso il cielo dell’Arizona', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250820_105740.jpg', alt: 'Saguaro National Park', caption: 'Il paesaggio del Saguaro National Park', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250820_110615.jpg', alt: 'Avvoltoio dalla testa rossa', caption: 'Avvoltoio dalla testa rossa', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250820_111431.jpg', alt: 'Saguaro National Park', caption: 'Sentieri tra i cactus giganti', orientation: 'orizzontale' }
+            { src: 'ARIZONA25/FOTO/20250820_110114.jpg', alt: 'Saguaro National Park', caption: 'A monumental saguaro in the desert', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250820_111025.jpg', alt: 'Saguaro National Park', caption: 'Cacti reaching towards the Arizona sky', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250820_105740.jpg', alt: 'Saguaro National Park', caption: 'The landscape of Saguaro National Park', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250820_110615.jpg', alt: 'Turkey vulture', caption: 'A turkey vulture above the Sonoran Desert', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250820_111431.jpg', alt: 'Saguaro National Park', caption: 'Trails among giant cacti', orientation: 'orizzontale' }
         ]);
-        renderPhotoDay('#giorno2-foto-b', [
-            { src: 'ARIZONA25/FOTO/20250820_143744.jpg', alt: 'Tombstone Western Town', caption: 'La diligenza di Tombstone sotto la pioggia', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250820_152133.jpg', alt: 'Tombstone Western Town', caption: 'L’Old West tra le strade di Tombstone', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250820_143835.jpg', alt: 'Tombstone', caption: 'I portici di Allen Street a Tombstone', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250820_150853.jpg', alt: 'Tombstone', caption: 'Allen Street dopo la pioggia', orientation: 'orizzontale' }
-        ]);
-
-        // ===== GIORNO 03 =====
-        renderPhotoDay('#giorno3-foto-a', [
-            { src: 'ARIZONA25/FOTO/20250821_113751.jpg', alt: 'Chapel of the Holy Cross', caption: 'La Chapel of the Holy Cross tra le rocce rosse', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250821_111619.jpg', alt: 'Chapel of the Holy Cross', caption: 'La vallata di Sedona vista dalla cappella', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250821_122917.jpg', alt: 'Cathedral Rock Trail', caption: 'Il panorama lungo il Cathedral Rock Trail', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250821_121632.jpg', alt: 'Cathedral Rock', caption: 'Cathedral Rock — l’icona rossa di Sedona', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250821_121537.jpg', alt: 'Cathedral Rock Trail', caption: 'L’imbocco del Cathedral Rock Trail', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250821_122914.jpg', alt: 'Cathedral Rock Trail', caption: 'Le rocce rosse viste dal Cathedral Rock Trail', orientation: 'orizzontale' }
-        ]);
-        renderPhotoDay('#giorno3-foto-b', [
-            { src: 'ARIZONA25/FOTO/20250821_160734.jpg', alt: 'Tlaquepaque Village', caption: 'I cortili verdi di Tlaquepaque Village', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250821_161147.jpg', alt: 'Tlaquepaque Village', caption: 'Cupcake a forma di cactus a Tlaquepaque', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250821_163031.jpg', alt: 'Tlaquepaque Village', caption: 'L’ingresso di Tlaquepaque Arts & Shopping Village', orientation: 'verticale' }
+        renderPhotoDay('#giorno2-photo-b', [
+            { src: 'ARIZONA25/FOTO/20250820_143744.jpg', alt: 'Tombstone Western Town', caption: 'Tombstone stagecoach in the rain', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250820_152133.jpg', alt: 'Tombstone Western Town', caption: 'The Old West along Tombstone streets', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250820_143835.jpg', alt: 'Tombstone', caption: 'Allen Street arcades in Tombstone', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250820_150853.jpg', alt: 'Tombstone', caption: 'Allen Street after the rain', orientation: 'orizzontale' }
         ]);
 
-        // ===== GIORNO 04 =====
-        renderPhotoDay('#giorno4-foto-a', [
+        // ===== DAY 03 =====
+        renderPhotoDay('#giorno3-photo-a', [
+            { src: 'ARIZONA25/FOTO/20250821_113751.jpg', alt: 'Chapel of the Holy Cross', caption: 'The Chapel of the Holy Cross among the red rocks', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250821_111619.jpg', alt: 'Chapel of the Holy Cross', caption: 'Sedona valley seen from the chapel', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250821_122917.jpg', alt: 'Cathedral Rock Trail', caption: 'The view along Cathedral Rock Trail', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250821_121632.jpg', alt: 'Cathedral Rock', caption: 'Cathedral Rock — Sedona’s red-rock icon', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250821_121537.jpg', alt: 'Cathedral Rock Trail', caption: 'The trailhead of Cathedral Rock Trail', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250821_122914.jpg', alt: 'Cathedral Rock Trail', caption: 'Red rocks seen from Cathedral Rock Trail', orientation: 'orizzontale' }
+        ]);
+        renderPhotoDay('#giorno3-photo-b', [
+            { src: 'ARIZONA25/FOTO/20250821_160734.jpg', alt: 'Tlaquepaque Village', caption: 'The green courtyards of Tlaquepaque Village', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250821_161147.jpg', alt: 'Tlaquepaque Village', caption: 'Cactus-shaped cupcake at Tlaquepaque', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250821_163031.jpg', alt: 'Tlaquepaque Village', caption: 'The entrance to Tlaquepaque Arts & Shopping Village', orientation: 'verticale' }
+        ]);
+
+        // ===== DAY 04 =====
+        renderPhotoDay('#giorno4-photo-a', [
             { src: 'ARIZONA25/FOTO/20250822_083446.jpg', alt: 'Boynton Pass Road', caption: 'Boynton Pass Road', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250822_103913.jpg', alt: 'Subway Cave Trail', caption: 'Subway Cave Trail — una grotta segreta tra le rocce', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250822_103913.jpg', alt: 'Subway Cave Trail', caption: 'Subway Cave Trail — a secret cave among the rocks', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250822_114454.jpg', alt: 'Western Bluebird', caption: 'Western Bluebird', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250822_084250.jpg', alt: 'Boynton Canyon Trail', caption: 'L’imbocco del Boynton Canyon Trail', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250822_085734.jpg', alt: 'Boynton Canyon Trail', caption: 'Sul sentiero del Boynton Canyon', orientation: 'verticale' }
+            { src: 'ARIZONA25/FOTO/20250822_084250.jpg', alt: 'Boynton Canyon Trail', caption: 'The trailhead of Boynton Canyon Trail', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250822_085734.jpg', alt: 'Boynton Canyon Trail', caption: 'Along Boynton Canyon Trail', orientation: 'verticale' }
         ]);
-        renderPhotoDay('#giorno4-foto-b', [
-            { src: 'ARIZONA25/FOTO/20250822_184454.jpg', alt: 'Airport Mesa Loop Trail', caption: 'La vallata di Sedona dall’Airport Mesa Loop', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250822_184846.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Bell Rock vista dall’Airport Mesa Loop', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250822_184057.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Il tramonto accende le rocce di Sedona', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250822_193503.jpg', alt: 'Sedona', caption: 'Sedona incorniciata dalla vegetazione', orientation: 'orizzontale' }
+        renderPhotoDay('#giorno4-photo-b', [
+            { src: 'ARIZONA25/FOTO/20250822_184454.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Sedona valley fromAirport Mesa Loop', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250822_184846.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Bell Rock seen fromAirport Mesa Loop', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250822_184057.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Sunset lights up Sedona’s rocks', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250822_193503.jpg', alt: 'Sedona', caption: 'Sedona framed by vegetation', orientation: 'orizzontale' }
         ]);
 
-        // ===== GIORNO 05 =====
-        renderPhotoDay('#giorno5-foto-a', [
-            { src: 'ARIZONA25/FOTO/20250823_084755.jpg', alt: 'Soldier Pass Trail', caption: 'Panorama lungo il Soldier Pass Trail', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_085717.jpg', alt: "Devil's Kitchen", caption: "Devil's Kitchen — la grande voragine di roccia", orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_092301.jpg', alt: 'Seven Sacred Pools', caption: 'Seven Sacred Pools — piccole piscine scolpite dalla natura', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_093544.jpg', alt: 'Soldier Pass Trail', caption: 'Soldier Pass Trail — avventura tra i segreti di Sedona', orientation: 'orizzontale' }
+        // ===== DAY 05 =====
+        renderPhotoDay('#giorno5-photo-a', [
+            { src: 'ARIZONA25/FOTO/20250823_084755.jpg', alt: 'Soldier Pass Trail', caption: 'Views along Soldier Pass Trail', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250823_085717.jpg', alt: "Devil's Kitchen", caption: "Devil's Kitchen — Sedona’s great rock sinkhole", orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250823_092301.jpg', alt: 'Seven Sacred Pools', caption: 'Seven Sacred Pools — small pools sculpted by nature', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250823_093544.jpg', alt: 'Soldier Pass Trail', caption: 'Soldier Pass Trail — exploring Sedona’s hidden corners', orientation: 'orizzontale' }
         ]);
-        renderPhotoDay('#giorno5-foto-b', [
-            { src: 'ARIZONA25/FOTO/20250823_111922.jpg', alt: 'Sedona', caption: 'Finalmente pizza a Sedona', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_132104.jpg', alt: 'Williams', caption: 'Il celebre cartello della Route 66 a Williams', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_145144.jpg', alt: 'Williams', caption: 'Un distributore vintage lungo la Route 66', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250823_150556.jpg', alt: 'Williams', caption: 'La porta d’ingresso di Williams sulla Route 66', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_155904.jpg', alt: 'Kaibab National Forest', caption: 'Kaibab National Forest — tra i pini verso il Grand Canyon', orientation: 'orizzontale' }
+        renderPhotoDay('#giorno5-photo-b', [
+            { src: 'ARIZONA25/FOTO/20250823_111922.jpg', alt: 'Sedona', caption: 'Pizza at last in Sedona', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250823_132104.jpg', alt: 'Williams', caption: 'The famous Route 66 sign in Williams', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250823_145144.jpg', alt: 'Williams', caption: 'A vintage gas station along Route 66', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250823_150556.jpg', alt: 'Williams', caption: 'Williams, gateway to Route 66', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250823_155904.jpg', alt: 'Kaibab National Forest', caption: 'Kaibab National Forest — through the pines towards the Grand Canyon', orientation: 'orizzontale' }
         ]);
-        renderPhotoDay('#giorno5-foto-c', [
-            { src: 'ARIZONA25/FOTO/20250825_092724.jpg', alt: 'Grand Canyon National Park', caption: 'Il Grand Canyon si apre davanti ai nostri occhi', orientation: 'verticale' },
+        renderPhotoDay('#giorno5-photo-c', [
+            { src: 'ARIZONA25/FOTO/20250825_092724.jpg', alt: 'Grand Canyon National Park', caption: 'The Grand Canyon opens before our eyes', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250823_183212.jpg', alt: 'South Rim Trail', caption: 'South Rim Trail — camminando sul bordo dell’infinito', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250823_184704.jpg', alt: 'Grand Canyon South Rim Trail', caption: 'Grand Canyon South Rim Trail', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250823_185859.jpg', alt: 'Mather Point Grand Canyon', caption: 'Mather Point Grand Canyon — il primo sguardo sull’immensità', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250824_092552.jpg', alt: 'Grand Canyon National Park', caption: 'L’immensità del Grand Canyon sotto un cielo mutevole', orientation: 'panoramica' }
+            { src: 'ARIZONA25/FOTO/20250823_185859.jpg', alt: 'Mather Point Grand Canyon', caption: 'Mather Point Grand Canyon — our first glimpse of immensity', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250824_092552.jpg', alt: 'Grand Canyon National Park', caption: 'The Grand Canyon beneath a changing sky', orientation: 'panoramica' }
         ]);
 
-        // ===== GIORNO 06 =====
-        renderPhotoDay('#giorno6-foto', [
-            { src: 'ARIZONA25/FOTO/20250824_081551.jpg', alt: 'South Rim Grand Canyon', caption: 'Il South Rim nelle prime ore del mattino', orientation: 'verticale' },
+        // ===== DAY 06 =====
+        renderPhotoDay('#giorno6-photo', [
+            { src: 'ARIZONA25/FOTO/20250824_081551.jpg', alt: 'South Rim Grand Canyon', caption: 'The South Rim in the early morning', orientation: 'verticale' },
             { type: 'youtube', videoId: '6XTUlYUtzMs', alt: 'Grand Canyon Village', caption: 'Grand Canyon Village', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250824_140814.jpg', alt: 'Navajo Point Grand Canyon', caption: 'Navajo Point Grand Canyon — orizzonti senza fine', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250824_083731.jpg', alt: 'South Rim Grand Canyon', caption: 'Camminando lungo il bordo del Grand Canyon', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250824_185250.jpg', alt: 'Hopi Point Grand Canyon', caption: 'Hopi Point Grand Canyon — il tramonto accende il canyon', orientation: 'orizzontale' }
+            { src: 'ARIZONA25/FOTO/20250824_140814.jpg', alt: 'Navajo Point Grand Canyon', caption: 'Navajo Point Grand Canyon — endless horizons', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250824_083731.jpg', alt: 'South Rim Grand Canyon', caption: 'Walking along the rim of the Grand Canyon', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250824_185250.jpg', alt: 'Hopi Point Grand Canyon', caption: 'Hopi Point Grand Canyon — sunset lights up the canyon', orientation: 'orizzontale' }
         ]);
 
-        // ===== GIORNO 07 =====
-        renderPhotoDay('#giorno7-foto-a', [
-            { type: 'youtube', videoId: 'xvCeEve_ync', alt: 'Scoiattolo a Mather Point', caption: 'Uno scoiattolo curioso in posa a Mather Point', orientation: 'verticale' },
+        // ===== DAY 07 =====
+        renderPhotoDay('#giorno7-photo-a', [
+            { type: 'youtube', videoId: 'xvCeEve_ync', alt: 'Squirrel at Mather Point', caption: 'A curious squirrel posing at Mather Point', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250824_185459.jpg', alt: 'Mather Point', caption: 'Mather Point', orientation: 'verticale' }
         ]);
-        renderPhotoDay('#giorno7-foto-b', [
+        renderPhotoDay('#giorno7-photo-b', [
             { src: 'ARIZONA25/FOTO/20250825_111511.jpg', alt: 'US-89', caption: 'US-89', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250825_130651.jpg', alt: 'Page', caption: 'Le curve di arenaria nei dintorni di Page', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250825_185626.jpg', alt: 'Horseshoe Bend', caption: 'Horseshoe Bend — il Colorado disegna la sua curva perfetta', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250825_190058.jpg', alt: 'Page', caption: 'Il cielo minaccioso sopra il deserto di Page', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250825_185626.jpg', alt: 'Horseshoe Bend', caption: 'Horseshoe Bend — the Colorado draws its perfect curve', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250825_190058.jpg', alt: 'Page', caption: 'Storm clouds over the desert near Page', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250825_163425.jpg', alt: 'Red Mesa', caption: 'Red Mesa', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250825_165152.jpg', alt: 'Antelope X', caption: 'La luce scolpisce le pareti di Antelope Canyon X', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250825_164710.jpg', alt: 'Antelope X', caption: 'Passaggi d’arenaria nell’Antelope Canyon X', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250825_165714.jpg', alt: 'Antelope X', caption: 'Forme e colori nel cuore di Antelope Canyon X', orientation: 'verticale' }
+            { src: 'ARIZONA25/FOTO/20250825_165152.jpg', alt: 'Antelope X', caption: 'Light sculpts the walls of Antelope Canyon X', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250825_164710.jpg', alt: 'Antelope X', caption: 'Sandstone passages insideAntelope Canyon X', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250825_165714.jpg', alt: 'Antelope X', caption: 'Shapes and colours inside Antelope Canyon X', orientation: 'verticale' }
         ]);
 
-        // ===== GIORNO 08 =====
-        renderPhotoDay('#giorno8-foto', [
-            { src: 'ARIZONA25/FOTO/20250826_112149.jpg', alt: 'Monument Valley', caption: 'Il primo sguardo sulla Monument Valley', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250826_134033.jpg', alt: 'Monument Valley', caption: 'I monoliti della Monument Valley', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250826_160426.jpg', alt: 'Monument Valley', caption: 'West Mitten Butte domina il deserto', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250826_112208.jpg', alt: 'Monument Valley', caption: 'La Monument Valley dal Visitor Center', orientation: 'panoramica' },
-            { src: 'ARIZONA25/FOTO/20250826_160118.jpg', alt: 'Monument Valley', caption: 'La pioggia avvolge le mesas', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250826_141658.jpg', alt: 'Monument Valley', caption: 'Incontro con la cultura Navajo', orientation: 'orizzontale' },
+        // ===== DAY 08 =====
+        renderPhotoDay('#giorno8-photo', [
+            { src: 'ARIZONA25/FOTO/20250826_112149.jpg', alt: 'Monument Valley', caption: 'Our first view of Monument Valley', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250826_134033.jpg', alt: 'Monument Valley', caption: 'The monoliths of Monument Valley', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250826_160426.jpg', alt: 'Monument Valley', caption: 'West Mitten Butte dominates the desert', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250826_112208.jpg', alt: 'Monument Valley', caption: 'Monument Valley from the Visitor Center', orientation: 'panoramica' },
+            { src: 'ARIZONA25/FOTO/20250826_160118.jpg', alt: 'Monument Valley', caption: 'Rain wraps around the mesas', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250826_141658.jpg', alt: 'Monument Valley', caption: 'Encounter with Navajo culture', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250826_143239.jpg', alt: 'Monument Valley', caption: 'John Ford Point nella Monument Valley', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250826_143922.jpg', alt: 'Monument Valley', caption: 'Un trading post nel cuore della valle', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250826_144040.jpg', alt: 'Monument Valley', caption: 'La Scenic Drive dopo il temporale', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250826_185851.jpg', alt: 'Monument Valley', caption: 'Il tramonto colora la Monument Valley', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250826_164840.jpg', alt: 'Monument Valley', caption: 'La Monument Valley dalla terrazza del The View', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250826-WA0047.jpg', alt: 'Monument Valley', caption: 'Le mesas sotto un cielo carico di nuvole', orientation: 'orizzontale' },
-            { type: 'youtube', videoId: 'SKD8PRu5bFY', alt: 'Monument Valley', caption: 'Dentro l’arenaria della Monument Valley', orientation: 'verticale' },
-            { type: 'youtube', videoId: 'zjQZimKT9i4', alt: 'Monument Valley', caption: 'Il flash flood trasforma la pista nel deserto', orientation: 'verticale' }
+            { src: 'ARIZONA25/FOTO/20250826_143922.jpg', alt: 'Monument Valley', caption: 'Un trading post in the heart of the valley', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250826_144040.jpg', alt: 'Monument Valley', caption: 'The Scenic Drive after the storm', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250826_185851.jpg', alt: 'Monument Valley', caption: 'Sunset colours Monument Valley', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250826_164840.jpg', alt: 'Monument Valley', caption: 'Monument Valley from The View terrace', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250826-WA0047.jpg', alt: 'Monument Valley', caption: 'The mesas beneath a stormy sky', orientation: 'orizzontale' },
+            { type: 'youtube', videoId: 'SKD8PRu5bFY', alt: 'Monument Valley', caption: 'Inside Monument Valley sandstone', orientation: 'verticale' },
+            { type: 'youtube', videoId: 'zjQZimKT9i4', alt: 'Monument Valley', caption: 'A flash flood transforms the desert track', orientation: 'verticale' }
         ]);
 
-        // ===== GIORNO 09 =====
-        renderPhotoDay('#giorno9-foto', [
-            { src: 'ARIZONA25/FOTO/20250827_073741.jpg', alt: 'Alba dalla terrazza dell\'hotel', caption: 'Alba dalla terrazza dell\'hotel', orientation: 'panoramica' },
-            { src: 'ARIZONA25/FOTO/20250827_192448.jpg', alt: "Taco's a Scottsdale", caption: "Taco's a Scottsdale", orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/IMG-20250826-WA0000.jpg', alt: 'Aiuto!', caption: 'Aiuto!', orientation: 'verticale' }
+        // ===== DAY 09 =====
+        renderPhotoDay('#giorno9-photo', [
+            { src: 'ARIZONA25/FOTO/20250827_073741.jpg', alt: 'Sunrise from the hotel terrace', caption: 'Sunrise from the hotel terrace', orientation: 'panoramica' },
+            { src: 'ARIZONA25/FOTO/20250827_192448.jpg', alt: 'Tacos in Scottsdale', caption: 'Tacos in Scottsdale', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/IMG-20250826-WA0000.jpg', alt: 'Help!', caption: 'Help!', orientation: 'verticale' }
         ]);
 
-        // ===== GIORNO 10 =====
-        renderPhotoDay('#giorno10-foto', [
-            { src: 'ARIZONA25/FOTO/20250819_075623.jpg', alt: 'Scalo a Parigi', caption: 'L’ultima coincidenza prima del rientro in Italia', orientation: 'verticale' },
-            { src: 'ARIZONA25/FOTO/20250819_075637.jpg', alt: 'Scalo a Parigi', caption: 'Scalo a Parigi', orientation: 'verticale' }
+        // ===== DAY 10 =====
+        renderPhotoDay('#giorno10-photo', [
+            { src: 'ARIZONA25/FOTO/20250819_075623.jpg', alt: 'Paris layover', caption: 'The final connection before returning to Italy', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250819_075637.jpg', alt: 'Paris layover', caption: 'Paris layover', orientation: 'verticale' }
         ]);
 
         renderDayRoute('#giorno1-route', [
-            { nome: 'Aeroporto di Phoenix', citta: 'Phoenix', stato: 'Arizona', wiki: 'Phoenix Sky Harbor International Airport' },
+            { nome: 'Phoenix Airport', citta: 'Phoenix', stato: 'Arizona', wiki: 'Phoenix Sky Harbor International Airport' },
             { nome: 'Pinnacle Peak Trail', citta: 'Scottsdale', stato: 'Arizona', foto: 'ARIZONA25/FOTO/20250819_163549.jpg' },
             { nome: 'Old Town Scottsdale', stato: 'Arizona', foto: 'ARIZONA25/FOTO/20250819_190456.jpg' },
             { nome: 'Scottsdale', stato: 'Arizona', foto: 'ARIZONA25/FOTO/20250819_190456.jpg' }
@@ -856,15 +856,15 @@
 
         renderDayRoute('#giorno10-route', [
             { nome: 'Scottsdale', stato: 'Arizona', foto: 'ARIZONA25/FOTO/20250819_190456.jpg' },
-            { nome: 'Parigi', stato: 'Francia', foto: 'ARIZONA25/FOTO/20250819_075623.jpg' },
-            { nome: 'Italia', stato: 'Italia', foto: 'ARIZONA25/FOTO/20250819_075637.jpg' }
+            { nome: 'Paris', stato: 'France', foto: 'ARIZONA25/FOTO/20250819_075623.jpg' },
+            { nome: 'Italy', stato: 'Italy', foto: 'ARIZONA25/FOTO/20250819_075637.jpg' }
         ]);
 
     </script>
 <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Ripeto il setup del lightbox DOPO che auto-layout.js ha già
-            // iniettato le foto (i due script sopra girano prima di questo).
+            // iniettato le photo (i due script sopra girano prima di questo).
             const images = Array.from(document.querySelectorAll(".photo-container-frame img"));
             const lightbox = document.getElementById("lightbox");
             const lightboxImg = document.getElementById("lightbox-img");
@@ -873,7 +873,7 @@
             const prevBtn = document.getElementById("lightbox-prev");
             const nextBtn = document.getElementById("lightbox-next");
 
-            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // Raggruppa le photo per giorno (ogni giorno ha il suo
             // .universal-media-wrapper), cosi' le frecce avanti/indietro
             // restano dentro al giorno corrente invece di sconfinare in
             // quello successivo/precedente.
@@ -918,21 +918,21 @@
                 lightboxImg.classList.remove("is-zoomed");
                 document.body.style.overflow = "auto";
                 // Evita che il click che chiude la lightbox "passi" alla
-                // pagina sottostante aprendo per sbaglio un'altra foto
+                // pagina sottostante aprendo per sbaglio un'altra photo
                 // (o attivando link/pulsanti che si trovano nello stesso punto).
                 suppressNextClick = true;
                 setTimeout(() => { suppressNextClick = false; }, 350);
             }
 
             function showPrev() {
-                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
+                if (currentPos <= 0) return; // prima photo del giorno: non si passa al giorno prima
                 lightboxImg.classList.remove("is-zoomed");
                 openLightboxAt(currentGroup, currentPos - 1);
             }
 
             function showNext() {
                 const group = dayGroups[currentGroup];
-                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
+                if (currentPos >= group.imgs.length - 1) return; // ultima photo del giorno: non si passa al giorno dopo
                 lightboxImg.classList.remove("is-zoomed");
                 openLightboxAt(currentGroup, currentPos + 1);
             }
@@ -1007,15 +1007,15 @@
 <script>
         document.addEventListener("DOMContentLoaded", function() {
             const tappe = [
-                { nome: "Scottsdale",              nota: "Giorno 1-2 · Base di partenza", lat: 33.4949, lng: -111.9217, foto: "ARIZONA25/FOTO/20250819_190456.jpg" },
-                { nome: "Saguaro National Park",    nota: "Giorno 2",                      lat: 32.1831, lng: -110.6127, foto: "ARIZONA25/FOTO/20250820_102307.jpg" },
-                { nome: "Tombstone",                nota: "Giorno 2",                      lat: 31.7129, lng: -110.0676, foto: "ARIZONA25/FOTO/20250820_150859.jpg" },
-                { nome: "Sedona",                   nota: "Giorno 3-4",                    lat: 34.8618, lng: -111.8139, foto: "ARIZONA25/FOTO/20250821_111619.jpg" },
-                { nome: "Williams (Route 66)",      nota: "Giorno 5",                      lat: 35.2526, lng: -112.1821, foto: "ARIZONA25/FOTO/20250823_132104.jpg" },
-                { nome: "Grand Canyon South Rim",   nota: "Giorno 5-7",                    lat: 36.0544, lng: -112.1401, foto: "ARIZONA25/FOTO/20250824_092552.jpg" },
-                { nome: "Page",                     nota: "Giorno 7-8",                    lat: 36.9147, lng: -111.4558, foto: "ARIZONA25/FOTO/20250825_190058.jpg" },
-                { nome: "Monument Valley",          nota: "Giorno 8",                      lat: 36.9385, lng: -110.0916, foto: "ARIZONA25/FOTO/20250826_112208.jpg" },
-                { nome: "Scottsdale",               nota: "Giorno 9-10 · Rientro e volo",  lat: 33.4949, lng: -111.9217, foto: "ARIZONA25/FOTO/20250819_190456.jpg" }
+                { nome: "Scottsdale",              nota: "Days 1–2 · Starting point", lat: 33.4949, lng: -111.9217, foto: "ARIZONA25/FOTO/20250819_190456.jpg" },
+                { nome: "Saguaro National Park",    nota: "Day 2", lat: 32.1831, lng: -110.6127, foto: "ARIZONA25/FOTO/20250820_102307.jpg" },
+                { nome: "Tombstone",                nota: "Day 2", lat: 31.7129, lng: -110.0676, foto: "ARIZONA25/FOTO/20250820_150859.jpg" },
+                { nome: "Sedona",                   nota: "Days 3–4", lat: 34.8618, lng: -111.8139, foto: "ARIZONA25/FOTO/20250821_111619.jpg" },
+                { nome: "Williams (Route 66)",      nota: "Day 5", lat: 35.2526, lng: -112.1821, foto: "ARIZONA25/FOTO/20250823_132104.jpg" },
+                { nome: "Grand Canyon South Rim",   nota: "Days 5–7", lat: 36.0544, lng: -112.1401, foto: "ARIZONA25/FOTO/20250824_092552.jpg" },
+                { nome: "Page",                     nota: "Days 7–8", lat: 36.9147, lng: -111.4558, foto: "ARIZONA25/FOTO/20250825_190058.jpg" },
+                { nome: "Monument Valley",          nota: "Day 8", lat: 36.9385, lng: -110.0916, foto: "ARIZONA25/FOTO/20250826_112208.jpg" },
+                { nome: "Scottsdale",               nota: "Days 9–10 · Return flight", lat: 33.4949, lng: -111.9217, foto: "ARIZONA25/FOTO/20250819_190456.jpg" }
             ];
 
             const map = L.map('trip-map', { scrollWheelZoom: false }).setView([34.7, -111.4], 6);
@@ -1025,7 +1025,7 @@
                 maxZoom: 19
             }).addTo(map);
 
-            // Layer di riferimento: confini di stato/contea e nomi città, trasparente sopra il satellite
+            // Layer di riferimento: confini di state/contea e nomi città, trasparente sopra il satellite
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri',
                 maxZoom: 19
@@ -1044,10 +1044,10 @@
             tappe.forEach(t => {
                 L.marker([t.lat, t.lng], { icon: puntoIcon })
                     .addTo(map)
-                    .bindTooltip(t.nome, { permanent: true, direction: 'top', offset: [0, -8], className: 'trip-map-label' })
+                    .bindTooltip(t.name, { permanent: true, direction: 'top', offset: [0, -8], className: 'trip-map-label' })
                     .bindPopup(
-                        `<img class="map-popup-photo" src="${t.foto}" alt="${t.nome}">` +
-                        `<div class="map-popup-text"><b>${t.nome}</b><span>${t.nota}</span></div>`
+                        `<img class="map-popup-photo" src="${t.photo}" alt="${t.name}">` +
+                        `<div class="map-popup-text"><b>${t.name}</b><span>${t.nota}</span></div>`
                     );
             });
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -268,6 +268,36 @@
             color: #ffffff;
         }
 
+        .contact-cta {
+            max-width: 760px;
+            width: calc(100% - 48px);
+            margin: 42px auto 10px;
+        }
+
+        .contact-cta a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 22px 25px;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 10px;
+            background: rgba(12,13,14,0.62);
+            color: #ffffff;
+            text-decoration: none;
+            transition: border-color .25s ease, background .25s ease, transform .25s ease;
+        }
+
+        .contact-cta a:hover {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-2px);
+        }
+
+        .contact-cta strong { display: block; margin-bottom: 5px; font-size: 1rem; letter-spacing: .5px; }
+        .contact-cta span { color: rgba(255,255,255,.58); font-size: .84rem; line-height: 1.5; }
+        .contact-cta b { color: #e32636; font-size: 1.5rem; font-weight: 400; }
+
         .footer-social-links a:hover svg {
             fill: #ffffff; /* Il logo si illumina insieme al testo */
         }
@@ -314,16 +344,57 @@
                 margin: 40px auto 30px auto;
             }
         }
+        /* ===== ANTEPRIMA BIS: stile coordinato al nuovo logo ===== */
+        :root { --brand-blue:#063b67; --brand-navy:#061521; --brand-orange:#e77928; --brand-sand:#f4bd67; }
+        body { background-color:#071219; background-image:radial-gradient(circle at 50% 0,rgba(12,57,87,.22),transparent 34%); }
+        .top-banner { height:420px; border-bottom:1px solid rgba(231,121,40,.48); }
+        .top-banner > img { filter:brightness(72%) saturate(1.02); transform:scale(1.015); object-position:center 58%; }
+        .banner-text-box { width:min(650px,78%); max-width:none; padding:12px 25px 17px; border:1px solid rgba(244,189,103,.68); border-radius:16px; background:linear-gradient(135deg,rgba(224,224,207,.43),rgba(169,190,197,.32)); box-shadow:0 16px 38px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.34); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+        .banner-logo { display:block; width:min(540px,90%); height:auto; max-height:205px; object-fit:contain; margin:0 auto; filter:drop-shadow(0 12px 20px rgba(0,0,0,.52)); }
+        .banner-text-box h1 { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+        .banner-text-box p { margin:6px 0 0; color:#fff4de; font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; font-weight:600; letter-spacing:.35px; text-shadow:0 2px 8px rgba(0,0,0,.85); }
+        .banner-text-box p::after { content:""; display:block; width:44px; height:2px; margin:16px auto 0; background:var(--brand-orange); border-radius:2px; }
+        .facebook-invite a,.community-actions a { border-color:rgba(244,189,103,.22)!important; background:linear-gradient(135deg,rgba(5,20,31,.94),rgba(7,28,42,.82))!important; }
+        .community-actions a span[aria-hidden="true"] { color:var(--brand-orange)!important; }
+        .section-title { padding:48px 20px 22px; }
+        .section-title h2 { color:rgba(255,255,255,.82); }
+        .home-grid { gap:22px; padding:28px 40px 44px; }
+        .grid-item-wrapper { padding:0; min-width:0; }
+        .travel-card { height:100%; overflow:hidden; align-items:stretch; border:1px solid rgba(231,121,40,.82); border-radius:14px; background:linear-gradient(180deg,#0a2233 0%,#061521 100%); box-shadow:0 14px 32px rgba(0,0,0,.3); }
+        .card-small .travel-card { width:100%; }
+        .travel-card img,.card-horizontal .travel-card img { width:100%; aspect-ratio:3/4; height:auto; object-fit:cover; padding:0; border:0; border-radius:13px 13px 0 0; background:#071219; }
+        .travel-title { margin:0; padding:15px 12px 4px; min-height:2.5em; display:flex; align-items:center; justify-content:center; color:#fff; font-size:.76rem; line-height:1.35; }
+        .travel-year { margin:0; padding:5px 10px 16px; color:var(--brand-sand); font-weight:600; letter-spacing:1.7px; }
+        .travel-card:hover { transform:translateY(-7px); box-shadow:0 20px 38px rgba(0,0,0,.44); }
+        .travel-card:hover img { opacity:1; border-color:transparent; background:transparent; }
+        .usa-map-section { margin-top:40px; }
+        #usa-map { border:1px solid rgba(231,121,40,.48); border-radius:12px; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,.28); }
+        @media(max-width:700px){ .top-banner{height:310px}.banner-text-box{width:90%;padding:8px 10px 12px}.banner-logo{width:88%;max-height:150px}.banner-text-box p{font-size:.86rem;line-height:1.45}.home-grid{gap:22px}.travel-card{max-width:430px;margin:0 auto}.travel-title{min-height:auto}.section-title{padding-top:38px} }
+
+        /* Footer coordinato con i colori originali dei social */
+        .site-footer { padding-top:22px; border-top:1px solid rgba(244,189,103,.18); }
+        .footer-social-links { gap:16px; }
+        .footer-social-links a { padding:9px 13px; border:1px solid rgba(255,255,255,.11); border-radius:22px; background:rgba(5,20,31,.72); }
+        .footer-social-links a:first-child { color:#e1306c; }
+        .footer-social-links a:last-child { color:#1877f2; }
+        .footer-social-links a:first-child svg { fill:#e1306c; }
+        .footer-social-links a:last-child svg { fill:#1877f2; }
+        .footer-social-links a:hover { color:#fff; border-color:rgba(244,189,103,.55); }
+        .language-switch { position:absolute; z-index:5; top:18px; right:22px; display:inline-flex; padding:9px 15px; border:1px solid rgba(244,189,103,.72); border-radius:22px; background:rgba(4,24,38,.78); backdrop-filter:blur(6px); color:#fff1d2; font-size:.72rem; font-weight:700; letter-spacing:1.5px; text-decoration:none; box-shadow:0 8px 22px rgba(0,0,0,.28); transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+        .language-switch:hover { transform:translateY(-2px); border-color:var(--brand-orange); background:rgba(6,59,103,.88); }
+        @media(max-width:700px){ .language-switch{top:10px;right:10px;padding:7px 11px;font-size:.65rem} }
     </style>
 </head>
 <body>
 
     <!-- BANNER SUPERIORE CON IMMAGINE DELLA MAPPA -->
     <div class="top-banner">
-        <img src="main.jpeg" alt="Dan on the Road Banner">
+        <a class="language-switch" href="index.html" lang="it" aria-label="Visualizza la versione italiana">ITALIANO</a>
+        <img src="home-road-banner-preview.png" alt="American road stretching towards the horizon">
         <div class="banner-text-box">
+            <img class="banner-logo" src="logo-danontheroad-nuovo-pulito.png" alt="Dan on the Road">
             <h1>Dan on the Road</h1>
-            <p>"Le strade sono state fatte per i viaggi, non per le destinazioni."</p>
+            <p>"Roads were made for journeys, not destinations."</p>
         </div>
     </div>
 
@@ -331,15 +402,26 @@
         <aside class="facebook-invite" aria-label="Facebook" style="max-width:760px;width:calc(100% - 32px);margin:18px auto;box-sizing:border-box;">
         <a href="https://www.facebook.com/profile.php?id=61593659232613" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid rgba(255,255,255,.16);border-radius:11px;background:rgba(12,13,14,.72);color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.22);backdrop-filter:blur(5px);">
             <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;flex:0 0 24px;fill:#1877f2;"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073z"/></svg>
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Seguimi anche su Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Foto sparse, luoghi, ricordi e curiosità di viaggio. La pagina è appena nata: lavori in corso!</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Follow me on Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Travel photos, places, memories and curiosities. The page is brand new: work in progress!</span></span>
         </a>
-    </aside>
+    </aside>    <div class="community-actions" aria-label="Contact and Guestbook" style="max-width:760px;width:calc(100% - 32px);margin:-6px auto 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:10px;box-sizing:border-box;">
+        <a href="contatti.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Send me a message</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Questions about my trips or suggestions.</span></span>
+            <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
+        </a>
+        <a href="guestbook.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Sign the Guestbook</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Leave a message for everyone to see.</span></span>
+            <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
+        </a>
+    </div>
+
+
 
 <div class="structural-line"></div>
 
     <!-- TITOLO SEZIONE -->
     <div class="section-title">
-        <h2>Seleziona un itinerario</h2>
+        <h2>Choose an itinerary</h2>
     </div>
 
     <!-- LINEA ORIZZONTALE SUPERIORE DELLA FILA DEI VIAGGI -->
@@ -350,58 +432,56 @@
 
         <!-- VIAGGIO 1: NY23 (Orizzontale) -->
         <div class="grid-item-wrapper card-horizontal">
-            <a href="ny23.html" class="travel-card">
+            <a href="ny23-en.html" class="travel-card">
                 <img src="copertina_ny23.jpg" alt="New York 2023" loading="lazy">
                 <div class="travel-title">New York</div>
-                <div class="travel-year">SETTEMBRE 2023</div>
+                <div class="travel-year">SEPTEMBER 2023</div>
             </a>
         </div>
 
         <!-- VIAGGIO 2: NY24 (Verticale - Rimpicciolita) -->
         <div class="grid-item-wrapper card-small">
-            <a href="ny24.html" class="travel-card">
+            <a href="ny24-en.html" class="travel-card">
                 <img src="copertina_ny24.jpg" alt="New York 2024" loading="lazy">
-                <div class="travel-title">New York e Niagara</div>
-                <div class="travel-year">AGOSTO 2024</div>
+                <div class="travel-title">New York and Niagara Falls</div>
+                <div class="travel-year">AUGUST 2024</div>
             </a>
         </div>
 
         <!-- VIAGGIO 3: OTR25 (Orizzontale - NUOVO TITOLO STATI) -->
         <div class="grid-item-wrapper card-horizontal">
-            <a href="otr25.html" class="travel-card">
+            <a href="otr25-en.html" class="travel-card">
                 <img src="copertina_otr25.jpg" alt="On The Road 2025" loading="lazy">
                 <div class="travel-title">California, Arizona, Utah, Nevada</div>
-                <div class="travel-year">APRILE 2025</div>
+                <div class="travel-year">APRIL 2025</div>
             </a>
         </div>
 
         <!-- VIAGGIO 4: ARIZONA25 (Orizzontale) -->
         <div class="grid-item-wrapper card-horizontal">
-            <a href="arizona25.html" class="travel-card">
+            <a href="arizona25-en.html" class="travel-card">
                 <img src="copertina_arizona25.jpg" alt="Arizona 2025" loading="lazy">
                 <div class="travel-title">Arizona</div>
-                <div class="travel-year">AGOSTO 2025</div>
+                <div class="travel-year">AUGUST 2025</div>
             </a>
         </div>
 
         <!-- VIAGGIO 5: OTR26 (Verticale - Rimpicciolita - NUOVO TITOLO STATI) -->
         <div class="grid-item-wrapper card-small">
-            <a href="otr26.html" class="travel-card">
+            <a href="otr26-en.html" class="travel-card">
                 <img src="copertina_otr26.jpg" alt="On The Road 2026" loading="lazy">
                 <div class="travel-title">Nevada, Utah, Wyoming, Montana, South Dakota, Colorado</div>
-                <div class="travel-year">GIUGNO 2026</div>
+                <div class="travel-year">JUNE 2026</div>
             </a>
         </div>
 
     </div>
 
     <!-- LINEA ORIZZONTALE INFERIORE DELLA FILA DEI VIAGGI -->
-    <div class="row-border-line"></div>
-
-    <!-- ================= MAPPA GENERALE DI TUTTI I VIAGGI ================= -->
+    <div class="row-border-line"></div><!-- ================= MAPPA GENERALE DI TUTTI I VIAGGI ================= -->
     <section class="usa-map-section">
-        <div class="usa-map-title">Tutti i viaggi, una mappa</div>
-        <div class="usa-map-subtitle">Ogni percorso in un colore diverso</div>
+        <div class="usa-map-title">Every journey on one map</div>
+        <div class="usa-map-subtitle">Each route is shown in a different colour</div>
         <div class="usa-map-legend" id="usa-map-legend"></div>
         <div id="usa-map"></div>
     </section>
@@ -430,25 +510,25 @@
             const viaggi = [
                 {
                     nome: "New York",
-                    periodo: "Settembre 2023",
+                    periodo: "September 2023",
                     colore: "#e63946",
                     tappe: [
                         { nome: "New York", lat: 40.7128, lng: -74.0060 }
                     ]
                 },
                 {
-                    nome: "New York e Niagara",
-                    periodo: "Agosto 2024",
+                    nome: "New York and Niagara Falls",
+                    periodo: "August 2024",
                     colore: "#f4a261",
                     tappe: [
                         { nome: "New York", lat: 40.7128, lng: -74.0060 },
                         { nome: "Watkins Glen", lat: 42.3778, lng: -76.8703 },
-                        { nome: "Niagara Falls (lato canadese)", lat: 43.0896, lng: -79.0849 }
+                        { nome: "Niagara Falls (Canadian side)", lat: 43.0896, lng: -79.0849 }
                     ]
                 },
                 {
                     nome: "California, Arizona, Utah, Nevada",
-                    periodo: "Aprile 2025",
+                    periodo: "April 2025",
                     colore: "#2a9d8f",
                     tappe: [
                         { nome: "Los Angeles", lat: 34.0522, lng: -118.2437 },
@@ -476,7 +556,7 @@
                 },
                 {
                     nome: "Arizona",
-                    periodo: "Agosto 2025",
+                    periodo: "August 2025",
                     colore: "#e9c46a",
                     tappe: [
                         { nome: "Scottsdale", lat: 33.4949, lng: -111.9217 },
@@ -492,7 +572,7 @@
                 },
                 {
                     nome: "Nevada, Utah, Wyoming, Montana, South Dakota, Colorado",
-                    periodo: "Giugno 2026",
+                    periodo: "June 2026",
                     colore: "#a78bfa",
                     tappe: [
                         { nome: "Las Vegas", lat: 36.1699, lng: -115.1398 },

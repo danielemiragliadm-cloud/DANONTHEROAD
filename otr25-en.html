@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!-- Riesportato il 2026-09-05 per aggiornamento GitHub Pages -->
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dan on the Road - California, Arizona, Utah, Nevada 2025</title>
+    <title>Dan on the Road - California, Arizona, Utah & Nevada 2025</title>
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-otr25.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,7 +73,7 @@
         .day-watermark { position: sticky; top: 46vh; height: 0; overflow: visible; display: flex; justify-content: center; align-items: center; z-index: 0; pointer-events: none; user-select: none; font-family: 'Big Shoulders Display', sans-serif; font-size: clamp(4.5rem, 11vw, 9rem); font-weight: 700; line-height: 1; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.026); text-transform: uppercase; white-space: nowrap; }
         .day-sticky, .day-content { position: relative; z-index: 1; }
 
-        /* Header orizzontale e centrato in cima al giorno: GIORNO -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
+        /* Header orizzontale e centrato in cima al giorno: DAY -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
         .day-sticky { position: static; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; text-align: center; gap: 8px 40px; padding: 0 0 22px; margin: 0 0 26px; border-bottom: 1px solid rgba(255,255,255,0.08); background: transparent; }
         .day-sticky > .day-number, .day-sticky > .day-title, .day-sticky > .day-date { flex: 0 0 auto; }
         .day-number { order: 1; font-size: 1.3rem; font-weight: 700; letter-spacing: 1.5px; color: #ffffff; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; background: rgba(255,255,255,0.06); }
@@ -146,7 +146,7 @@
         .site-footer { max-width: 1100px; width: calc(100% - 80px); margin: 60px auto 20px auto; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
         .footer-copyright { font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
-        /* Torna all'inizio / Torna alla Home */
+        /* Back to the top / Back to Home */
         .end-nav { max-width: 1100px; width: calc(100% - 80px); margin: 40px auto 0 auto; display: flex; gap: 30px; justify-content: center; }
         .end-nav-link { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: color 0.2s ease; }
         .end-nav-link:hover { color: #ffffff; }
@@ -260,22 +260,22 @@
 <body>
 
     <div class="back-nav">
-        <a href="index.html" class="back-link">
+        <a href="index-en.html" class="back-link">
             <svg viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
-            Torna alla Home
+            Back to Home
         </a>
     </div>
 
-    <section class="travel-hero" id="top" aria-label="Diario di viaggio OTR Aprile 2025">
-        <a class="language-switch" href="otr25-en.html" lang="en">ENGLISH</a>
-        <a class="trip-brand" href="index.html" aria-label="Torna alla Home"><img src="logo-danontheroad-nuovo-pulito.png" alt="Dan on the Road"></a>
-        <img class="hero-static" src="otr25banner.webp" alt="Panorama della Monument Valley">
+    <section class="travel-hero" id="top" aria-label="April 2025 OTR travel diary">
+        <a class="language-switch" href="otr25.html" lang="it">ITALIANO</a>
+        <a class="trip-brand" href="index-en.html" aria-label="Back to Home"><img src="logo-danontheroad-nuovo-pulito.png" alt="Dan on the Road"></a>
+        <img class="hero-static" src="otr25banner.webp" alt="Monument Valley panorama">
         <div class="hero-shade"></div>
         <header class="travel-header">
             <h1>OTR 2025</h1>
-            <div class="meta-info">Diario di Viaggio / OTR Aprile 2025</div>
+            <div class="meta-info">Travel Diary / April 2025 OTR</div>
             <div class="trip-recap">
-                <div class="trip-recap-title">Il viaggio, tappa dopo tappa</div>
+                <div class="trip-recap-title">The journey, stop by stop</div>
                 <div class="trip-recap-route">
                     <span class="trip-recap-place">Los Angeles</span><span class="trip-recap-arrow">→</span>
                     <span class="trip-recap-place">Santa Monica</span><span class="trip-recap-arrow">→</span>
@@ -302,15 +302,15 @@
         <aside class="facebook-invite" aria-label="Facebook" style="max-width:760px;width:calc(100% - 32px);margin:18px auto;box-sizing:border-box;">
         <a href="https://www.facebook.com/profile.php?id=61593659232613" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid rgba(255,255,255,.16);border-radius:11px;background:rgba(12,13,14,.72);color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.22);backdrop-filter:blur(5px);">
             <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;flex:0 0 24px;fill:#1877f2;"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073z"/></svg>
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Seguimi anche su Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Foto sparse, luoghi, ricordi e curiosità di viaggio. La pagina è appena nata: lavori in corso!</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Follow me on Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Photos, places, memories and travel curiosities. The page is brand new: work in progress!</span></span>
         </a>
     </aside>    <div class="community-actions" aria-label="Contatti e Guestbook" style="max-width:760px;width:calc(100% - 32px);margin:-6px auto 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:10px;box-sizing:border-box;">
         <a href="contatti.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Scrivimi in privato</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Domande sui viaggi o suggerimenti.</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Send me a private message</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Questions about the trips or suggestions.</span></span>
             <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
         </a>
         <a href="guestbook.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
-            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Firma il Guestbook</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Lascia un saluto visibile a tutti.</span></span>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Sign the Guestbook</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Leave a greeting for everyone to see.</span></span>
             <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
         </a>
     </div>
@@ -322,38 +322,38 @@
     <div class="timeline-container">
         <article class="day-block" id="giorno-1">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 1</div>
-                <div class="day-date">30 MARZO 2025</div>
+                <div class="day-number">DAY 1</div>
+                <div class="day-date">30 MARCH 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Santa Monica</span>13 °C · 32 m</div>
                 </div>
                 <div class="day-route" id="giorno1-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: —</span>
-                    <span class="detail-item">In auto: 14 km</span>
-                    <span class="detail-item">A piedi: 11,2 km</span>
+                    <span class="detail-item">Hiking: —</span>
+                    <span class="detail-item">By car: 14 km</span>
+                    <span class="detail-item">On foot: 11,2 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>La nostra avventura parte da Venezia. Dopo un lungo viaggio, con scalo a Roma, atterriamo a Los Angeles alle 13:15. Ritirata l’auto a noleggio, ci dirigiamo verso Santa Monica, la nostra prima tappa e il luogo in cui trascorreremo la notte.</p>
-                    <p>Ad accoglierci non è il classico cielo azzurro della California: la giornata è grigia e nuvolosa. Non sappiamo bene cosa aspettarci, soprattutto dopo i terribili incendi che hanno recentemente colpito le aree circostanti. Tra le zone più duramente segnate c’è Pacific Palisades, non lontano da qui: interi quartieri sono stati devastati e molte famiglie hanno dovuto lasciare le proprie case. È impossibile non rivolgere un pensiero a chi sta affrontando le conseguenze di questa tragedia.</p>
-                    <p>Nonostante il cielo coperto, non possiamo certo iniziare il nostro viaggio senza una passeggiata sul celebre Santa Monica Pier. Tra le luci del luna park, il rumore dell’oceano e l’inconfondibile atmosfera del molo, cominciamo finalmente a sentirci davvero in California.</p>
-                    <p>Per cena scegliamo il Bubba Gump, dove mangiamo benissimo. C’è tanta gente, l’aria è fresca e intorno a noi non manca qualche personaggio decisamente colorito. Insomma, fin dalle prime ore respiriamo un’atmosfera vivace, particolare e piacevolmente americana.</p>
-                    <p>Il viaggio è appena cominciato, ma Los Angeles ci ha già regalato le prime emozioni.</p>
+                    <p>Our adventure begins in Venice. After a long journey with a connection in Rome, we land in Los Angeles at 1:15 p.m. Once we collect our rental car, we head to Santa Monica, our first stop and home for the night.</p>
+                    <p>Instead of California’s classic blue sky, we are greeted by a grey, overcast day. We are not quite sure what to expect, especially after the terrible wildfires that recently struck the surrounding area. Pacific Palisades, not far from here, was among the hardest-hit places: entire neighbourhoods were devastated and many families had to leave their homes. It is impossible not to think of everyone facing the consequences of this tragedy.</p>
+                    <p>Despite the cloudy sky, we cannot begin our trip without a walk along the famous Santa Monica Pier. Among the amusement-park lights, the sound of the ocean and the unmistakable atmosphere of the pier, we finally begin to feel that we are truly in California.</p>
+                    <p>For dinner we choose Bubba Gump, where we eat extremely well. The place is busy, the air is cool and there are plenty of colourful characters around us. From our very first hours here, the atmosphere feels lively, distinctive and wonderfully American.</p>
+                    <p>The journey has only just begun, but Los Angeles has already given us our first emotions.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_181602.jpg" alt="Santa Monica"><figcaption class="photo-caption">Santa Monica — il primo sguardo sulla costa californiana</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_181602.jpg" alt="Santa Monica"><figcaption class="photo-caption">Santa Monica — our first glimpse of the California coast</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_182002.jpg" alt="Bubba Gump Shrimp Co."><figcaption class="photo-caption">Bubba Gump Shrimp Co.</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_182253.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Santa Monica Pier — il molo si allunga nel Pacifico</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_182253.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Santa Monica Pier stretches into the Pacific</figcaption></figure>
                     </div>
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_182329.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Route 66 — l’insegna iconica sul Santa Monica Pier</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_183217.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Pacific Wheel — i colori del luna park sul molo</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_183528.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">End of the Trail — qui termina la Route 66</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_182329.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Route 66 — the iconic sign on Santa Monica Pier</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_183217.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Pacific Wheel — the colours of the amusement park</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_183528.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">End of the Trail — Route 66 ends here</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -361,63 +361,63 @@
 
         <article class="day-block" id="giorno-2">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 2</div>
-                <div class="day-date">31 MARZO 2025</div>
+                <div class="day-number">DAY 2</div>
+                <div class="day-date">31 MARCH 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Santa Monica</span>12–18 °C · 32 m</div>
                     <div class="day-stat-item"><span class="stat-name">Los Angeles</span>9–19 °C · 93 m</div>
                 </div>
                 <div class="day-route" id="giorno2-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: nessuno, ma tanti km a piedi</span>
-                    <span class="detail-item">In auto: 60 km</span>
-                    <span class="detail-item">A piedi: 23,2 km</span>
+                    <span class="detail-item">Hiking: none, but many kilometres on foot</span>
+                    <span class="detail-item">By car: 60 km</span>
+                    <span class="detail-item">On foot: 23,2 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>La giornata si presenta ancora più nuvolosa di ieri, ma iniziamo con il piede giusto facendo colazione da Teddy’s Cafe, uno storico diner poco turistico e frequentato soprattutto dalla gente del posto. In autentico stile americano, gustiamo un pancake gigantesco, soffice e delizioso!</p>
-                    <p>Saliamo poi in auto verso l’ex Staples Center, oggi Crypto.com Arena, casa dei Lakers e luogo simbolo della leggenda di Kobe Bryant, alla cui memoria dedichiamo una sosta.</p>
+                    <p>The day is even cloudier than yesterday, but we start on the right foot with breakfast at Teddy’s Cafe, a historic, untouristy diner frequented mainly by locals. In true American style, we enjoy an enormous, fluffy and delicious pancake.</p>
+                    <p>We then drive towards the former Staples Center, now the Crypto.com Arena, home of the Lakers and a symbolic place in the legend of Kobe Bryant, where we stop to pay tribute to his memory.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_072737.jpg" alt="Teddy's Cafe"><figcaption class="photo-caption">Teddy’s Cafe — colazione in un autentico diner americano</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_082146.jpg" alt="Crypto.com Arena"><figcaption class="photo-caption">Crypto.com Arena — la casa dei Los Angeles Lakers</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_083103.jpg" alt="Crypto.com Arena"><figcaption class="photo-caption">Il tributo a Kobe Bryant davanti alla Crypto.com Arena</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_072737.jpg" alt="Teddy's Cafe"><figcaption class="photo-caption">Teddy’s Cafe — breakfast in an authentic American diner</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_082146.jpg" alt="Crypto.com Arena"><figcaption class="photo-caption">Crypto.com Arena — home of the Los Angeles Lakers</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_083103.jpg" alt="Crypto.com Arena"><figcaption class="photo-caption">The tribute to Kobe Bryant outside Crypto.com Arena</figcaption></figure>
                     </div>
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_085724.jpg" alt="Downtown Los Angeles"><figcaption class="photo-caption">Downtown L.A. — grattacieli tra le strade del centro</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_111822.jpg" alt="Downtown Los Angeles"><figcaption class="photo-caption">Un incontro curioso nelle strade di Downtown L.A.</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_102743.jpg" alt="Walk of Fame"><figcaption class="photo-caption">Walk of Fame — stelle e sogni lungo Hollywood Boulevard</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_085724.jpg" alt="Downtown Los Angeles"><figcaption class="photo-caption">Downtown L.A. — skyscrapers above the city streets</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_111822.jpg" alt="Downtown Los Angeles"><figcaption class="photo-caption">A curious encounter on the streets of Downtown L.A.</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_102743.jpg" alt="Walk of Fame"><figcaption class="photo-caption">Walk of Fame — stars and dreams along Hollywood Boulevard</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_102815.jpg" alt="Chinese Theatre"><figcaption class="photo-caption">Chinese Theatre</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Proseguiamo verso la Walk of Fame e Hollywood Boulevard, tra stelle, insegne luminose e personaggi coloriti. Concludiamo la giornata tra le eleganti strade di Beverly Hills e le lussuose boutique di Rodeo Drive, dove ci basta guardare qualche vetrina per capire quanto siamo poveri!</p>
-                    <p>Per fortuna, sognare non costa nulla.</p>
-                    <p>Saliamo poi per una foto iconica all’insegna Hollywood, ma la nebbia non ci aiuta tanto.</p>
+                    <p>We continue to the Walk of Fame and Hollywood Boulevard, among stars, bright signs and colourful characters. We end the day on the elegant streets of Beverly Hills and among the luxury boutiques of Rodeo Drive, where a glance at a few shop windows is enough to remind us how poor we are.</p>
+                    <p>Fortunately, dreaming is free.</p>
+                    <p>We climb up for an iconic photo of the Hollywood sign, although the fog does not help very much.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_130418.jpg" alt="Rodeo Drive"><figcaption class="photo-caption">Rodeo Drive — il lato più glamour di Los Angeles</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_130418.jpg" alt="Rodeo Drive"><figcaption class="photo-caption">Rodeo Drive — the glamorous side of Los Angeles</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_132433.jpg" alt="Beverly Hills"><figcaption class="photo-caption">Beverly Hills</figcaption></figure>
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_150151.jpg" alt="Bel Air"><figcaption class="photo-caption">Bel Air</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_120935.jpg" alt="Hollywood Park"><figcaption class="photo-caption">Hollywood Park sotto un insolito cielo nebbioso</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250331_120935.jpg" alt="Hollywood Park"><figcaption class="photo-caption">Hollywood Park beneath an unusual foggy sky</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Rientriamo poi a Santa Monica, dove ci aspetta un tramonto spettacolare.</p>
+                    <p>We then return to Santa Monica, where a spectacular sunset awaits us.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_192357.jpg" alt="Santa Monica al tramonto"><figcaption class="photo-caption">Route 66 End of the Trail al tramonto</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_192607.jpg" alt="Santa Monica al tramonto"><figcaption class="photo-caption">La torretta dei bagnini nella luce della sera</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_192357.jpg" alt="Santa Monica al tramonto"><figcaption class="photo-caption">Route 66 End of the Trail at sunset</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250331_192607.jpg" alt="Santa Monica al tramonto"><figcaption class="photo-caption">The lifeguard tower in the evening light</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -425,8 +425,8 @@
 
         <article class="day-block" id="giorno-3">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 3</div>
-                <div class="day-date">1 APRILE 2025</div>
+                <div class="day-number">DAY 3</div>
+                <div class="day-date">1 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Santa Monica</span>10 °C · 32 m</div>
                     <div class="day-stat-item"><span class="stat-name">Joshua Tree NP</span>28 °C · 1.000 m</div>
@@ -434,48 +434,48 @@
                 </div>
                 <div class="day-route" id="giorno3-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Wall Street Mill Trail</span>
-                    <span class="detail-item">In auto: 410 km</span>
-                    <span class="detail-item">A piedi: 12,3 km</span>
+                    <span class="detail-item">Hiking: Wall Street Mill Trail</span>
+                    <span class="detail-item">By car: 410 km</span>
+                    <span class="detail-item">On foot: 12,3 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Lasciamo la nuvolosa Los Angeles, non prima di una tappa obbligata da Teddy’s per una ricca colazione americana.</p>
+                    <p>We leave cloudy Los Angeles, but not before one last essential stop at Teddy’s for a hearty American breakfast.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250401_070954.jpg" alt="Teddy's Cafe"><figcaption class="photo-caption">Teddy’s Cafe — un ultimo saluto a Santa Monica</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_073147.jpg" alt="Teddy's Cafe"><figcaption class="photo-caption">L’insegna originale del Teddy’s Cafe, storico diner del Westside</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250401_070954.jpg" alt="Teddy's Cafe"><figcaption class="photo-caption">Teddy’s Cafe — one last farewell to Santa Monica</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_073147.jpg" alt="Teddy's Cafe"><figcaption class="photo-caption">The original Teddy’s Cafe sign at this historic Westside diner</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>La nostra destinazione è il Joshua Tree National Park, dove lo scenario cambia completamente: il cielo è limpido, il sole splende e fa decisamente caldo. Ci avventuriamo lungo i sentieri, circondati dai caratteristici yucca del Joshua Tree e da enormi formazioni rocciose. La lunga passeggiata ci regala paesaggi davvero suggestivi, quasi appartenenti a un altro pianeta.</p>
+                    <p>Our destination is Joshua Tree National Park, where the scenery changes completely: the sky is clear, the sun is shining and it is decidedly hot. We venture along the trails, surrounded by the park’s distinctive yuccas and enormous rock formations. The long walk rewards us with remarkable landscapes that seem to belong to another planet.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_183252.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Joshua Tree National Park — il deserto nella luce della sera</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_114928.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Wall Street Mill Trail tra rocce e Joshua tree</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250401_112903.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">I Joshua tree punteggiano l’altopiano desertico</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_183252.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Joshua Tree National Park in the evening light</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_114928.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Wall Street Mill Trail among rocks and Joshua trees</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250401_112903.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Joshua trees dot the desert plateau</figcaption></figure>
                     </div>
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250401_115041.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Formazioni rocciose nel cuore del Joshua Tree</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_122627.jpg" alt="Faglia di Sant'Andrea"><figcaption class="photo-caption">Faglia di Sant’Andrea</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250401_115041.jpg" alt="Joshua Tree National Park"><figcaption class="photo-caption">Rock formations in the heart of Joshua Tree</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250401_122627.jpg" alt="Faglia di Sant'Andrea"><figcaption class="photo-caption">San Andreas Fault</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>In serata raggiungiamo Barstow, cittadina nel cuore del deserto e storica tappa della Route 66. Dopo una giornata intensa, è il posto perfetto per riposarci e prepararci alla prossima avventura.</p>
+                    <p>In the evening we reach Barstow, a town in the heart of the desert and a historic stop on Route 66. After an intense day, it is the perfect place to rest and prepare for the next adventure.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_072102.jpg" alt="Barstow"><figcaption class="photo-caption">Un cactus gigante ci saluta a Barstow</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_073507.jpg" alt="Barstow"><figcaption class="photo-caption">Barstow — una sosta lungo la storica Route 66</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_072102.jpg" alt="Barstow"><figcaption class="photo-caption">A giant cactus welcomes us to Barstow</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_073507.jpg" alt="Barstow"><figcaption class="photo-caption">Barstow — a stop along historic Route 66</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -483,8 +483,8 @@
 
         <article class="day-block" id="giorno-4">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 4</div>
-                <div class="day-date">2 APRILE 2025</div>
+                <div class="day-number">DAY 4</div>
+                <div class="day-date">2 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Barstow</span>9 °C · 664 m</div>
                     <div class="day-stat-item"><span class="stat-name">Kingman</span>12 °C · 1.016 m</div>
@@ -494,40 +494,40 @@
                 </div>
                 <div class="day-route" id="giorno4-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Rim Trail</span>
-                    <span class="detail-item">In auto: 620 km</span>
-                    <span class="detail-item">A piedi: 10,1 km</span>
+                    <span class="detail-item">Hiking: Rim Trail</span>
+                    <span class="detail-item">By car: 620 km</span>
+                    <span class="detail-item">On foot: 10,1 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Lasciamo la tiepida Barstow e ci mettiamo in viaggio verso il Grand Canyon. Entrati in Arizona, percorriamo un tratto della leggendaria Route 66, facendo tappa in due delle sue cittadine più rappresentative.</p>
-                    <p>La prima è Kingman, con le sue insegne vintage e l’atmosfera da vecchia America. Qui ci fermiamo al Mr D’z Route 66 Diner, un locale perfettamente in tema con il viaggio. Proseguiamo poi verso Williams, pittoresca cittadina ricca di locali, negozietti e richiami alla storica strada.</p>
-                    <p>Tra paesaggi sconfinati e atmosfere d’altri tempi, il viaggio verso una delle meraviglie naturali più famose al mondo è già di per sé una splendida avventura, anche se la temperatura si abbassa notevolmente e inizia a scendere anche qualche fiocco di neve!</p>
+                    <p>We leave mild Barstow and set off towards the Grand Canyon. Once in Arizona, we follow a stretch of legendary Route 66 and stop in two of its most representative towns.</p>
+                    <p>The first is Kingman, with its vintage signs and old-America atmosphere. We stop at Mr D’z Route 66 Diner, a restaurant perfectly suited to the journey. We then continue to Williams, a picturesque town full of restaurants, little shops and reminders of the historic highway.</p>
+                    <p>Between boundless landscapes and old-fashioned atmospheres, the journey towards one of the world’s most famous natural wonders is already a wonderful adventure in itself, even as the temperature drops sharply and a few snowflakes begin to fall.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_095900.jpg" alt="Welcome to Arizona"><figcaption class="photo-caption">Welcome to Arizona — inizia la terra dei grandi orizzonti</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_111031.jpg" alt="Kingman"><figcaption class="photo-caption">Kingman — auto d’epoca sulla Route 66</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_112726.jpg" alt="Kingman"><figcaption class="photo-caption">Una vecchia auto della polizia nel cuore di Kingman</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_120929.jpg" alt="Kingman"><figcaption class="photo-caption">Route 66 Museum — benvenuti a Kingman</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_095900.jpg" alt="Welcome to Arizona"><figcaption class="photo-caption">Welcome to Arizona — land of wide-open horizons</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_111031.jpg" alt="Kingman"><figcaption class="photo-caption">Kingman — vintage cars along Route 66</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_112726.jpg" alt="Kingman"><figcaption class="photo-caption">An old police car in the heart of Kingman</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_120929.jpg" alt="Kingman"><figcaption class="photo-caption">Route 66 Museum — welcome to Kingman</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_113937.jpg" alt="Mr D'z Route 66 Diner"><figcaption class="photo-caption">Mr D’z Route 66 Diner</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_142016.jpg" alt="Williams"><figcaption class="photo-caption">Williams</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Nel pomeriggio attraversiamo la Kaibab National Forest diretti al Grand Canyon. Il tempo cambia rapidamente: prima piove, poi inizia addirittura a nevicare! Lungo il percorso incontriamo anche alcuni animali selvatici, rendendo il viaggio ancora più emozionante.</p>
-                    <p>Arriviamo finalmente al Grand Canyon National Park, pronti ad ammirare la sua immensità, ma una fitta nebbia copre completamente il panorama. Interrompiamo il nostro trail anche perché comincia a fare buio e non è sicuro camminare sulla neve. Rientriamo in hotel a Tusayan, dove ci aspetta una cena non indimenticabile, con la speranza che domani il tempo sia migliore. Intanto nevica tanto!</p>
+                    <p>In the afternoon we cross Kaibab National Forest on our way to the Grand Canyon. The weather changes quickly: first it rains, then it actually begins to snow. We also encounter some wildlife along the way, making the drive even more exciting.</p>
+                    <p>We finally reach Grand Canyon National Park, ready to admire its immensity, but thick fog completely hides the view. We cut our trail short because darkness is falling and walking in the snow is no longer safe. We return to our hotel in Tusayan for a rather forgettable dinner, hoping tomorrow’s weather will be better. Meanwhile, the snow keeps falling heavily.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_161716.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Grand Canyon National Park — finalmente davanti all’ingresso</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_171830.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Un cervo tra i boschi del South Rim</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_074114.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Il Grand Canyon si risveglia nella luce del mattino</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_161716.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Grand Canyon National Park — finally at the entrance</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250402_171830.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">A deer among the South Rim pines</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_074114.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">The Grand Canyon awakens in the morning light</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -535,37 +535,37 @@
 
         <article class="day-block" id="giorno-5">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 5</div>
-                <div class="day-date">3 APRILE 2025</div>
+                <div class="day-number">DAY 5</div>
+                <div class="day-date">3 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Grand Canyon NP</span>0–4 °C · 2.134 m</div>
                 </div>
                 <div class="day-route" id="giorno5-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Rim Trail</span>
-                    <span class="detail-item">In auto: 95 km</span>
-                    <span class="detail-item">A piedi: 17,9 km</span>
+                    <span class="detail-item">Hiking: Rim Trail</span>
+                    <span class="detail-item">By car: 95 km</span>
+                    <span class="detail-item">On foot: 17,9 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Ci svegliamo sotto un cielo finalmente più rassicurante e rientriamo nel parco, percorrendo la spettacolare Desert View Drive fino alla celebre Desert View Watchtower.</p>
-                    <p>Durante il tragitto rischiamo di rimanere senza benzina, ma per fortuna troviamo un distributore proprio a pochi passi dalla torre: pericolo scampato!</p>
-                    <p>Questa volta il Grand Canyon si mostra in tutta la sua immensità. Alcune zone sono ricoperte di neve, mentre altre ne sono completamente prive: un contrasto sorprendente, che ci fa capire quanto questo luogo sia davvero sconfinato.</p>
-                    <p>Rientriamo poi nella zona del Visitor Center, dove riusciamo a percorrere anche un tratto del Rim Trail. Camminare lungo il bordo del canyon, ammirandolo da prospettive sempre diverse, è il modo perfetto per concludere questa giornata indimenticabile.</p>
+                    <p>We wake beneath a much more reassuring sky and return to the park, following spectacular Desert View Drive to the famous Desert View Watchtower.</p>
+                    <p>Along the way we almost run out of petrol, but luckily we find a station only a short distance from the tower: danger averted.</p>
+                    <p>This time the Grand Canyon reveals its full immensity. Some areas are covered in snow while others are completely bare: a surprising contrast that makes us realise just how vast this place truly is.</p>
+                    <p>We then return to the Visitor Center area, where we manage to walk part of the Rim Trail. Following the canyon’s edge and seeing it from constantly changing viewpoints is the perfect way to end this unforgettable day.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_164737.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Il primo panorama sul Grand Canyon dal South Rim</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_082509.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Il Grand Canyon visto dalla Desert View Watchtower</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_091359.jpg" alt="Desert View Watchtower"><figcaption class="photo-caption">Desert View Watchtower — una sentinella sul Grand Canyon</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250402_164737.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">The first panorama from the South Rim</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_082509.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">The Grand Canyon seen from Desert View Watchtower</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_091359.jpg" alt="Desert View Watchtower"><figcaption class="photo-caption">Desert View Watchtower — a sentinel above the Grand Canyon</figcaption></figure>
                     </div>
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_075357.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Neve e roccia lungo il bordo del Grand Canyon</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_143533.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Strati di roccia fino all’orizzonte</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250403_163118.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">I colori del Grand Canyon nel pomeriggio</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_075357.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Snow and rock along the rim of the Grand Canyon</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250403_143533.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Layers of rock stretching to the horizon</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250403_163118.jpg" alt="Grand Canyon National Park"><figcaption class="photo-caption">Afternoon colours across the Grand Canyon</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -573,8 +573,8 @@
 
         <article class="day-block" id="giorno-6">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 6</div>
-                <div class="day-date">4 APRILE 2025</div>
+                <div class="day-number">DAY 6</div>
+                <div class="day-date">4 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Tusayan</span>−3 °C · 2.012 m</div>
                     <div class="day-stat-item"><span class="stat-name">Painted Desert</span>7 °C · 1.700 m</div>
@@ -583,16 +583,16 @@
                 </div>
                 <div class="day-route" id="giorno6-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: nessuno, pioveva</span>
-                    <span class="detail-item">In auto: 435 km</span>
-                    <span class="detail-item">A piedi: 10,4 km</span>
+                    <span class="detail-item">Hiking: none, because of the rain</span>
+                    <span class="detail-item">By car: 435 km</span>
+                    <span class="detail-item">On foot: 10,4 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Abbandoniamo l’affascinante e innevato Grand Canyon e ci dirigiamo verso sud-est, pronti a scoprire nuove meraviglie dell’Arizona.</p>
-                    <p>La prima tappa è il Meteor Crater, un enorme cratere formatosi circa 50.000 anni fa dall’impatto di un meteorite: impressionante per dimensioni e stato di conservazione.</p>
+                    <p>We leave the fascinating, snow-covered Grand Canyon and head southeast, ready to discover more of Arizona’s wonders.</p>
+                    <p>Our first stop is Meteor Crater, an enormous crater formed roughly 50,000 years ago by a meteorite impact, impressive both for its size and its state of preservation.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -606,30 +606,30 @@
                 </div>
 
                 <div class="day-text">
-                    <p>Proseguiamo verso il Petrified Forest National Park, famoso per i suoi antichissimi tronchi pietrificati, trasformati nel corso di milioni di anni in vere opere d’arte naturali. Purtroppo comincia a piovere forte e dobbiamo rinunciare ai sentieri più lunghi.</p>
+                    <p>We continue to Petrified Forest National Park, famous for its ancient petrified logs, transformed over millions of years into natural works of art. Unfortunately, heavy rain begins and we have to abandon the longer trails.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_144620.jpg" alt="Petrified Forest National Park"><figcaption class="photo-caption">Petrified Forest — tronchi trasformati in pietra</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250404_144717.jpg" alt="Petrified Forest National Park"><figcaption class="photo-caption">Legno pietrificato — colori e minerali di milioni di anni</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_144620.jpg" alt="Petrified Forest National Park"><figcaption class="photo-caption">Petrified Forest — logs transformed into stone</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250404_144717.jpg" alt="Petrified Forest National Park"><figcaption class="photo-caption">Petrified wood — millions of years of colour and minerals</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Attraversiamo poi il Painted Desert, ma sotto un cielo così grigio risulta decisamente poco… “painted”!</p>
+                    <p>We then cross the Painted Desert, although beneath such a grey sky it looks decidedly less… painted.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_135617.jpg" alt="Studebaker del 1932 sulla Route 66"><figcaption class="photo-caption">Studebaker del 1932 – Route 66</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_131434.jpg" alt="Painted Desert"><figcaption class="photo-caption">Painted Desert — colline dipinte di rosso e viola</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_130255.jpg" alt="Painted Desert"><figcaption class="photo-caption">Onde di colore attraversano il deserto</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_135617.jpg" alt="Studebaker del 1932 sulla Route 66"><figcaption class="photo-caption">1932 Studebaker – Route 66</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_131434.jpg" alt="Painted Desert"><figcaption class="photo-caption">Painted Desert — hills painted red and purple</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250404_130255.jpg" alt="Painted Desert"><figcaption class="photo-caption">Waves of colour cross the desert</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>In serata arriviamo a Holbrook, una cittadina quasi deserta. Anche il ristorante è semivuoto, ma la cena ci sorprende con un ottimo barbecue di carne: una conclusione perfetta per una giornata lunga e intensa.</p>
+                    <p>In the evening we arrive in Holbrook, an almost deserted town. Even the restaurant is nearly empty, but dinner surprises us with excellent barbecue: the perfect ending to a long and intense day.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -642,63 +642,63 @@
 
         <article class="day-block" id="giorno-7">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 7</div>
-                <div class="day-date">5 APRILE 2025</div>
+                <div class="day-number">DAY 7</div>
+                <div class="day-date">5 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Holbrook</span>7 °C · 1.548 m</div>
                     <div class="day-stat-item"><span class="stat-name">Page</span>17 °C · 1.255 m</div>
                 </div>
                 <div class="day-route" id="giorno7-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: quattro passi qua e là</span>
-                    <span class="detail-item">In auto: 385 km</span>
+                    <span class="detail-item">Hiking: short walks here and there</span>
+                    <span class="detail-item">By car: 385 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Dopo la solita “modesta” colazione, partiamo da Holbrook in direzione nord-ovest, verso Page.</p>
-                    <p>Ci fermiamo subito alla Big Lake Sand Cave, una suggestiva grotta di arenaria nascosta dietro un distributore Shell e raggiungibile con pochi passi dalla strada. Un primo assaggio di ciò che ci aspetta… e un’ottima operazione di marketing per chi ha aperto lì la pompa di benzina!</p>
+                    <p>After our usual ‘modest’ breakfast, we leave Holbrook and head northwest towards Page.</p>
+                    <p>We immediately stop at Big Lake Sand Cave, a striking sandstone cave hidden behind a Shell station and reached by a short walk from the road. It is a first taste of what lies ahead—and a brilliant piece of marketing by whoever opened the petrol station there.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250405_111937.jpg" alt="Big Lake Sand Cave"><figcaption class="photo-caption">Big Lake Sand Cave — una finestra scavata nell’arenaria</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_111946.jpg" alt="Big Lake Sand Cave"><figcaption class="photo-caption">Dentro la grotta, tra curve di roccia e cielo blu</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250405_111937.jpg" alt="Big Lake Sand Cave"><figcaption class="photo-caption">Big Lake Sand Cave — a window carved in sandstone</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_111946.jpg" alt="Big Lake Sand Cave"><figcaption class="photo-caption">Inside the cave, between curved rock and blue sky</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Visitiamo poi la maestosa Glen Canyon Dam, l’imponente diga costruita sul fiume Colorado che ha dato origine al Lake Powell. Proseguiamo quindi fino al Wahweap Overlook, da cui ammiriamo il lago dall’alto.</p>
+                    <p>We then visit majestic Glen Canyon Dam, the imposing barrier built across the Colorado River that created Lake Powell. We continue to Wahweap Overlook, where we admire the lake from above.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250405_115611.jpg" alt="Glen Canyon National Recreation Area"><figcaption class="photo-caption">Glen Canyon National Recreation Area</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_122025.jpg" alt="Lake Powell"><figcaption class="photo-caption">Lake Powell — il blu dell’acqua incontra l’arenaria</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_122025.jpg" alt="Lake Powell"><figcaption class="photo-caption">Lake Powell — blue water meets sandstone</figcaption></figure>
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_142223.jpg" alt="Glen Canyon Dam"><figcaption class="photo-caption">Glen Canyon Dam</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>È quindi il momento dell’iconico Horseshoe Bend: la spettacolare ansa del Colorado ci lascia davvero senza parole.</p>
+                    <p>Then it is time for iconic Horseshoe Bend: the spectacular curve of the Colorado River leaves us speechless.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_132902.jpg" alt="Horseshoe Bend"><figcaption class="photo-caption">Horseshoe Bend — la curva perfetta vista dall’alto</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_142447.jpg" alt="Horseshoe Bend"><figcaption class="photo-caption">Il Colorado scorre tra le pareti rosse di Horseshoe Bend</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_132902.jpg" alt="Horseshoe Bend"><figcaption class="photo-caption">Horseshoe Bend — the perfect curve from above</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_142447.jpg" alt="Horseshoe Bend"><figcaption class="photo-caption">The Colorado flows between the red walls of Horseshoe Bend</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Dopo una breve pausa in hotel, ci aspetta l’immancabile cena da Big John’s Texas BBQ. Concludiamo la giornata tornando all’overlook per fotografare il lago avvolto dai colori del tramonto.</p>
+                    <p>After a short break at the hotel, the essential dinner at Big John’s Texas BBQ awaits us. We end the day by returning to the overlook to photograph the lake wrapped in sunset colours.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250405_191841.jpg" alt="Big John's Texas BBQ a Page"><figcaption class="photo-caption">Big John’s Texas BBQ – Page</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250405_194432.jpg" alt="Lake Powell al tramonto"><figcaption class="photo-caption">Lake Powell nella quiete del tramonto</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250405_194432.jpg" alt="Lake Powell al tramonto"><figcaption class="photo-caption">Lake Powell in the stillness of sunset</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -706,8 +706,8 @@
 
         <article class="day-block" id="giorno-8">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 8</div>
-                <div class="day-date">6 APRILE 2025</div>
+                <div class="day-number">DAY 8</div>
+                <div class="day-date">6 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Page</span>8 °C · 1.255 m</div>
                     <div class="day-stat-item"><span class="stat-name">Monument Valley</span>14 °C · 1.696 m</div>
@@ -715,16 +715,16 @@
                 </div>
                 <div class="day-route" id="giorno8-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: qualche passeggiata qua e là</span>
-                    <span class="detail-item">In auto: 270 km</span>
-                    <span class="detail-item">A piedi: 10,4 km</span>
+                    <span class="detail-item">Hiking: a few walks here and there</span>
+                    <span class="detail-item">By car: 270 km</span>
+                    <span class="detail-item">On foot: 10,4 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>La giornata inizia sotto un cielo limpido, lungo una strada circondata da praterie aride, rocce solitarie e vecchi mulini mossi dal vento. Percorriamo la AZ-98, una strada remota, isolata e panoramica che attraversa il deserto e la riserva Navajo.</p>
-                    <p>Prima di arrivare alla Monument Valley incontriamo l’Agathla Peak. Il suo nome deriva dal termine Navajo <em>Aghaałą́</em>, “molta lana”, riferito alla pelliccia degli animali che un tempo si accumulava sulla roccia. È considerata una montagna sacra dal popolo Navajo.</p>
+                    <p>The day begins beneath a clear sky on a road surrounded by arid grasslands, isolated rocks and old windmills. We follow AZ-98, a remote, lonely and scenic highway crossing the desert and the Navajo Nation.</p>
+                    <p>Before reaching Monument Valley we encounter Agathla Peak. Its name comes from the Navajo word <em>Aghaałą́</em>, meaning ‘much wool’, referring to animal fur that once collected on the rock. It is considered a sacred mountain by the Navajo people.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -735,28 +735,28 @@
                 </div>
 
                 <div class="day-text">
-                    <p>In mattinata percorriamo con la nostra auto la Scenic Drive della Monument Valley, tra strade sterrate, polvere rossa e gigantesche formazioni rocciose. Ogni curva ci regala un panorama diverso, quasi fossimo entrati in un vecchio film western.</p>
+                    <p>In the morning we drive Monument Valley’s Scenic Drive in our own car, following dirt roads through red dust and gigantic rock formations. Every bend reveals a different view, as though we have entered an old Western movie.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250406_102746.jpg" alt="Scenic Drive nella Monument Valley"><figcaption class="photo-caption">Scenic Drive — la pista rossa attraversa la Monument Valley</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_104005.jpg" alt="Scenic Drive nella Monument Valley"><figcaption class="photo-caption">Le grandi mesas lungo la Scenic Drive</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_105504.jpg" alt="The Three Sisters nella Monument Valley"><figcaption class="photo-caption">The Three Sisters — tre guglie nella terra Navajo</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250406_102746.jpg" alt="Scenic Drive nella Monument Valley"><figcaption class="photo-caption">Scenic Drive — the red track crosses Monument Valley</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_104005.jpg" alt="Scenic Drive nella Monument Valley"><figcaption class="photo-caption">The great mesas along Scenic Drive</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_105504.jpg" alt="The Three Sisters nella Monument Valley"><figcaption class="photo-caption">The Three Sisters — three spires in Navajo land</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Al tramonto partecipiamo a un tour organizzato, addentrandoci in luoghi altrimenti inaccessibili. Tra angoli nascosti, tradizioni Navajo e paesaggi spettacolari, incontriamo persino un canestro in mezzo al nulla!</p>
-                    <p>La giornata si conclude davanti alle grandi rocce illuminate di rosso e arancione: un momento silenzioso e indimenticabile, capace di racchiudere tutta la magia della Monument Valley.</p>
+                    <p>At sunset we join an organised tour and venture into otherwise inaccessible places. Among hidden corners, Navajo traditions and spectacular scenery, we even find a basketball hoop in the middle of nowhere.</p>
+                    <p>The day ends before the great rocks glowing red and orange: a silent, unforgettable moment containing all the magic of Monument Valley.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_115715.jpg" alt="Oljato-Monument Valley"><figcaption class="photo-caption">Oljato-Monument Valley — i monoliti dominano il deserto</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_161120.jpg" alt="Canestro a John Ford Point"><figcaption class="photo-caption">Un canestro tra i Mittens a John Ford Point</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_172242.jpg" alt="Oljato-Monument Valley"><figcaption class="photo-caption">Le Mittens illuminate dalla luce del pomeriggio</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250406_183655.jpg" alt="Oljato-Monument Valley al tramonto"><figcaption class="photo-caption">Il tramonto accende la Monument Valley</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_115715.jpg" alt="Oljato-Monument Valley"><figcaption class="photo-caption">Oljato-Monument Valley — monoliths dominate the desert</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_161120.jpg" alt="Canestro a John Ford Point"><figcaption class="photo-caption">A basketball hoop between the Mittens at John Ford Point</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250406_172242.jpg" alt="Oljato-Monument Valley"><figcaption class="photo-caption">The Mittens glowing in the afternoon light</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250406_183655.jpg" alt="Oljato-Monument Valley al tramonto"><figcaption class="photo-caption">Sunset sets Monument Valley ablaze</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -764,23 +764,23 @@
 
         <article class="day-block" id="giorno-9">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 9</div>
-                <div class="day-date">7 APRILE 2025</div>
+                <div class="day-number">DAY 9</div>
+                <div class="day-date">7 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Kayenta</span>4 °C · 1.738 m</div>
                     <div class="day-stat-item"><span class="stat-name">Moab</span>16–17 °C · 1.227 m</div>
                 </div>
                 <div class="day-route" id="giorno9-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Mesa Arch Trail e Grand View Point Trail</span>
-                    <span class="detail-item">In auto: 365 km</span>
-                    <span class="detail-item">A piedi: 12 km</span>
+                    <span class="detail-item">Hiking: Mesa Arch Trail e Grand View Point Trail</span>
+                    <span class="detail-item">By car: 365 km</span>
+                    <span class="detail-item">On foot: 12 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Partiamo al mattino da Kayenta, lasciandoci alle spalle i paesaggi della Monument Valley. Dopo aver percorso la US-163, proseguiamo lungo la US-191, dove incontriamo la curiosa Church Rock: un’imponente formazione di arenaria che deve il suo nome alla forma arrotondata, simile alla cupola di una chiesa solitaria nel deserto.</p>
+                    <p>We leave Kayenta in the morning with the landscapes of Monument Valley behind us. After following US-163, we continue along US-191 and encounter curious Church Rock, an imposing sandstone formation named for its rounded shape, like the dome of a solitary church in the desert.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -791,24 +791,24 @@
                 </div>
 
                 <div class="day-text">
-                    <p>Nel pomeriggio arriviamo al Canyonlands National Park, dove percorriamo alcuni sentieri nella zona di Island in the Sky. Il momento più suggestivo è Mesa Arch, uno spettacolare arco naturale affacciato su un’immensa distesa di canyon e rocce scolpite dal tempo.</p>
+                    <p>In the afternoon we reach Canyonlands National Park and hike several trails in the Island in the Sky district. The highlight is Mesa Arch, a spectacular natural arch overlooking an immense expanse of canyons and time-sculpted rock.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250407_122136.jpg" alt="Canyonlands National Park"><figcaption class="photo-caption">Canyonlands National Park</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250407_125247.jpg" alt="Mesa Arch"><figcaption class="photo-caption">Mesa Arch — una finestra aperta sul Canyonlands</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250407_125247.jpg" alt="Mesa Arch"><figcaption class="photo-caption">Mesa Arch — a window overlooking Canyonlands</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250407_140805.jpg" alt="Island in the Sky"><figcaption class="photo-caption">Island in the Sky</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Prima di concludere la giornata raggiungiamo Dead Horse Point, un balcone naturale dal quale il fiume Colorado appare come un sottile nastro tra pareti vertiginose. Infine arriviamo a Moab, stanchi ma ancora pieni delle immagini e delle emozioni di questa splendida giornata.</p>
+                    <p>Before ending the day we reach Dead Horse Point, a natural balcony from which the Colorado River looks like a slender ribbon between sheer walls. Finally we arrive in Moab, tired but still filled with the images and emotions of this magnificent day.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250407_153836.jpg" alt="Dead Horse Point"><figcaption class="photo-caption">Dead Horse Point — il Colorado visto dall’alto</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250407_153836.jpg" alt="Dead Horse Point"><figcaption class="photo-caption">Dead Horse Point — the Colorado from above</figcaption></figure>
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250407_153922.jpg" alt="La Sal Mountains"><figcaption class="photo-caption">La Sal Mountains</figcaption></figure>
                     </div>
                 </div>
@@ -817,49 +817,49 @@
 
         <article class="day-block" id="giorno-10">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 10</div>
-                <div class="day-date">8 APRILE 2025</div>
+                <div class="day-number">DAY 10</div>
+                <div class="day-date">8 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Moab</span>7–19 °C · 1.227 m</div>
                     <div class="day-stat-item"><span class="stat-name">Arches NP</span>16 °C · 1.524 m</div>
                 </div>
                 <div class="day-route" id="giorno10-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Devils Garden Trail, Delicate Arch Trail, Windows Loop Trail e Double Arch Trail</span>
-                    <span class="detail-item">In auto: 105 km</span>
-                    <span class="detail-item">A piedi: 23 km</span>
+                    <span class="detail-item">Hiking: Devils Garden Trail, Delicate Arch Trail, Windows Loop Trail e Double Arch Trail</span>
+                    <span class="detail-item">By car: 105 km</span>
+                    <span class="detail-item">On foot: 23 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Dopo un’abbondante colazione all’americana, dedichiamo l’intera giornata all’Arches National Park, che ripaga pienamente tutte le nostre aspettative.</p>
-                    <p>Al mattino affrontiamo l’impegnativo Devils Garden Trail, camminando tra archi spettacolari e qualche incontro con la fauna locale.</p>
+                    <p>After a generous American breakfast, we devote the entire day to Arches National Park, which fully lives up to all our expectations.</p>
+                    <p>In the morning we tackle the demanding Devils Garden Trail, walking among spectacular arches and encountering some local wildlife.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250408_073338.jpg" alt="Welcome to Arches National Park"><figcaption class="photo-caption">Welcome to Arches National Park — il regno degli archi di pietra</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250408_090203.jpg" alt="Cervo mulo ad Arches"><figcaption class="photo-caption">Un cervo mulo tra la vegetazione di Arches</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250408_093727.jpg" alt="Chipmunk ad Arches"><figcaption class="photo-caption">Un curioso chipmunk in posa sulle rocce</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250408_073338.jpg" alt="Welcome to Arches National Park"><figcaption class="photo-caption">Welcome to Arches National Park — a kingdom of stone arches</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250408_090203.jpg" alt="Cervo mulo ad Arches"><figcaption class="photo-caption">A mule deer among the vegetation of Arches</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250408_093727.jpg" alt="Chipmunk ad Arches"><figcaption class="photo-caption">A curious chipmunk posing on the rocks</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Dopo una pausa per il pranzo e una doccia rigenerante, torniamo nel parco per il Delicate Arch Trail: una salita faticosa, ma assolutamente ricompensata dalla meraviglia dell’arco, talmente iconico da comparire anche sulle targhe delle auto dello Utah!</p>
-                    <p>Nonostante la stanchezza, concludiamo con due percorsi più brevi: il Windows Loop Trail e il Double Arch Trail.</p>
+                    <p>After a lunch break and a refreshing shower, we return to the park for the Delicate Arch Trail: a strenuous climb, but completely rewarded by the wonder of an arch so iconic that it even appears on Utah licence plates.</p>
+                    <p>Despite our tired legs, we finish with two shorter routes: Windows Loop Trail and Double Arch Trail.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250408_120045.jpg" alt="Delicate Arch"><figcaption class="photo-caption">Delicate Arch — l’icona di pietra dello Utah</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250408_120045.jpg" alt="Delicate Arch"><figcaption class="photo-caption">Delicate Arch — Utah’s stone icon</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250408_155721.jpg" alt="Turret Arch"><figcaption class="photo-caption">Turret Arch</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250408_163603.jpg" alt="Double Arch"><figcaption class="photo-caption">Double Arch — due archi, un unico spettacolo</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250408_163603.jpg" alt="Double Arch"><figcaption class="photo-caption">Double Arch — two arches, one spectacular sight</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Prima di lasciare il parco ammiriamo anche le imponenti formazioni rocciose nella zona di Courthouse Towers.</p>
+                    <p>Before leaving the park, we also admire the imposing rock formations around Courthouse Towers.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -870,7 +870,7 @@
                 </div>
 
                 <div class="day-text">
-                    <p>La serata termina a Moab con una meritata pizza, più che discreta, dopo una giornata intensa e indimenticabile.</p>
+                    <p>The evening ends in Moab with a well-earned and more than respectable pizza after an intense, unforgettable day.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -883,24 +883,24 @@
 
         <article class="day-block" id="giorno-11">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 11</div>
-                <div class="day-date">9 APRILE 2025</div>
+                <div class="day-number">DAY 11</div>
+                <div class="day-date">9 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Moab</span>11 °C · 1.227 m</div>
                     <div class="day-stat-item"><span class="stat-name">Las Vegas</span>30 °C · 610 m</div>
                 </div>
                 <div class="day-route" id="giorno11-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Las Vegas Strip</span>
-                    <span class="detail-item">In auto: 740 km</span>
-                    <span class="detail-item">A piedi: 14 km</span>
+                    <span class="detail-item">Hiking: Las Vegas Strip</span>
+                    <span class="detail-item">By car: 740 km</span>
+                    <span class="detail-item">On foot: 14 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Dopo una dolce e abbondante colazione al Moab Diner, lasciamo Moab percorrendo la US‑191 verso nord, per poi imboccare la I‑70 in direzione ovest e infine la I‑15 verso sud.</p>
-                    <p>Il viaggio è lungo, ma il paesaggio cambia continuamente: distese desertiche, altopiani, canyon di roccia rossa e strade che sembrano perdersi all’orizzonte. Attraversiamo lo Utah, sfioriamo St. George e percorriamo la spettacolare Virgin River Gorge, in Arizona, prima di entrare in Nevada.</p>
+                    <p>After a sweet and generous breakfast at Moab Diner, we leave Moab on US-191 north, then join I-70 west and finally I-15 south.</p>
+                    <p>The drive is long, but the landscape changes constantly: desert plains, plateaus, red-rock canyons and roads that seem to disappear into the horizon. We cross Utah, skirt St. George and drive through spectacular Virgin River Gorge in Arizona before entering Nevada.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -911,14 +911,14 @@
                 </div>
 
                 <div class="day-text">
-                    <p>Nel pomeriggio arriviamo a Las Vegas. È soltanto aprile, ma il caldo è già intenso: d’altronde ci troviamo nel cuore del deserto del Mojave. Dopo esserci sistemati, passeggiamo lungo la Strip, abbagliati dalle luci, dagli hotel e dall’atmosfera quasi surreale della città.</p>
-                    <p>Non manca qualche giocata alla roulette, naturalmente senza grandi fortune, prima di concludere la serata con una cena da Virgil’s Real BBQ e lo spettacolo delle fontane del Bellagio!</p>
+                    <p>In the afternoon we arrive in Las Vegas. It is only April, yet the heat is already intense—we are, after all, in the heart of the Mojave Desert. Once settled in, we walk along the Strip, dazzled by the lights, hotels and almost surreal atmosphere.</p>
+                    <p>Naturally, we try our luck at roulette without winning a fortune, then end the evening with dinner at Virgil’s Real BBQ and the Bellagio fountain show.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409_192814.jpg" alt="Virgil's Real BBQ"><figcaption class="photo-caption">Virgil’s Real BBQ</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409-223618.jpg" alt="Fountains of Bellagio"><figcaption class="photo-caption">Fountains of Bellagio — acqua, musica e luci nel cuore di Las Vegas</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250409-223618.jpg" alt="Fountains of Bellagio"><figcaption class="photo-caption">Fountains of Bellagio — water, music and light in the heart of Las Vegas</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><button class="youtube-trigger" type="button" data-video-id="Z0TfQzxCFwE" aria-label="Guarda Fountains of Bellagio"><img class="youtube-thumbnail" src="https://i.ytimg.com/vi/Z0TfQzxCFwE/hqdefault.jpg" alt="Fountains of Bellagio" loading="lazy"><span class="youtube-play-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></button><figcaption class="photo-caption">Fountains of Bellagio – Video</figcaption></figure>
                     </div>
                 </div>
@@ -927,8 +927,8 @@
 
         <article class="day-block" id="giorno-12">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 12</div>
-                <div class="day-date">10 APRILE 2025</div>
+                <div class="day-number">DAY 12</div>
+                <div class="day-date">10 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Las Vegas</span>19 °C · 610 m</div>
                     <div class="day-stat-item"><span class="stat-name">Death Valley NP</span>40 °C · −58 m</div>
@@ -936,44 +936,44 @@
                 </div>
                 <div class="day-route" id="giorno12-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: pochi passi nella Death Valley… si chiama così per un buon motivo!</span>
-                    <span class="detail-item">In auto: 550 km</span>
-                    <span class="detail-item">A piedi: 10 km</span>
+                    <span class="detail-item">Hiking: a few steps in Death Valley… it has that name for a reason!</span>
+                    <span class="detail-item">By car: 550 km</span>
+                    <span class="detail-item">On foot: 10 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Partiamo da Las Vegas diretti verso la Death Valley e, lungo il percorso, entriamo in California, l’ultimo Stato del nostro viaggio. È aprile, ma la temperatura raggiunge già i 40 gradi: un primo assaggio delle condizioni estreme che caratterizzano questo luogo.</p>
-                    <p>Visitiamo alcuni dei punti più spettacolari del parco: il panorama sconfinato di Dante’s View, le forme e i colori di Zabriskie Point, l’Artist’s Palette e il Badwater Basin, il punto più basso del Nord America, per concludere con le Mesquite Flat Sand Dunes.</p>
+                    <p>We leave Las Vegas for Death Valley and cross into California, the final state of our journey. Although it is only April, the temperature already reaches 40°C: a first taste of the extreme conditions that define this place.</p>
+                    <p>We visit some of the park’s most spectacular sights: the boundless panorama from Dante’s View, the shapes and colours of Zabriskie Point, Artist’s Palette and Badwater Basin—the lowest point in North America—before finishing at Mesquite Flat Sand Dunes.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_100651.jpg" alt="Welcome to Death Valley National Park"><figcaption class="photo-caption">Welcome to Death Valley National Park</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_112116.jpg" alt="Zabriskie Point"><figcaption class="photo-caption">Zabriskie Point — la Death Valley dipinta dalla luce</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_112116.jpg" alt="Zabriskie Point"><figcaption class="photo-caption">Zabriskie Point — Death Valley painted by light</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_123443.jpg" alt="Badwater Basin"><figcaption class="photo-caption">Badwater Basin — il punto più basso del Nord America</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_124143.jpg" alt="Badwater Basin"><figcaption class="photo-caption">Il bianco del sale si perde nella Death Valley</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_134503.jpg" alt="Mesquite Flat Sand Dunes"><figcaption class="photo-caption">Mesquite Flat Sand Dunes — onde di sabbia nella Death Valley</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_123443.jpg" alt="Badwater Basin"><figcaption class="photo-caption">Badwater Basin — the lowest point in North America</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_124143.jpg" alt="Badwater Basin"><figcaption class="photo-caption">White salt stretches across Death Valley</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250410_134503.jpg" alt="Mesquite Flat Sand Dunes"><figcaption class="photo-caption">Mesquite Flat Sand Dunes — waves of sand in Death Valley</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Uscendo dalla Death Valley percorriamo una strada che sembra non finire mai, completamente deserta e senza incontrare quasi nessuno. Per fortuna la nostra auto non ci abbandona proprio nel mezzo del nulla!</p>
-                    <p>In serata arriviamo a Ridgecrest: una cittadina forse non indimenticabile, ma perfetta per riposare dopo una giornata trascorsa tra caldo, deserto e paesaggi straordinari.</p>
+                    <p>Leaving Death Valley, we follow a completely deserted road that seems never-ending and encounter almost nobody. Fortunately, our car does not abandon us in the middle of nowhere.</p>
+                    <p>In the evening we reach Ridgecrest, perhaps not the most memorable town, but perfect for resting after a day of heat, desert and extraordinary landscapes.</p>
                 </div>
             </div>
         </article>
 
         <article class="day-block" id="giorno-13">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 13</div>
-                <div class="day-date">11 APRILE 2025</div>
+                <div class="day-number">DAY 13</div>
+                <div class="day-date">11 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Ridgecrest</span>17 °C · 698 m</div>
                     <div class="day-stat-item"><span class="stat-name">Sequoia NP</span>5 °C · 2.048 m</div>
@@ -981,15 +981,15 @@
                 </div>
                 <div class="day-route" id="giorno13-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Congress Trail e Big Trees Trail</span>
-                    <span class="detail-item">In auto: 355 km</span>
-                    <span class="detail-item">A piedi: 13 km</span>
+                    <span class="detail-item">Hiking: Congress Trail e Big Trees Trail</span>
+                    <span class="detail-item">By car: 355 km</span>
+                    <span class="detail-item">On foot: 13 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Partiamo da Ridgecrest diretti verso il Sequoia National Park. Lungo la strada incontriamo numerosi pozzi petroliferi con le caratteristiche pompe a bilanciere, che si muovono lentamente e senza sosta nel paesaggio arido della California lungo la Highway 65.</p>
+                    <p>We leave Ridgecrest for Sequoia National Park. Along Highway 65 we pass numerous oil wells with their distinctive pumpjacks moving slowly and endlessly through California’s arid landscape.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -999,28 +999,28 @@
                 </div>
 
                 <div class="day-text">
-                    <p>Avvicinandoci al parco, la strada comincia a salire tra montagne e continui tornanti, richiedendo molta attenzione alla guida ma regalando panorami sempre più belli.</p>
-                    <p>Una volta arrivati scopriamo che Moro Rock non è accessibile: ha nevicato da poco e, in questo periodo dell’anno, il percorso è spesso ancora chiuso. Non ci lasciamo scoraggiare e scegliamo un paio di sentieri immersi nella Giant Forest, camminando ai piedi delle sequoie millenarie.</p>
+                    <p>As we approach the park, the road begins climbing through mountains and continuous bends, demanding careful driving but rewarding us with increasingly beautiful views.</p>
+                    <p>Once there, we discover that Moro Rock is inaccessible: it snowed recently and the route is often still closed at this time of year. Undeterred, we choose a couple of trails through Giant Forest and walk beneath ancient sequoias.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250411_112153.jpg" alt="Sequoia National Park"><figcaption class="photo-caption">Sequoia National Park</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250411_125904.jpg" alt="Congress Trail"><figcaption class="photo-caption">Congress Trail</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250411_134238.jpg" alt="General Sherman"><figcaption class="photo-caption">General Sherman — davanti al gigante della foresta</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250411_134238.jpg" alt="General Sherman"><figcaption class="photo-caption">General Sherman — standing before the giant of the forest</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Durante il percorso teniamo gli occhi aperti nella speranza di avvistare qualche animale selvatico, ma il freddo è ancora pungente e il bosco rimane silenzioso. Forse erano ancora tutti al caldo nei loro rifugi, poco convinti che la primavera fosse davvero arrivata!</p>
+                    <p>Along the trail we keep our eyes open for wildlife, but the cold is still biting and the forest remains silent. Perhaps the animals are all still warm in their shelters, unconvinced that spring has really arrived.</p>
                 </div>
             </div>
         </article>
 
         <article class="day-block" id="giorno-14">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 14</div>
-                <div class="day-date">12 APRILE 2025</div>
+                <div class="day-number">DAY 14</div>
+                <div class="day-date">12 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Visalia</span>15 °C · 101 m</div>
                     <div class="day-stat-item"><span class="stat-name">Yosemite NP</span>9–16 °C · 1.220 m</div>
@@ -1028,28 +1028,28 @@
                 </div>
                 <div class="day-route" id="giorno14-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: Mirror Lake Trail</span>
-                    <span class="detail-item">In auto: 290 km</span>
-                    <span class="detail-item">A piedi: 16 km</span>
+                    <span class="detail-item">Hiking: Mirror Lake Trail</span>
+                    <span class="detail-item">By car: 290 km</span>
+                    <span class="detail-item">On foot: 16 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Partiamo verso nord, in direzione dello Yosemite National Park. L’aria è ancora fresca e, lungo il percorso, vediamo chiaramente i segni delle nevicate dei giorni precedenti.</p>
-                    <p>Prima di entrare nella Yosemite Valley attraversiamo il celebre Wawona Tunnel. Appena usciti, il panorama si apre improvvisamente davanti ai nostri occhi: dal Tunnel View ammiriamo la valle in tutto il suo splendore, incorniciata da El Capitan, Half Dome e Bridalveil Fall. Uno di quei panorami che fanno restare in silenzio.</p>
+                    <p>We head north towards Yosemite National Park. The air is still cool and the signs of recent snowfall are clearly visible along the way.</p>
+                    <p>Before entering Yosemite Valley we pass through famous Wawona Tunnel. As soon as we emerge, the view suddenly opens before us: from Tunnel View we admire the valley in all its splendour, framed by El Capitan, Half Dome and Bridalveil Fall. It is one of those views that leaves you speechless.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250412_093030.jpg" alt="Yosemite National Park"><figcaption class="photo-caption">Yosemite National Park — ingresso nella valle dei giganti</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250412_103122.jpg" alt="Tunnel View"><figcaption class="photo-caption">Tunnel View — Yosemite in una sola, perfetta veduta</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/2026-08-25 at 13.12.59.jpg" alt="El Capitan"><figcaption class="photo-caption">El Capitan — la parete simbolo di Yosemite</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250412_093030.jpg" alt="Yosemite National Park"><figcaption class="photo-caption">Yosemite National Park — entering the valley of giants</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250412_103122.jpg" alt="Tunnel View"><figcaption class="photo-caption">Tunnel View — Yosemite in one perfect vista</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/2026-08-25 at 13.12.59.jpg" alt="El Capitan"><figcaption class="photo-caption">El Capitan — Yosemite’s iconic wall</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Raggiungiamo poi Bridalveil Fall e percorriamo il Mirror Lake Trail, circondati da pareti di granito, boschi e cascate alimentate dallo scioglimento della neve.</p>
+                    <p>We then reach Bridalveil Fall and walk Mirror Lake Trail, surrounded by granite walls, forests and waterfalls fed by melting snow.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1062,13 +1062,13 @@
                 </div>
 
                 <div class="day-text">
-                    <p>All’uscita dal parco ci aspetta però l’incontro più emozionante della giornata. Notiamo alcune persone ferme a guardare verso la cima di un albero: tra i rami ci sono due cuccioli d’orso che giocano e si arrampicano, mentre la madre li sorveglia attentamente dal basso. Scattiamo qualche fotografia mantenendoci a distanza di sicurezza, poi riprendiamo la strada verso Mariposa, dove trascorreremo la notte.</p>
+                    <p>As we leave the park, the most exciting encounter of the day awaits us. We notice people staring towards the top of a tree: two bear cubs are playing and climbing among the branches while their mother carefully watches from below. We take a few photographs from a safe distance, then continue towards Mariposa, where we spend the night.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250412-155422.jpg" alt="Orsi nello Yosemite National Park"><figcaption class="photo-caption">Un orso attraversa il bosco dello Yosemite</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250412-155949.jpg" alt="Orsi nello Yosemite National Park"><figcaption class="photo-caption">Incontro ravvicinato con la fauna del parco</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250412-155422.jpg" alt="Orsi nello Yosemite National Park"><figcaption class="photo-caption">A bear crosses the Yosemite forest</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250412-155949.jpg" alt="Orsi nello Yosemite National Park"><figcaption class="photo-caption">A close encounter with the park’s wildlife</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1076,43 +1076,43 @@
 
         <article class="day-block" id="giorno-15">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 15</div>
-                <div class="day-date">13 APRILE 2025</div>
+                <div class="day-number">DAY 15</div>
+                <div class="day-date">13 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Mariposa</span>13 °C · 594 m</div>
                     <div class="day-stat-item"><span class="stat-name">San Francisco</span>14–17 °C · 16 m</div>
                 </div>
                 <div class="day-route" id="giorno15-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: le strade di San Francisco</span>
-                    <span class="detail-item">In auto: 275 km</span>
-                    <span class="detail-item">A piedi: 24 km</span>
+                    <span class="detail-item">Hiking: the streets of San Francisco</span>
+                    <span class="detail-item">By car: 275 km</span>
+                    <span class="detail-item">On foot: 24 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Lasciamo le montagne e ci dirigiamo verso il mare. La nostra prima tappa è San Francisco, una città che ci conquista immediatamente: graziosa, vivace e piacevole da esplorare a piedi, anche se le sue celebri strade in salita mettono a dura prova le gambe.</p>
-                    <p>Per pranzo passeggiamo tra i locali e le bancarelle del Ferry Building, poi raggiungiamo la tortuosa Lombard Street e proseguiamo fino a Fisherman’s Wharf, dove ci fermiamo per cena.</p>
+                    <p>We leave the mountains and head for the sea. Our first stop is San Francisco, a city that immediately wins us over: charming, lively and delightful to explore on foot, even though its famous steep streets put our legs to the test.</p>
+                    <p>For lunch we wander among the eateries and stalls of the Ferry Building, then reach winding Lombard Street and continue to Fisherman’s Wharf, where we stop for dinner.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_111456.jpg" alt="Lombard Street"><figcaption class="photo-caption">Lombard Street — tornanti, fiori e case colorate</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_111959.jpg" alt="Lombard Street"><figcaption class="photo-caption">La discesa più tortuosa di San Francisco</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_113741.jpg" alt="San Francisco"><figcaption class="photo-caption">Le ripide strade di San Francisco</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_111456.jpg" alt="Lombard Street"><figcaption class="photo-caption">Lombard Street — bends, flowers and colourful homes</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_111959.jpg" alt="Lombard Street"><figcaption class="photo-caption">San Francisco’s most winding descent</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_113741.jpg" alt="San Francisco"><figcaption class="photo-caption">The steep streets of San Francisco</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_115845.jpg" alt="Fisherman's Wharf"><figcaption class="photo-caption">Fisherman’s Wharf — colori e insegne sul lungomare</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_122116.jpg" alt="Fisherman's Wharf"><figcaption class="photo-caption">I leoni marini riposano al Pier 39</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_115845.jpg" alt="Fisherman's Wharf"><figcaption class="photo-caption">Fisherman’s Wharf — colours and signs along the waterfront</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_122116.jpg" alt="Fisherman's Wharf"><figcaption class="photo-caption">Sea lions resting at Pier 39</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Nel centro della città scopriamo anche una fantastica caffetteria: oltre a un ottimo caffè, ci concediamo una dolcissima fetta di red velvet.</p>
+                    <p>In the city centre we also discover a fantastic coffee shop: alongside excellent coffee, we treat ourselves to an extremely sweet slice of red velvet cake.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1123,14 +1123,14 @@
                 </div>
 
                 <div class="day-text">
-                    <p>In serata ci spostiamo nella zona del Golden Gate per scattare qualche fotografia al tramonto. La temperatura è gradevole, ma il vento è impressionante: il cappuccio della felpa continua a salire e scendere dalle nostre teste, rendendo il momento ancora più divertente e indimenticabile.</p>
+                    <p>In the evening we move to the Golden Gate area for sunset photographs. The temperature is pleasant, but the wind is incredible: our sweatshirt hoods keep blowing on and off our heads, making the moment even more amusing and unforgettable.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_184652.jpg" alt="Golden Gate Bridge"><figcaption class="photo-caption">Golden Gate Bridge — il rosso del ponte sulla baia</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_190609.jpg" alt="Alcatraz"><figcaption class="photo-caption">Alcatraz vista dalle acque della baia</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250413_193219.jpg" alt="Golden Gate Bridge al tramonto"><figcaption class="photo-caption">Il Golden Gate si accende al tramonto</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_184652.jpg" alt="Golden Gate Bridge"><figcaption class="photo-caption">Golden Gate Bridge — the red bridge across the bay</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250413_190609.jpg" alt="Alcatraz"><figcaption class="photo-caption">Alcatraz seen from the waters of the bay</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250413_193219.jpg" alt="Golden Gate Bridge al tramonto"><figcaption class="photo-caption">The Golden Gate glows at sunset</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1138,33 +1138,33 @@
 
         <article class="day-block" id="giorno-16">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 16</div>
-                <div class="day-date">14 APRILE 2025</div>
+                <div class="day-number">DAY 16</div>
+                <div class="day-date">14 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">San Francisco</span>14–17 °C · 16 m</div>
                 </div>
                 <div class="day-route" id="giorno16-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: le strade di San Francisco</span>
-                    <span class="detail-item">In auto: 25 km</span>
-                    <span class="detail-item">A piedi: 20 km</span>
+                    <span class="detail-item">Hiking: the streets of San Francisco</span>
+                    <span class="detail-item">By car: 25 km</span>
+                    <span class="detail-item">On foot: 20 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>La mattina inizia con una visita alle famose Painted Ladies, le coloratissime case vittoriane diventate uno dei simboli di San Francisco. Nei dintorni alcuni cartelli ci invitano a prestare attenzione ai coyote: un dettaglio curioso e inaspettato nel cuore della città!</p>
+                    <p>The morning begins with a visit to the famous Painted Ladies, the colourful Victorian houses that have become one of San Francisco’s symbols. Nearby, signs warn us to watch out for coyotes—an unexpected and curious detail in the heart of the city.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250414_081738.jpg" alt="Painted Ladies"><figcaption class="photo-caption">Painted Ladies — le eleganti signore di San Francisco</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250414_081738.jpg" alt="Painted Ladies"><figcaption class="photo-caption">Painted Ladies — San Francisco’s elegant ladies</figcaption></figure>
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_082249.jpg" alt="Alamo Square"><figcaption class="photo-caption">Alamo Square</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Proseguiamo verso il Chase Center, la casa dei Golden State Warriors. Da grande tifoso, non potevo certo perdermelo! In questa zona il basket si respira ovunque, non soltanto nell’arena, ma anche lungo le strade e sui marciapiedi.</p>
+                    <p>We continue to Chase Center, home of the Golden State Warriors. As a huge fan, I certainly could not miss it. Basketball is everywhere in this area, not only inside the arena but also along the streets and pavements.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1175,32 +1175,32 @@
                 </div>
 
                 <div class="day-text">
-                    <p>La tappa successiva è il Palace of Fine Arts, un luogo davvero particolare ed elegante, con la sua imponente architettura classica affacciata su un tranquillo laghetto.</p>
-                    <p>Nel pomeriggio ci imbarchiamo sul traghetto diretto ad Alcatraz. La visita alla celebre prigione è impressionante e suggestiva: tra le vecchie celle, i racconti dei detenuti e la vista sulla baia, sembra quasi di tornare indietro nel tempo. Capiamo anche come fosse impossibile evadere da quel posto! Naturalmente non manca il vento, presenza immancabile a San Francisco.</p>
+                    <p>Our next stop is the Palace of Fine Arts, a truly distinctive and elegant place, with imposing classical architecture overlooking a peaceful lagoon.</p>
+                    <p>In the afternoon we board the ferry to Alcatraz. Visiting the famous prison is both impressive and atmospheric: among the old cells, prisoners’ stories and views across the bay, it almost feels like travelling back in time. We also understand how impossible escaping from that place must have been. Naturally, the wind is ever-present, as always in San Francisco.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250414_095909.jpg" alt="Palace of Fine Arts"><figcaption class="photo-caption">Palace of Fine Arts</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250414_135159.jpg" alt="Alcatraz"><figcaption class="photo-caption">Alcatraz — arrivo sull’isola del penitenziario</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_142126.jpg" alt="Alcatraz"><figcaption class="photo-caption">Dentro il carcere più famoso d’America</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250414_135159.jpg" alt="Alcatraz"><figcaption class="photo-caption">Alcatraz — arriving on the prison island</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_142126.jpg" alt="Alcatraz"><figcaption class="photo-caption">Inside America’s most famous prison</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250414_145221.jpg" alt="San Francisco Skyline"><figcaption class="photo-caption">San Francisco Skyline</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_153049.jpg" alt="Alcatraz"><figcaption class="photo-caption">San Francisco vista dall’isola di Alcatraz</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_153049.jpg" alt="Alcatraz"><figcaption class="photo-caption">San Francisco seen from Alcatraz Island</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Una volta rientrati, torniamo a Fisherman’s Wharf per concludere la giornata con una specialità locale: la famosa clam chowder, una cremosa zuppa di vongole servita dentro una pagnotta di pane. Semplicemente squisita!</p>
+                    <p>Once back, we return to Fisherman’s Wharf and end the day with a local speciality: famous clam chowder, a creamy soup served inside a sourdough bread bowl. Simply delicious.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_160849.jpg" alt="San Francisco"><figcaption class="photo-caption">Lo skyline di San Francisco oltre la baia</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_160849.jpg" alt="San Francisco"><figcaption class="photo-caption">The San Francisco skyline beyond the bay</figcaption></figure>
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250414_190030.jpg" alt="Boudin Bakery Cafe"><figcaption class="photo-caption">Boudin Bakery Cafe</figcaption></figure>
                     </div>
                 </div>
@@ -1209,8 +1209,8 @@
 
         <article class="day-block" id="giorno-17">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 17</div>
-                <div class="day-date">15 APRILE 2025</div>
+                <div class="day-number">DAY 17</div>
+                <div class="day-date">15 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">San Francisco</span>14 °C · 16 m</div>
                     <div class="day-stat-item"><span class="stat-name">Silicon Valley</span>18–22 °C · 32 m</div>
@@ -1219,15 +1219,15 @@
                 </div>
                 <div class="day-route" id="giorno17-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: più autostrada che trail</span>
-                    <span class="detail-item">In auto: 225 km</span>
-                    <span class="detail-item">A piedi: 9 km</span>
+                    <span class="detail-item">Hiking: more highway than trail</span>
+                    <span class="detail-item">By car: 225 km</span>
+                    <span class="detail-item">On foot: 9 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Lasciamo la bellissima e ventosa San Francisco per iniziare il nostro viaggio lungo la costa californiana. Prima di dirigerci verso sud, però, facciamo una deviazione nella mitica Silicon Valley, la culla mondiale dell’innovazione tecnologica. Passiamo davanti alle sedi di alcuni dei colossi che hanno cambiato il nostro modo di vivere e comunicare: Meta, Apple, Google, NVIDIA e Intel.</p>
+                    <p>We leave beautiful, windy San Francisco and begin our journey along the California coast. Before heading south, however, we detour through legendary Silicon Valley, the global birthplace of technological innovation. We pass the headquarters of companies that changed how we live and communicate: Meta, Apple, Google, NVIDIA and Intel.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1237,7 +1237,7 @@
                 </div>
 
                 <div class="day-text">
-                    <p>Nel pomeriggio raggiungiamo Monterey, dove abbiamo prenotato un’escursione in barca per avvistare le balene. Purtroppo la fortuna non è del tutto dalla nostra parte e, più che altro, riusciamo a vedere soltanto qualche pinna! Rimane comunque una bellissima esperienza: navigare nelle acque della baia, respirare l’aria dell’oceano e osservare la fauna marina rende il tour davvero piacevole.</p>
+                    <p>In the afternoon we reach Monterey, where we booked a whale-watching boat trip. Unfortunately, luck is not entirely on our side and we mostly see only a few fins. It is still a wonderful experience: sailing across the bay, breathing the ocean air and observing marine wildlife makes the tour thoroughly enjoyable.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1247,14 +1247,14 @@
                 </div>
 
                 <div class="day-text">
-                    <p>In serata ci dirigiamo verso la graziosissima Carmel-by-the-Sea, una cittadina dall’atmosfera fiabesca, famosa per le sue casette caratteristiche, le gallerie d’arte, le boutique eleganti e le stradine curate che conducono fino alla splendida spiaggia. Passeggiare lungo Ocean Avenue, tra edifici che sembrano usciti da un libro di racconti, è il modo perfetto per concludere questa intensa giornata sulla costa californiana.</p>
+                    <p>In the evening we head to delightful Carmel-by-the-Sea, a fairytale-like town known for its distinctive cottages, art galleries, elegant boutiques and immaculate lanes leading to the beautiful beach. Walking along Ocean Avenue among buildings straight from a storybook is the perfect way to end this intense day on the California coast.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250415_192028.jpg" alt="Carmel-by-the-Sea"><figcaption class="photo-caption">Carmel-by-the-Sea — la spiaggia tra sabbia e cipressi</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250415_192714.jpg" alt="Carmel-by-the-Sea"><figcaption class="photo-caption">Uno scorcio tranquillo sulla baia di Carmel</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250415_200602.jpg" alt="Carmel-by-the-Sea"><figcaption class="photo-caption">La cena conclude la nostra serata a Carmel</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250415_192028.jpg" alt="Carmel-by-the-Sea"><figcaption class="photo-caption">Carmel-by-the-Sea — sand and cypress trees</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250415_192714.jpg" alt="Carmel-by-the-Sea"><figcaption class="photo-caption">A peaceful view across Carmel Bay</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250415_200602.jpg" alt="Carmel-by-the-Sea"><figcaption class="photo-caption">Dinner ends our evening in Carmel</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1262,24 +1262,24 @@
 
         <article class="day-block" id="giorno-18">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 18</div>
-                <div class="day-date">16 APRILE 2025</div>
+                <div class="day-number">DAY 18</div>
+                <div class="day-date">16 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Carmel-by-the-Sea</span>11 °C · 68 m</div>
                     <div class="day-stat-item"><span class="stat-name">Venice Beach</span>18 °C · 4 m</div>
                 </div>
                 <div class="day-route" id="giorno18-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: quattro passi qua e là</span>
-                    <span class="detail-item">In auto: 530 km</span>
-                    <span class="detail-item">A piedi: 11 km</span>
+                    <span class="detail-item">Hiking: short walks here and there</span>
+                    <span class="detail-item">By car: 530 km</span>
+                    <span class="detail-item">On foot: 11 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>Lasciamo la graziosa Carmel-by-the-Sea per proseguire il nostro viaggio verso sud. Purtroppo la celebre Highway 1 lungo la costa è ancora interrotta nella zona di Big Sur a causa di una vasta frana e dei gravi danni subiti dalla strada. Siamo quindi costretti a deviare verso l’entroterra, per poi tornare sulla costa e proseguire fino a Venice Beach.</p>
-                    <p>La tappa è lunga, ma lungo il percorso facciamo un paio di piacevoli soste. La vera sorpresa è Pismo Beach, vivace cittadina affacciata sull’oceano e conosciuta per la sua lunghissima spiaggia, il caratteristico pontile e l’atmosfera rilassata tipicamente californiana. Nonostante il periodo dell’anno, troviamo spiagge affollate e piene di vita, tra surfisti, famiglie e persone intente a passeggiare sulla sabbia.</p>
+                    <p>We leave charming Carmel-by-the-Sea and continue south. Unfortunately, famous coastal Highway 1 is still closed around Big Sur because of a major landslide and severe road damage. We therefore have to detour inland before returning to the coast and continuing to Venice Beach.</p>
+                    <p>It is a long stage, but we make a couple of pleasant stops along the way. The real surprise is Pismo Beach, a lively seaside town known for its immense beach, distinctive pier and relaxed California atmosphere. Despite the time of year, the beaches are busy and full of life, with surfers, families and people strolling across the sand.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1290,20 +1290,20 @@
                 </div>
 
                 <div class="day-text">
-                    <p>In serata raggiungiamo finalmente Venice Beach e ci concediamo una passeggiata sul celebre lungomare. Qui sembra che tutti pratichino uno sport diverso: c’è chi corre, chi va sullo skateboard, chi gioca a basket, chi si allena sulla spiaggia e chi sfreccia sui pattini. Un’esplosione di energia, musica e personaggi eccentrici che rende l’atmosfera davvero unica.</p>
+                    <p>In the evening we finally reach Venice Beach and walk along its famous oceanfront. Everyone here seems to practise a different sport: running, skateboarding, basketball, beach workouts and roller skating. The explosion of energy, music and eccentric characters creates a truly unique atmosphere.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250416_180751.jpg" alt="Venice Beach"><figcaption class="photo-caption">Venice Beach — palme e luci lungo l’Ocean Front Walk</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250416_185326.jpg" alt="Venice Beach"><figcaption class="photo-caption">Runner e sportivi si allenano al tramonto a Venice Beach</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/IMG-20250417-WA0002.jpg" alt="Venice Beach"><figcaption class="photo-caption">Basket al tramonto sui campi di Venice Beach</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/2026-08-25 at 13.25.17.jpg" alt="Venice Beach"><figcaption class="photo-caption">L’energia libera di Venice Beach davanti al Pacifico</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250416_180751.jpg" alt="Venice Beach"><figcaption class="photo-caption">Venice Beach — palms and lights along Ocean Front Walk</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250416_185326.jpg" alt="Venice Beach"><figcaption class="photo-caption">Runners and athletes train at sunset on Venice Beach</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/IMG-20250417-WA0002.jpg" alt="Venice Beach"><figcaption class="photo-caption">Sunset basketball on the Venice Beach courts</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/2026-08-25 at 13.25.17.jpg" alt="Venice Beach"><figcaption class="photo-caption">The free spirit of Venice Beach beside the Pacific</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Concludiamo questa lunga giornata concedendoci una pizza decisamente costosa, ma per fortuna anche ottima!</p>
+                    <p>We end this long day with a decidedly expensive pizza—fortunately, it is also excellent.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1316,38 +1316,38 @@
 
         <article class="day-block" id="giorno-19">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 19</div>
-                <div class="day-date">17 APRILE 2025</div>
+                <div class="day-number">DAY 19</div>
+                <div class="day-date">17 APRIL 2025</div>
                 <div class="day-stats">
                     <div class="day-stat-item"><span class="stat-name">Venice Beach</span>14 °C · 4 m</div>
                     <div class="day-stat-item"><span class="stat-name">Los Angeles</span>23 °C · 93 m</div>
                 </div>
                 <div class="day-route" id="giorno19-route"></div>
                 <div class="day-details">
-                    <span class="detail-item">Trekking: quattro passi qua e là</span>
-                    <span class="detail-item">In auto: 135 km</span>
-                    <span class="detail-item">A piedi: 9 km</span>
+                    <span class="detail-item">Hiking: short walks here and there</span>
+                    <span class="detail-item">By car: 135 km</span>
+                    <span class="detail-item">On foot: 9 km</span>
                 </div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>È l’ultimo giorno pieno del nostro viaggio e speriamo che Los Angeles ci regali finalmente una giornata più soleggiata rispetto alle prime. Per fortuna veniamo accontentati!</p>
-                    <p>Ovviamente la giornata comincia con una colazione da Teddy’s. Iniziamo poi con uno dei simboli più famosi della città: l’inconfondibile scritta Hollywood. Raggiungiamo quindi il Griffith Observatory, da cui ammiriamo uno splendido panorama su Los Angeles, ancora più suggestivo grazie al cielo limpido.</p>
+                    <p>It is the last full day of our trip, and we hope Los Angeles will finally give us more sunshine than it did at the beginning. Fortunately, our wish is granted.</p>
+                    <p>Naturally, the day starts with breakfast at Teddy’s. We then visit one of the city’s most famous symbols: the unmistakable Hollywood sign. From there we reach Griffith Observatory and enjoy a magnificent view across Los Angeles, made even more impressive by the clear sky.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_074059.jpg" alt="Teddy's"><figcaption class="photo-caption">Teddy’s</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_085029.jpg" alt="Hollywood Park"><figcaption class="photo-caption">Hollywood Park — ultima mattina nell’area di Los Angeles</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_085029.jpg" alt="Hollywood Park"><figcaption class="photo-caption">Hollywood Park — our final morning in Los Angeles</figcaption></figure>
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_092822.jpg" alt="Los Angeles Skyline"><figcaption class="photo-caption">L.A. Skyline</figcaption></figure>
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250417_093544.jpg" alt="Griffith Observatory"><figcaption class="photo-caption">Griffith Observatory — Los Angeles ai nostri piedi</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250417_093544.jpg" alt="Griffith Observatory"><figcaption class="photo-caption">Griffith Observatory — Los Angeles at our feet</figcaption></figure>
                     </div>
                 </div>
 
                 <div class="day-text">
-                    <p>Proseguiamo verso Long Beach, dove ci concediamo un ottimo flan al dulce de leche, cremoso e davvero goloso. Concludiamo la giornata, e idealmente anche il nostro viaggio, gustando degli squisiti tacos: uno dei cibi più diffusi e caratteristici della zona, oltre che una delle poche specialità ancora disponibili a prezzi abbordabili!</p>
-                    <p>Un finale semplice ma perfetto, tra sole, panorami e sapori locali.</p>
+                    <p>We continue to Long Beach and enjoy an excellent, creamy dulce de leche flan. We end the day—and symbolically our journey—with delicious tacos, one of the area’s most widespread and characteristic foods, as well as one of the few specialities still available at a reasonable price.</p>
+                    <p>A simple but perfect finale of sunshine, views and local flavours.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1358,9 +1358,9 @@
 
                 <div class="universal-media-wrapper">
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_190200.jpg" alt="Venice Beach"><figcaption class="photo-caption">L’ultimo sguardo alla costa dall’aereo</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_200449.jpg" alt="Venice Beach"><figcaption class="photo-caption">I murales raccontano l’anima di Venice Beach</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_202135.jpg" alt="Venice Beach"><figcaption class="photo-caption">Un ultimo sapore di California prima del rientro</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_190200.jpg" alt="Venice Beach"><figcaption class="photo-caption">One last view of the coast from the plane</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_200449.jpg" alt="Venice Beach"><figcaption class="photo-caption">Murals tell the story of Venice Beach</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250417_202135.jpg" alt="Venice Beach"><figcaption class="photo-caption">One last taste of California before heading home</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1368,15 +1368,15 @@
 
         <article class="day-block" id="giorno-20">
             <div class="day-sticky">
-                <div class="day-number">GIORNO 20</div>
-                <div class="day-date">18 APRILE 2025</div>
+                <div class="day-number">DAY 20</div>
+                <div class="day-date">18 APRIL 2025</div>
             </div>
 
             <div class="day-content">
                 <div class="day-text">
-                    <p>L’ultimo giorno è arrivato. Lo iniziamo con una colazione decisamente americana: caffè e qualcosa da mangiare presi da Starbucks e portati via, da gustare direttamente sulla spiaggia con lo sguardo rivolto all’oceano. Un ultimo momento di tranquillità prima della partenza.</p>
-                    <p>È poi il momento delle incombenze finali: laviamo l’auto, la riconsegniamo e ci dirigiamo in aeroporto per il check-in. Il viaggio di ritorno ci aspetta e, come sempre, al momento di lasciare un luogo che ci ha regalato così tante emozioni, scende inevitabilmente una lacrima.</p>
-                    <p>Torniamo a casa con un po’ di malinconia, ma soprattutto con gli occhi e il cuore pieni di immagini, esperienze e ricordi che resteranno con noi per sempre.</p>
+                    <p>Our final day has arrived. We begin with a thoroughly American breakfast: coffee and food from Starbucks, taken away and enjoyed directly on the beach while looking out over the ocean. One last peaceful moment before departure.</p>
+                    <p>Then come the final chores: we wash the car, return it and head to the airport for check-in. The journey home awaits and, as always when leaving a place that has given us so many emotions, a tear inevitably falls.</p>
+                    <p>We return home with a little sadness, but above all with our eyes and hearts filled with images, experiences and memories that will remain with us forever.</p>
                 </div>
 
                 <div class="universal-media-wrapper">
@@ -1390,8 +1390,8 @@
 
     <!-- ================= MAPPA DEL VIAGGIO ================= -->
     <section class="trip-map-section">
-        <div class="trip-map-title">Il percorso completo</div>
-        <div class="trip-map-subtitle">Da Los Angeles ai grandi parchi del sud-ovest, e ritorno</div>
+        <div class="trip-map-title">The complete route</div>
+        <div class="trip-map-subtitle">From Los Angeles to the great parks of the Southwest and back</div>
         <div id="trip-map"></div>
     </section>
 
@@ -1399,11 +1399,11 @@
     <div class="end-nav">
         <a href="#top" class="end-nav-link">
             <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-            Torna all'inizio
+            Back to the top
         </a>
-        <a href="index.html" class="end-nav-link">
+        <a href="index-en.html" class="end-nav-link">
             <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"/></svg>
-            Torna alla Home
+            Back to Home
         </a>
     </div><footer class="site-footer">
         <div class="footer-copyright">
@@ -1483,7 +1483,7 @@
     <script>
         renderDayRoute('#giorno1-route', [
             {
-                nome: 'Aeroporto di Los Angeles',
+                nome: 'Los Angeles Airport',
                 citta: 'Los Angeles',
                 stato: 'California',
                 foto: 'OTR25/FOTO/20250330_181602.jpg'
