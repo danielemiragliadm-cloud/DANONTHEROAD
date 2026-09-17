@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,27 +69,27 @@
 <body>
     <header class="top-banner">
         <img src="main.jpeg" alt="Dan on the Road">
-        <div class="banner-box"><h1>Guestbook</h1><p>Un piccolo spazio per firme, pensieri e saluti.</p></div>
+        <div class="banner-box"><h1>Guestbook</h1><p>A small space for signatures, thoughts and greetings.</p></div>
     </header>
     <div class="line"></div>
-    <nav class="back-nav"><a href="index-it.html">‹&nbsp;&nbsp;Torna alla Home</a><a class="language-switch" href="guestbook-en.html" lang="en">ENGLISH</a></nav>
+    <nav class="back-nav"><a href="index-en.html">‹&nbsp;&nbsp;Back to Home</a><a class="language-switch" href="guestbook.html" lang="it">ITALIANO</a></nav>
     <main>
         <section class="intro">
-            <h2>Lascia il tuo messaggio</h2>
-            <p>Se sei passato di qui, firma il guestbook di Dan on the Road. Il messaggio apparirà subito in questa pagina.</p>
+            <h2>Leave your message</h2>
+            <p>If you stopped by, sign the Dan on the Road guestbook. Your message will appear on this page right away.</p>
         </section>
         <section class="card">
             <form id="guestbook-form">
-                <div class="field"><label for="name">Nome *</label><input id="name" name="name" maxlength="50" autocomplete="name" required></div>
-                <div class="field"><label for="message">Messaggio *</label><textarea id="message" name="message" maxlength="600" required></textarea></div>
+                <div class="field"><label for="name">Name *</label><input id="name" name="name" maxlength="50" autocomplete="name" required></div>
+                <div class="field"><label for="message">Message *</label><textarea id="message" name="message" maxlength="600" required></textarea></div>
                 <div class="counter"><span id="count">0</span>/600</div>
-                <div class="honeypot" aria-hidden="true"><label for="website">Lascia vuoto</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-                <button type="submit">Pubblica nel Guestbook</button><span class="status" id="status" role="status" aria-live="polite"></span>
+                <div class="honeypot" aria-hidden="true"><label for="website">Leave empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+                <button type="submit">Post to the Guestbook</button><span class="status" id="status" role="status" aria-live="polite"></span>
             </form>
         </section>
-        <h2 class="messages-title">Messaggi dei viaggiatori</h2>
-        <section class="messages" id="messages"><div class="empty">Caricamento dei messaggi…</div></section>
-        <a class="contact-link" href="contatti.html">Preferisci scrivermi in privato? Vai alla pagina Contatti</a>
+        <h2 class="messages-title">Travellers’ messages</h2>
+        <section class="messages" id="messages"><div class="empty">Loading messages…</div></section>
+        <a class="contact-link" href="contatti-en.html">Would you rather write privately? Go to the Contact page</a>
     </main>
     <footer>Dan on the Road</footer>
     <script>
@@ -106,7 +106,7 @@
             const head=document.createElement('div');head.className='entry-head';
             const name=document.createElement('span');name.className='entry-name';name.textContent=entry.name;
             const date=document.createElement('time');date.className='entry-date';
-            date.textContent=new Date(entry.created_at+'Z').toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'});
+            date.textContent=new Date(entry.created_at+'Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
             const text=document.createElement('p');text.className='entry-message';text.textContent=entry.message;
             head.append(name,date);article.append(head,text);return article;
         }
@@ -114,19 +114,19 @@
             try{
                 const response=await fetch('/api/guestbook',{cache:'no-store'});
                 const data=await response.json();
-                if(!response.ok)throw new Error(data.error||'Impossibile caricare i messaggi.');
+                if(!response.ok)throw new Error(data.error||'Unable to load messages.');
                 messages.replaceChildren(...(data.entries.length?data.entries.map(renderEntry):[]));
-                if(!data.entries.length)messages.innerHTML='<div class="empty">Sii il primo a lasciare un messaggio!</div>';
+                if(!data.entries.length)messages.innerHTML='<div class="empty">Be the first to leave a message!</div>';
             }catch(error){messages.innerHTML='<div class="empty"></div>';messages.firstChild.textContent=error.message;}
         }
         form.addEventListener('submit',async(event)=>{
-            event.preventDefault();button.disabled=true;statusEl.className='status';statusEl.textContent='Pubblicazione…';
+            event.preventDefault();button.disabled=true;statusEl.className='status';statusEl.textContent='Publishing…';
             try{
                 const payload=Object.fromEntries(new FormData(form).entries());
                 const response=await fetch('/api/guestbook',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
                 const data=await response.json();
-                if(!response.ok)throw new Error(data.error||'Pubblicazione non riuscita.');
-                form.reset();count.textContent='0';statusEl.className='status ok';statusEl.textContent='Messaggio pubblicato!';
+                if(!response.ok)throw new Error(data.error||'Could not publish the message.');
+                form.reset();count.textContent='0';statusEl.className='status ok';statusEl.textContent='Message published!';
                 await loadMessages();
             }catch(error){statusEl.className='status error';statusEl.textContent=error.message;}
             finally{button.disabled=false;}

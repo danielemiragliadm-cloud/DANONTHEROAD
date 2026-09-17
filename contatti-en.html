@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#141618">
-    <title>Dan on the Road - Contatti</title>
+    <title>Dan on the Road - Contact</title>
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-index.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,31 +111,31 @@
     <div class="top-banner">
         <img src="main.jpeg" alt="Dan on the Road">
         <div class="banner-text-box">
-            <h1>Contatti</h1>
-            <p>Domande, curiosità o semplicemente un saluto.</p>
+            <h1>Contact</h1>
+            <p>Questions, travel ideas or simply a hello.</p>
         </div>
     </div>
     <div class="structural-line"></div>
 
     <nav class="back-nav">
-        <a class="back-link" href="index-it.html">
+        <a class="back-link" href="index-en.html">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
-            Torna alla Home
+            Back to Home
         </a>
-        <a class="language-switch" href="contatti-en.html" lang="en">ENGLISH</a>
+        <a class="language-switch" href="contatti.html" lang="it">ITALIANO</a>
     </nav>
 
     <main class="contact-shell">
         <section class="intro">
-            <h2>Scrivimi</h2>
-            <p>Se vuoi chiedermi qualcosa su un itinerario, condividere un consiglio o lasciare un messaggio, questo è il posto giusto.</p>
+            <h2>Get in touch</h2>
+            <p>If you would like to ask about an itinerary, share a tip or leave a message, this is the right place.</p>
         </section>
 
         <section class="contact-card">
             <form id="contact-form">
                 <div class="form-grid">
                     <div class="field">
-                        <label for="name">Nome *</label>
+                        <label for="name">Name *</label>
                         <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
                     </div>
                     <div class="field">
@@ -143,27 +143,27 @@
                         <input id="email" name="email" type="email" autocomplete="email" maxlength="160" required>
                     </div>
                     <div class="field field-full">
-                        <label for="subject">Motivo del messaggio</label>
+                        <label for="subject">Reason for contacting me</label>
                         <select id="subject" name="subject">
-                            <option value="Informazioni su un viaggio">Informazioni su un viaggio</option>
-                            <option value="Suggerimento">Un suggerimento</option>
-                            <option value="Saluto">Un semplice saluto</option>
-                            <option value="Altro">Altro</option>
+                            <option value="Travel information">Travel information</option>
+                            <option value="Suggestion">A suggestion</option>
+                            <option value="Hello">Just saying hello</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="field field-full">
-                        <label for="message">Messaggio * <span style="font-weight:400;opacity:.7;text-transform:none;letter-spacing:0;">(minimo 5 caratteri)</span></label>
+                        <label for="message">Message * <span style="font-weight:400;opacity:.7;text-transform:none;letter-spacing:0;">(at least 5 characters)</span></label>
                         <textarea id="message" name="message" minlength="5" maxlength="3000" required aria-describedby="message-help"></textarea>
-                        <small id="message-help" style="display:block;margin-top:7px;color:rgba(255,255,255,.58);">Scrivi almeno 5 caratteri.</small>
+                        <small id="message-help" style="display:block;margin-top:7px;color:rgba(255,255,255,.58);">Please write at least 5 characters.</small>
                     </div>
                     <div class="honeypot" aria-hidden="true">
-                        <label for="website">Lascia vuoto questo campo</label>
+                        <label for="website">Leave this field empty</label>
                         <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
                     </div>
                 </div>
-                <p class="privacy-note">Il nome, l’indirizzo email e il messaggio saranno utilizzati esclusivamente per leggere la richiesta e rispondere. Non saranno pubblicati.</p>
+                <p class="privacy-note">Your name, email address and message will be used only to read your request and reply. They will not be published.</p>
                 <div class="submit-row">
-                    <button type="submit">Invia il messaggio</button>
+                    <button type="submit">Send message</button>
                     <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
                 </div>
             </form>
@@ -191,7 +191,7 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             statusEl.className = 'form-status';
-            statusEl.textContent = 'Invio in corso…';
+            statusEl.textContent = 'Sending…';
             submitButton.disabled = true;
 
             const payload = Object.fromEntries(new FormData(form).entries());
@@ -202,23 +202,23 @@
                     body: JSON.stringify(payload)
                 });
                 const result = await response.json().catch(() => ({}));
-                if (!response.ok) throw new Error(result.error || 'Invio non riuscito.');
+                if (!response.ok) throw new Error(result.error || 'Message could not be sent.');
                 form.reset();
                 if (result.emailSent) {
                     statusEl.className = 'form-status success';
-                    statusEl.textContent = 'Messaggio salvato e email inviata correttamente!';
+                    statusEl.textContent = 'Message saved and email sent successfully!';
                 } else {
                     statusEl.className = 'form-status error';
                     const details = {
-                        missing_key: 'La chiave RESEND_API_KEY non è disponibile nel deployment.',
-                        resend_rejected: 'Resend ha rifiutato l’invio: controlla i log di Resend e la verifica del dominio.',
-                        delivery_error: 'Errore di collegamento a Resend: controlla i log di Cloudflare.'
+                        missing_key: 'The RESEND_API_KEY is not available in this deployment.',
+                        resend_rejected: 'Resend rejected the email: check the Resend logs and domain verification.',
+                        delivery_error: 'Connection error with Resend: check the Cloudflare logs.'
                     };
-                    statusEl.textContent = 'Messaggio salvato, ma email non inviata. ' + (details[result.emailStatus] || 'Controlla la configurazione Resend.');
+                    statusEl.textContent = 'Message saved, but the email was not sent. ' + (details[result.emailStatus] || 'Check the Resend configuration.');
                 }
             } catch (error) {
                 statusEl.className = 'form-status error';
-                statusEl.textContent = error.message || 'Si è verificato un problema. Riprova tra poco.';
+                statusEl.textContent = error.message || 'Something went wrong. Please try again shortly.';
             } finally {
                 submitButton.disabled = false;
             }
