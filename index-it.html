@@ -221,7 +221,7 @@
         .usa-map-subtitle { font-size: 0.8rem; color: rgba(255, 255, 255, 0.35); letter-spacing: 1px; margin-bottom: 20px; }
         .usa-map-legend { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-bottom: 18px; }
         .usa-map-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.7); }
-        .usa-map-legend-swatch { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(255,255,255,0.3); }
+        .usa-map-legend-swatch { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.92); }
         #usa-map { width: 100%; height: 720px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.15); }
         .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1c1f22; color: #ffffff; }
         .leaflet-popup-content-wrapper { padding: 0; overflow: hidden; border-radius: 4px; }
@@ -511,7 +511,7 @@
                 {
                     nome: "New York",
                     periodo: "Settembre 2023",
-                    colore: "#e63946",
+                    colore: "#ff3347",
                     tappe: [
                         { nome: "New York", lat: 40.7128, lng: -74.0060 }
                     ]
@@ -519,7 +519,7 @@
                 {
                     nome: "New York e Niagara",
                     periodo: "Agosto 2024",
-                    colore: "#f4a261",
+                    colore: "#ff9f1c",
                     tappe: [
                         { nome: "New York", lat: 40.7128, lng: -74.0060 },
                         { nome: "Watkins Glen", lat: 42.3778, lng: -76.8703 },
@@ -529,7 +529,7 @@
                 {
                     nome: "California, Arizona, Utah, Nevada",
                     periodo: "Aprile 2025",
-                    colore: "#2a9d8f",
+                    colore: "#00d4b4",
                     tappe: [
                         { nome: "Los Angeles", lat: 34.0522, lng: -118.2437 },
                         { nome: "Joshua Tree National Park", lat: 33.8734, lng: -115.9010 },
@@ -557,7 +557,7 @@
                 {
                     nome: "Arizona",
                     periodo: "Agosto 2025",
-                    colore: "#e9c46a",
+                    colore: "#ffd60a",
                     tappe: [
                         { nome: "Scottsdale", lat: 33.4949, lng: -111.9217 },
                         { nome: "Saguaro National Park", lat: 32.1831, lng: -110.6127 },
@@ -573,7 +573,7 @@
                 {
                     nome: "Nevada, Utah, Wyoming, Montana, South Dakota, Colorado",
                     periodo: "Giugno 2026",
-                    colore: "#a78bfa",
+                    colore: "#b86bff",
                     tappe: [
                         { nome: "Las Vegas", lat: 36.1699, lng: -115.1398 },
                         { nome: "Valley of Fire", lat: 36.4270, lng: -114.5342 },
@@ -627,14 +627,14 @@
             viaggi.forEach(v => {
                 legend.insertAdjacentHTML('beforeend', `
                     <div class="usa-map-legend-item">
-                        <span class="usa-map-legend-swatch" style="background:${v.colore}"></span>
+                        <span class="usa-map-legend-swatch" style="background:${v.colore};box-shadow:0 0 0 1px #061521,0 0 12px ${v.colore}"></span>
                         ${v.nome} — ${v.periodo}
                     </div>`);
 
                 const puntoIcon = L.divIcon({
                     className: '',
-                    html: `<div style="width:10px;height:10px;border-radius:50%;background:${v.colore};border:2px solid #141618;box-shadow:0 0 0 1px rgba(255,255,255,0.5);"></div>`,
-                    iconSize: [10, 10]
+                    html: `<div style="width:13px;height:13px;border-radius:50%;background:${v.colore};border:3px solid #081018;box-shadow:0 0 0 1px rgba(255,255,255,0.85),0 0 9px ${v.colore};"></div>`,
+                    iconSize: [13, 13]
                 });
 
                 const coords = v.tappe.map(t => [t.lat, t.lng]);
@@ -642,9 +642,14 @@
 
                 if (coords.length > 1) {
                     L.polyline(coords, {
+                        color: "#081018",
+                        weight: 10,
+                        opacity: 0.9
+                    }).addTo(map);
+                    L.polyline(coords, {
                         color: v.colore,
-                        weight: 5,
-                        opacity: 0.95
+                        weight: 6,
+                        opacity: 1
                     }).addTo(map);
                 }
 
