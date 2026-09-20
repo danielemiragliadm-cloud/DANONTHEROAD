@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<!-- Riesportato il 2026-09-05 per aggiornamento GitHub Pages -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan on the Road - New York and Niagara 2024</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-ny24.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Sfondo granulare coerente con la Home Page */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141618;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: #ffffff;
+        }
+
+        /* Tasto Back minimale per tornare alla Home */
+        .back-nav {
+            padding: 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover { color: #ffffff; }
+        .back-link svg { width: 12px; height: 12px; fill: currentColor; }
+
+        /* Intestazione del Viaggio */
+        .travel-header { text-align: center; padding: 20px 20px 60px 20px; }
+        .travel-header h1 { margin: 0; font-family: 'Big Shoulders Display', sans-serif; font-size: 3.2rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .travel-header .meta-info { margin-top: 12px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Banner fotografico animato */
+        .trip-banner { position: relative; width: 100%; height: 480px; overflow: hidden; }
+        .trip-banner-mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2px; }
+        .trip-banner-tile { position: relative; overflow: hidden; background: #0c0d0e; }
+        .trip-banner-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kenburns 26s ease-in-out infinite alternate; transition: opacity 0.4s ease; }
+        .tile-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .tile-2 { grid-column: 2 / 3; grid-row: 1 / 3; }
+        .tile-3 { grid-column: 3 / 6; grid-row: 1 / 2; }
+        .tile-4 { grid-column: 3 / 5; grid-row: 2 / 3; }
+        .tile-5 { grid-column: 5 / 6; grid-row: 2 / 3; }
+        .tile-1 img { animation-duration: 32s; }
+        .tile-2 img { animation-duration: 22s; animation-delay: -4s; }
+        .tile-3 img { animation-duration: 27s; animation-delay: -12s; }
+        .tile-4 img { animation-duration: 24s; animation-delay: -8s; }
+        .tile-5 img { animation-duration: 29s; animation-delay: -16s; }
+        @keyframes kenburns { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.12) translate(-1.5%,-1.5%); } }
+        .trip-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,24,0.28) 0%, rgba(20,22,24,0.5) 55%, rgba(20,22,24,0.88) 100%); }
+        .trip-banner-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .trip-banner-text h1 { box-sizing: border-box; max-width: calc(100% - 56px); margin: 0; padding: 11px 25px 13px; border: 1px solid rgba(255,255,255,0.55); border-radius: 8px; background: rgba(12,13,14,0.58); box-shadow: 0 12px 35px rgba(0,0,0,0.35); backdrop-filter: blur(5px); font-family: 'Big Shoulders Display', sans-serif; font-size: 3.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+        .trip-banner-text .meta-info { margin-top: 15px; font-size: 1.08rem; font-weight: 600; color: rgba(255,255,255,0.92); letter-spacing: 2.4px; text-transform: uppercase; text-shadow: 0 2px 14px rgba(0,0,0,0.7); }
+        .trip-recap { width: min(900px, calc(100% - 56px)); box-sizing: border-box; margin-top: 28px; padding: 15px 20px 17px; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; background: rgba(12,13,14,0.66); box-shadow: 0 12px 35px rgba(0,0,0,0.35); backdrop-filter: blur(5px); }
+        .trip-recap-title { margin-bottom: 10px; color: rgba(255,255,255,0.62); font-size: 0.68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+        .trip-recap-route { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px 9px; }
+        .trip-recap-place { color: rgba(255,255,255,0.94); font-size: 0.78rem; line-height: 1.25; letter-spacing: 0.5px; }
+        .trip-recap-arrow { color: #e32636; font-size: 0.82rem; }
+
+        /* Linea di divisione strutturale elegante */
+        .structural-line { width: calc(100% - 80px); max-width: 1400px; height: 1px; background-color: rgba(255, 255, 255, 0.05); margin: 0 auto; }
+
+        /* Contenitore della Timeline del Diario */
+        .timeline-container { max-width: 1160px; margin: 0 auto; padding: 60px 40px; }
+
+        /* Blocco del Singolo Giorno */
+        .day-block { display: block; margin-bottom: 50px; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 34px; box-sizing: border-box; }
+
+        /* Header orizzontale e centrato in cima al giorno: GIORNO -> data -> localita' (piu' grande) -> tappe/temperature -> trekking/km */
+        .day-sticky { position: static; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; text-align: center; gap: 8px 40px; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .day-sticky > .day-number, .day-sticky > .day-title, .day-sticky > .day-date { flex: 0 0 auto; }
+        .day-number { order: 1; font-size: 1.3rem; font-weight: 700; letter-spacing: 1.5px; color: #ffffff; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; background: rgba(255,255,255,0.06); }
+        .day-date { order: 2; font-size: 1.1rem; font-weight: 500; color: rgba(255, 255, 255, 0.75); letter-spacing: 1px; align-self: center; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; background: rgba(255,255,255,0.06); }
+        .day-title { display: none; }
+
+        /* Lista temperatura/altitudine media delle tappe: sempre su una riga propria */
+        .day-stats { order: 4; margin-top: 4px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 14px 22px; width: 100%; flex-basis: 100%; }
+        .day-stat-item { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); line-height: 1.4; letter-spacing: 0.3px; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; background: rgba(255,255,255,0.03); }
+        .day-stat-item .stat-name { display: block; color: rgba(255, 255, 255, 0.7); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; font-size: 0.78rem; margin-bottom: 2px; }
+
+        /* Contenuto del Giorno, a piena larghezza */
+        .day-content { display: flex; flex-direction: column; gap: 30px; text-align: left; }
+        .day-text { font-size: 1.08rem; line-height: 1.85; color: rgba(255, 255, 255, 0.75); margin: 0; font-weight: 400; }
+
+        /* Miniature delle tappe principali */
+        .day-highlights { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 18px; width: 100%; }
+        .highlight-card { position: relative; margin: 0; width: 104px; flex: 0 0 104px; text-align: center; }
+        .highlight-card img { width: 92px; height: 92px; margin: 0 auto; display: block; object-fit: cover; border: 3px solid rgba(255,255,255,0.25); border-radius: 50%; box-shadow: 0 5px 18px rgba(0,0,0,0.4); }
+        .highlight-card figcaption { margin-top: 9px; color: rgba(255,255,255,0.68); font-size: 0.62rem; font-weight: 600; line-height: 1.35; letter-spacing: 0.7px; text-transform: uppercase; text-align: center; }
+        .day-distance { align-self: center; margin: -8px 0 0; padding: 9px 18px; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: rgba(255,255,255,0.65); font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Mini-mappa pedonale del singolo giorno */
+        .day-route { width: 100%; margin: 0; }
+        .day-route-title { margin: 0 0 12px; color: #fff; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .day-map { width: 100%; height: 360px; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; overflow: hidden; }
+        .day-one-overview { display: grid; grid-template-columns: minmax(330px, 0.9fr) minmax(380px, 1.1fr); gap: 32px; align-items: center; width: 100%; }
+        .day-one-overview .day-route { min-width: 0; }
+        .day-one-overview .day-map { height: 540px; }
+        .day-one-summary { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 26px; min-width: 0; }
+        .day-one-summary .day-highlights { max-width: 390px; }
+        .story-section { padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.08); }
+
+        /* Box Dati di Viaggio, ora nell'header in cima */
+        .day-details { order: 6; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px; width: 100%; flex-basis: 100%; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .detail-item { font-size: 0.75rem; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+
+        /* Struttura delle righe flex per le foto del diario (generate da auto-layout.js) */
+        .universal-media-wrapper { display: flex; flex-direction: column; gap: 20px; margin-top: 15px; width: 100%; }
+        .universal-flex-row { display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; flex-wrap: wrap; }
+
+        /* Cornice e miniature fisse extra-large */
+        .photo-container-frame { margin: 0; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.15); padding: 6px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s ease, background-color 0.3s ease; }
+        .photo-container-frame:hover { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.08); }
+        .photo-container-frame img { width: 100%; object-fit: cover; display: block; border-radius: 2px; cursor: pointer; }
+
+        /* Didascalia foto */
+        .photo-caption { font-size: 1rem; line-height: 1.45; color: rgba(255, 255, 255, 0.7); margin-top: 12px; font-style: italic; text-align: center; }
+
+        .size-verticale { width: 180px; }
+        .size-verticale img { height: 240px; }
+        .size-orizzontale { width: 250px; }
+        .size-orizzontale img { height: 188px; }
+        .size-panoramica { width: 100%; }
+        .size-panoramica img { height: 350px; }
+
+        /* Nota "in preparazione" per i giorni ancora da riempire */
+        .coming-soon { text-align: center; padding: 40px 20px 20px 20px; color: rgba(255, 255, 255, 0.35); font-size: 0.85rem; letter-spacing: 1px; font-style: italic; }
+
+        /* Footer coordinato */
+        .site-footer { max-width: 1100px; width: calc(100% - 80px); margin: 60px auto 20px auto; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .footer-copyright { font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Back to top / Back to Home */
+        .end-nav { max-width: 1100px; width: calc(100% - 80px); margin: 40px auto 0 auto; display: flex; gap: 30px; justify-content: center; }
+        .end-nav-link { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: color 0.2s ease; }
+        .end-nav-link:hover { color: #ffffff; }
+        .end-nav-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* Mappa del viaggio */
+        .trip-map-section { max-width: 1100px; width: calc(100% - 80px); margin: 20px auto 0 auto; }
+        .trip-map-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; color: #ffffff; margin-bottom: 4px; }
+        .trip-map-subtitle { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+        #trip-map { width: 100%; height: 560px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1c1f22; color: #ffffff; }
+        .leaflet-popup-content { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.8rem; letter-spacing: 0.5px; margin: 8px 12px; }
+        .leaflet-popup-content b { display: block; margin-bottom: 2px; }
+        .leaflet-popup-content span { color: rgba(255,255,255,0.5); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+        .trip-map-marker { width: 14px; height: 14px; background-color: #f4a261; border: 2px solid #141618; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,0.4); }
+        .trip-map-label { background: rgba(20, 22, 24, 0.85); border: 1px solid rgba(255,255,255,0.15); color: #ffffff; font-size: 0.7rem; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 3px; white-space: nowrap; box-shadow: none; }
+        .trip-map-label::before { display: none; }
+        .leaflet-control-attribution { background-color: rgba(20, 22, 24, 0.8) !important; color: rgba(255,255,255,0.4) !important; }
+        .leaflet-control-attribution a { color: rgba(255,255,255,0.6) !important; }
+        .leaflet-control-zoom a { background-color: #1c1f22 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important; }
+        .leaflet-control-zoom a:hover { background-color: #2a2e32 !important; }
+        .footer-socials { display: flex; align-items: center; gap: 15px; }
+        .social-icon { color: rgba(255, 255, 255, 0.3); transition: color 0.3s ease; display: inline-flex; }
+        .social-icon:hover { color: #ffffff; }
+        .social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Interfaccia Lightbox con supporto Zoom attivo */
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; background-color: rgba(20, 22, 24, 0.98); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; touch-action: none; }
+        
+        .lightbox-image-container { max-width: 90%; max-height: 75vh; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px; background-color: rgba(255, 255, 255, 0.03); border-radius: 4px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); position: relative; }
+        .lightbox-image { max-width: 100%; max-height: 75vh; object-fit: contain; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); cursor: zoom-in; user-select: none; }
+        .lightbox-image.is-zoomed { transform: scale(1.8); cursor: zoom-out; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255, 255, 255, 0.8); font-size: 1.8rem; font-family: Arial, sans-serif; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; line-height: 1; user-select: none; z-index: 10002; }
+        .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.18); color: #ffffff; }
+        .lightbox-close:hover { color: #ffffff; }
+        .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.4); font-size: 3rem; cursor: pointer; transition: color 0.3s ease; user-select: none; padding: 20px; z-index: 10001; }
+        .lightbox-prev.is-hidden, .lightbox-next.is-hidden { visibility: hidden; pointer-events: none; }
+        .lightbox-prev:hover, .lightbox-next:hover { color: #ffffff; }
+        .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
+        .lightbox-caption { color: #ffffff; font-size: 0.85rem; margin-top: 20px; letter-spacing: 1px; font-style: italic; text-align: center; max-width: 80%; }
+
+        @media (max-width: 900px) {
+            .trip-banner { height: 430px; }
+            .trip-banner-text { padding: 18px 12px; }
+            .trip-banner-text h1 { max-width: calc(100% - 16px); padding: 9px 12px 11px; font-size: 2.15rem; letter-spacing: 1.5px; }
+            .trip-banner-text .meta-info { margin-top: 12px; font-size: 0.82rem; letter-spacing: 1.5px; }
+            .trip-recap { width: calc(100% - 16px); margin-top: 20px; padding: 13px 14px 15px; }
+            .day-block { margin-bottom: 40px; padding: 22px; }
+            .day-sticky { gap: 10px 24px; }
+            .universal-flex-row { justify-content: center; }
+            .size-verticale, .size-orizzontale { width: 44%; }
+            .photo-container-frame img { height: auto !important; aspect-ratio: 3/4; }
+            .size-orizzontale img { aspect-ratio: 4/3; }
+            .size-panoramica { width: 100%; }
+            .size-panoramica img { aspect-ratio: 16/9; }
+            .lightbox-prev, .lightbox-next { font-size: 2rem; padding: 10px; }
+            .lightbox-prev { left: 5px; } .lightbox-next { right: 5px; }
+            .day-highlights { gap: 15px 10px; }
+            .highlight-card { width: 92px; flex-basis: 92px; }
+            .highlight-card img { width: 78px; height: 78px; }
+            .day-map { height: 300px; }
+            .day-one-overview { display: flex; flex-direction: column; gap: 26px; }
+            .day-one-overview .day-route, .day-one-summary { width: 100%; }
+            .day-one-overview .day-map { height: 440px; }
+        }
+        @media (prefers-reduced-motion: reduce) { .trip-banner-tile img { animation: none; } }
+
+        /* ===== GRAFICA BIS: coordinata alla pagina Arizona approvata ===== */
+        :root { --brand-blue:#063b67; --brand-navy:#061521; --brand-orange:#e77928; --brand-sand:#f4bd67; }
+        body { background-color:#06131c; background-image:radial-gradient(circle at 50% 0,rgba(9,55,83,.2),transparent 28%); }
+        .trip-banner { height:440px; border-bottom:1px solid rgba(231,121,40,.55); }
+        .trip-banner-static { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 48%; }
+        .trip-banner-overlay { background:transparent; pointer-events:none; }
+        .trip-brand { position:absolute; z-index:4; top:10px; left:50%; transform:translateX(-50%); display:block; width:min(330px,36vw); padding:7px 11px; box-sizing:border-box; border:1px solid rgba(244,189,103,.68); border-radius:12px; background:linear-gradient(135deg,rgba(224,224,207,.43),rgba(169,190,197,.32)); box-shadow:0 16px 38px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.34); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); transition:transform .25s ease; }
+        .trip-brand:hover { transform:translate(-50%,-2px); }
+        .trip-brand img { display:block; width:100%; height:auto; }
+        .trip-banner-text { justify-content:flex-end; box-sizing:border-box; padding:145px 20px 17px; }
+        .trip-banner-text h1 { padding:8px 22px 10px; font-size:3rem; border-color:rgba(231,121,40,.82); border-radius:12px; background:linear-gradient(135deg,rgba(4,24,38,.94),rgba(7,47,76,.86)); box-shadow:0 18px 45px rgba(0,0,0,.42); }
+        .trip-banner-text .meta-info { display:inline-block; margin-top:14px; padding:9px 18px; border:1px solid rgba(244,189,103,.62); border-radius:9px; background:linear-gradient(135deg,rgba(4,24,38,.92),rgba(7,47,76,.84)); color:#fff1d2; box-shadow:0 12px 28px rgba(0,0,0,.3); }
+        .trip-recap { margin-top:13px; padding:12px 18px 14px; border-color:rgba(244,189,103,.62); border-radius:12px; background:linear-gradient(135deg,rgba(4,24,38,.94),rgba(7,47,76,.88)); box-shadow:0 14px 32px rgba(0,0,0,.34); }
+        .trip-recap-title { color:#fff1d2; font-size:.76rem; }
+        .trip-recap-arrow { color:var(--brand-orange); }
+        .facebook-invite a,.community-actions a { border-color:rgba(244,189,103,.22)!important; background:linear-gradient(135deg,rgba(5,20,31,.94),rgba(7,28,42,.82))!important; }
+        .community-actions a span[aria-hidden="true"] { color:var(--brand-orange)!important; }
+        .timeline-container { max-width:1260px; padding-top:48px; }
+        .day-block { position:relative; margin-bottom:62px; padding:40px; border:1px solid rgba(55,145,202,.82); border-radius:13px; background:linear-gradient(180deg,rgba(8,34,50,.82),rgba(5,22,33,.72)); box-shadow:0 18px 42px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025); }
+        .day-block::before { content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:82px; height:3px; border-radius:2px; background:var(--brand-orange); }
+        .day-sticky { justify-content:center; text-align:center; border-bottom-color:rgba(244,189,103,.2); }
+        .day-number { border:0; border-radius:0; padding:8px 0 10px; background:transparent; font-family:Georgia,'Times New Roman',serif; font-size:1.65rem; }
+        .day-date { color:#15212a; border:0; border-radius:9px; background:linear-gradient(135deg,var(--brand-sand),#e89a3b); box-shadow:0 7px 16px rgba(0,0,0,.25); font-weight:700; }
+        .day-content { align-items:center; }
+        .day-text { width:100%; max-width:1080px; font-size:1.12rem; line-height:1.9; color:rgba(255,255,255,.8); text-align:left; }
+        .day-map { border-color:rgba(231,121,40,.5); border-radius:12px; overflow:hidden; }
+        .highlight-card img { border-color:rgba(55,145,202,.88); }
+        .highlight-card:hover img { border-color:var(--brand-sand); }
+        .photo-container-frame { padding:0; overflow:hidden; border:1px solid rgba(55,145,202,.88); border-radius:11px; background:#071a27; box-shadow:0 15px 30px rgba(0,0,0,.25); transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease; }
+        .photo-container-frame:hover { border-color:var(--brand-sand); background:#071a27; box-shadow:0 0 0 2px var(--brand-sand),0 18px 34px rgba(0,0,0,.34); transform:translateY(-2px); }
+        .photo-container-frame img,.photo-container-frame video { border-radius:10px 10px 0 0; }
+        .photo-caption { margin:0; padding:11px 12px 13px; color:rgba(255,255,255,.84); background:linear-gradient(180deg,#082033,#061722); font-style:normal; font-size:.96rem; }
+        #trip-map { border-color:rgba(231,121,40,.5); border-radius:12px; overflow:hidden; }
+        .footer-socials { gap:22px; }
+        .footer-socials .social-icon { width:38px; height:38px; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.12); border-radius:50%; background:rgba(255,255,255,.045); }
+        .footer-socials .social-icon:first-child { color:#e1306c; }
+        .footer-socials .social-icon:last-child { color:#1877f2; }
+        .footer-socials .social-icon svg { width:19px; height:19px; }
+        @media(max-width:700px){ .trip-banner{height:410px}.trip-brand{top:7px;width:min(230px,66vw);padding:5px 8px}.trip-banner-text{padding:100px 8px 10px}.trip-banner-text h1{font-size:2rem;padding:7px 12px 9px}.trip-banner-text .meta-info{margin-top:8px;padding:7px 10px;font-size:.72rem}.trip-recap{width:calc(100% - 10px);max-height:125px;margin-top:8px;padding:9px 10px 11px}.timeline-container{padding:34px 14px}.day-block{padding:26px 14px;margin-bottom:46px}.day-number{font-size:1.35rem}.day-text{font-size:1.04rem;line-height:1.75}.site-footer{width:calc(100% - 28px)} }
+    
+/* ===== UNIFICAZIONE GRAFICA DIARI ===== */
+body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E")}
+.day-block{position:relative;overflow:visible}
+.day-watermark{position:sticky;top:46vh;height:0;overflow:visible;display:flex;justify-content:center;align-items:center;z-index:0;pointer-events:none;user-select:none;font-family:'Big Shoulders Display',sans-serif;font-size:clamp(4.5rem,11vw,9rem);font-weight:700;line-height:1;letter-spacing:.08em;color:rgba(255,255,255,.026);text-transform:uppercase;white-space:nowrap}
+.day-sticky,.day-content{position:relative;z-index:1}
+.day-number,.day-date{padding:8px 16px!important;border:1px solid rgba(244,189,103,.45)!important;border-radius:8px!important;background:rgba(255,255,255,.04)!important;box-shadow:none!important;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif!important}
+.day-number{font-size:1.3rem!important;font-weight:800!important;letter-spacing:1.5px!important;color:#fff!important}
+.day-date{font-size:1.1rem!important;font-weight:500!important;letter-spacing:1px!important;color:#ffe5bc!important}
+@media(max-width:900px){.day-watermark{top:44vh;font-size:clamp(3.3rem,17vw,6rem);color:rgba(255,255,255,.032)}}
+
+.language-switch{position:absolute;z-index:6;top:16px;right:20px;padding:8px 14px;border:1px solid rgba(244,189,103,.72);border-radius:22px;background:rgba(4,24,38,.78);backdrop-filter:blur(6px);color:#fff1d2;font-size:.7rem;font-weight:700;letter-spacing:1.4px;text-decoration:none}
+@media(max-width:700px){.language-switch{top:8px;right:8px;padding:6px 10px;font-size:.62rem}}
+</style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <a href="index-en.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
+            Back to Home
+        </a>
+    </div>
+
+    <header class="trip-banner" id="top">
+        <a class="language-switch" href="ny24.html" lang="it">ITALIANO</a>
+        <a class="trip-brand" href="index-en.html" aria-label="Back to Home"><img src="logo-danontheroad-nuovo-pulito.png" alt="Dan on the Road"></a>
+        <img class="trip-banner-static" src="ny24banner.webp" alt="Manhattan skyline at sunset">
+        <div class="trip-banner-overlay"></div>
+        <div class="trip-banner-text">
+            <h1>New York and Niagara</h1>
+            <div class="meta-info">Travel Journal / August 2024</div>
+            <div class="trip-recap">
+                <div class="trip-recap-title">The journey, stop by stop</div>
+                <div class="trip-recap-route">
+                    <span class="trip-recap-place">New York</span><span class="trip-recap-arrow">→</span>
+                    <span class="trip-recap-place">Watkins Glen</span><span class="trip-recap-arrow">→</span>
+                    <span class="trip-recap-place">Niagara Falls</span><span class="trip-recap-arrow">→</span>
+                    <span class="trip-recap-place">Woodbury Common</span><span class="trip-recap-arrow">→</span>
+                    <span class="trip-recap-place">New York</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+        <aside class="facebook-invite" aria-label="Facebook" style="max-width:760px;width:calc(100% - 32px);margin:18px auto;box-sizing:border-box;">
+        <a href="https://www.facebook.com/profile.php?id=61593659232613" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid rgba(255,255,255,.16);border-radius:11px;background:rgba(12,13,14,.72);color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.22);backdrop-filter:blur(5px);">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px;flex:0 0 24px;fill:#1877f2;"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073z"/></svg>
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Follow me on Facebook</strong><span style="display:block;font-size:.8rem;opacity:.88;">Photos, places, memories and travel curiosities. The page is brand new: work in progress!</span></span>
+        </a>
+    </aside>    <div class="community-actions" aria-label="Contatti e Guestbook" style="max-width:760px;width:calc(100% - 32px);margin:-6px auto 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:10px;box-sizing:border-box;">
+        <a href="contatti-en.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Send me a private message</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Travel questions or suggestions.</span></span>
+            <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
+        </a>
+        <a href="guestbook-en.html" style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(12,13,14,.58);color:#fff;text-decoration:none;box-shadow:0 7px 20px rgba(0,0,0,.16);">
+            <span style="display:block;line-height:1.35;"><strong style="display:block;font-size:.9rem;letter-spacing:.2px;">Sign the Guestbook</strong><span style="display:block;font-size:.8rem;color:rgba(255,255,255,.62);">Leave a message for everyone to see.</span></span>
+            <span aria-hidden="true" style="flex:0 0 auto;color:#e32636;font-size:1.25rem;">→</span>
+        </a>
+    </div>
+
+
+
+<div class="structural-line"></div>
+
+    <div class="timeline-container">
+        <!-- ================= DAY 1 ================= -->
+        <article class="day-block" id="giorno-1">
+            <header class="day-sticky">
+                <div class="day-number">DAY 1</div>
+                <div class="day-date">SUNDAY, AUGUST 25</div>
+            </header>
+
+            <div class="day-content">
+                <div class="day-one-overview">
+                    <section class="day-route" aria-labelledby="route-title-1">
+                        <h3 class="day-route-title" id="route-title-1">Walking route</h3>
+                        <div id="day-map-1" class="day-map"></div>
+                    </section>
+                    <div class="day-one-summary">
+                        <div class="day-highlights" aria-label="Main stops on day 1">
+                            <figure class="highlight-card"><img src="NYAGARA24/FOTO/20240825_184858.jpg" alt="Times Square"><figcaption>Times Square</figcaption></figure>
+                            <figure class="highlight-card"><img src="NYAGARA24/FOTO/20240825_190742.jpg" alt="St. Patrick's Cathedral"><figcaption>St. Patrick's Cathedral</figcaption></figure>
+                            <figure class="highlight-card"><img src="NYAGARA24/FOTO/20240825_191529.jpg" alt="Rockefeller Center"><figcaption>Rockefeller Center</figcaption></figure>
+                            <figure class="highlight-card"><img src="NYAGARA24/FOTO/20240825_210331.jpg" alt="Bryant Park"><figcaption>Bryant Park</figcaption></figure>
+                            <figure class="highlight-card"><img src="NYAGARA24/FOTO/20240825_222230.jpg" alt="Top of the Rock"><figcaption>Top of the Rock</figcaption></figure>
+                        </div>
+                        <div class="day-distance">On foot: 16 km</div>
+                    </div>
+                </div>
+
+                <p class="day-text story-section"><strong>Adrenaline beats fatigue: our first encounter with the Vertical City.</strong><br>The journey begins in the afternoon with our landing at Newark. From the highway, the city skyline already rises on the horizon, taking our breath away and officially welcoming us to the Big Apple.</p>
+                <div class="universal-media-wrapper"><div class="universal-flex-row">
+                    <figure class="photo-container-frame size-orizzontale"><img src="NYAGARA24/FOTO/20240825_164000.jpg" alt="Midtown Manhattan West skyline"><figcaption class="photo-caption">The Midtown Manhattan West skyline seen from New Jersey.</figcaption></figure>
+                </div></div>
+
+                <p class="day-text story-section">Just enough time to drop off our luggage before diving into the beating heart of the city: Times Square. The impact of the lights and billboards is dazzling and magnificent.</p>
+                <div class="universal-media-wrapper"><div class="universal-flex-row">
+                    <figure class="photo-container-frame size-verticale"><img src="NYAGARA24/FOTO/20240825_183838.jpg" alt="Times Square Ball"><figcaption class="photo-caption">The iconic Times Square Ball.</figcaption></figure>
+                    <figure class="photo-container-frame size-orizzontale"><img src="NYAGARA24/FOTO/20240825_184858.jpg" alt="Times Square"><figcaption class="photo-caption">The glittering chaos of Times Square.</figcaption></figure>
+                </div></div>
+
+                <p class="day-text story-section">We move along Fifth Avenue to admire Gothic architecture set against the skyscrapers, then head toward one of the most famous complexes in the world.</p>
+                <div class="universal-media-wrapper"><div class="universal-flex-row">
+                    <figure class="photo-container-frame size-verticale"><img src="NYAGARA24/FOTO/20240825_190742.jpg" alt="St. Patrick's Cathedral"><figcaption class="photo-caption">The details of St. Patrick's Cathedral.</figcaption></figure>
+                    <figure class="photo-container-frame size-verticale"><img src="NYAGARA24/FOTO/20240825_191529.jpg" alt="Atlas statue at Rockefeller Center"><figcaption class="photo-caption">The Atlas statue in the heart of Rockefeller Center.</figcaption></figure>
+                    <figure class="photo-container-frame size-verticale"><img src="NYAGARA24/FOTO/20240825_193349.jpg" alt="Prometheus at Rockefeller Center"><figcaption class="photo-caption">Prometheus, the flags and the skyscrapers of Rockefeller Center.</figcaption></figure>
+                </div></div>
+
+                <p class="day-text story-section">We enjoy a long, pleasant walk along Fifth Avenue to Bryant Park, a wonderful green oasis nestled among the buildings, tidy and welcoming.</p>
+                <div class="universal-media-wrapper"><div class="universal-flex-row">
+                    <figure class="photo-container-frame size-verticale"><img src="NYAGARA24/FOTO/20240825_210212.jpg" alt="Bryant Park in the evening"><figcaption class="photo-caption">Bryant Park in the evening.</figcaption></figure>
+                    <figure class="photo-container-frame size-orizzontale"><img src="NYAGARA24/FOTO/20240825_210331.jpg" alt="Bryant Park illuminated"><figcaption class="photo-caption">The illuminated corners of Bryant Park.</figcaption></figure>
+                </div></div>
+
+                <p class="day-text story-section">Despite the long flight and the early wake-up, excitement wins over fatigue. We head north again to Rockefeller Center and climb to the observation deck. New York from above at night is an endless carpet of lights that rewards every effort.</p>
+                <div class="universal-media-wrapper"><div class="universal-flex-row">
+                    <figure class="photo-container-frame size-verticale"><img src="NYAGARA24/FOTO/20240825_221951.jpg" alt="Central Park from Top of the Rock"><figcaption class="photo-caption">Central Park and the Manhattan skyline seen from Top of the Rock.</figcaption></figure>
+                    <figure class="photo-container-frame size-orizzontale"><img src="NYAGARA24/FOTO/20240825_222230.jpg" alt="Empire State Building at night"><figcaption class="photo-caption">The Empire State Building glowing in the night skyline.</figcaption></figure>
+                    <figure class="photo-container-frame size-orizzontale"><img src="NYAGARA24/FOTO/20240825_222256.jpg" alt="Midtown Manhattan at night"><figcaption class="photo-caption">The lights of Midtown Manhattan seen from above.</figcaption></figure>
+                    <figure class="photo-container-frame size-orizzontale"><img src="NYAGARA24/FOTO/20240825_222810.jpg" alt="St. Patrick’s Cathedral from above"><figcaption class="photo-caption">St. Patrick’s Cathedral seen from Top of the Rock.</figcaption></figure>
+                </div></div>
+            </div>
+        </article>
+    </div> <!-- Chiusura timeline-container -->
+
+    <!-- ================= MAPPA DEL VIAGGIO ================= -->
+    <section class="trip-map-section">
+        <div class="trip-map-title">The complete route</div>
+        <div class="trip-map-subtitle">From New York to Niagara Falls</div>
+        <div id="trip-map"></div>
+    </section>
+
+    <!-- ================= TORNA SU / TORNA ALLA HOME ================= -->
+    <div class="end-nav">
+        <a href="#top" class="end-nav-link">
+            <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            Back to top
+        </a>
+        <a href="index-en.html" class="end-nav-link">
+            <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"/></svg>
+            Back to Home
+        </a>
+    </div><footer class="site-footer">
+        <div class="footer-copyright">
+            Dan on the Road
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/din_don_dani_/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61593659232613" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Elemento Overlay Lightbox -->
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev">&#10094;</span>
+        <div class="lightbox-image-container">
+            <img src="" alt="" class="lightbox-image" id="lightbox-img">
+        </div>
+        <span class="lightbox-next" id="lightbox-next">&#10095;</span>
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <script src="auto-layout.js"></script>
+    <script>
+        const nyDays = [
+            {
+                number: 2, date: "MONDAY, AUGUST 26", km: "20,5 km",
+                lead: "From the origins of Ellis Island to the heights of the World Trade Center and the lights of the most famous bridge in the world.",
+                highlights: [
+                    ["20240826_100019", "Statue of Liberty"], ["20240826_115829", "Wall Street"],
+                    ["20240826_124500", "World Trade Center"], ["20240826_200009", "Brooklyn Bridge"]
+                ],
+                route: [["Battery Park",40.7033,-74.0170],["Statue of Liberty",40.6892,-74.0445],["Ellis Island",40.6995,-74.0396],["Wall Street",40.7069,-74.0095],["World Trade Center",40.7116,-74.0134],["Brooklyn Bridge Park",40.7003,-73.9967],["Brooklyn Bridge",40.7061,-73.9969]],
+                sections: [
+                    { text: "The alarm rings early. We head to Battery Park to board the ferry. The morning air over Upper New York Bay is crisp, and seeing the symbols of American freedom up close is thrilling.", photos: [["o","20240826_090435","The Lower Manhattan skyline from the water."],["v","20240826_100019","The Statue of Liberty with the Manhattan skyline behind it."],["v","20240826_100204","Lady Liberty seen up close."],["o","20240826_101335","The Great Hall of the Ellis Island Immigration Museum."],["o","20240826_102728","Ellis Island seen from the waters of Upper New York Bay."]] },
+                    { text: "Back on land, we enter the financial heart of the city, among canyons of glass and stone where the history of the global economy is written.", photos: [["v","20240826_114555","The skyscrapers of the Financial District."],["o","20240826_115829","The famous Wall Street."],["v","20240826_120117","The Fearless Girl standing proudly outside the Stock Exchange."],["v","20240826_122215","Historic Trinity Church among modern buildings."]] },
+                    { text: "We move to the nearby World Trade Center area. Emotions run high at the 9/11 Memorial, a place of profound respect where the void of the pools becomes remembrance. Then our gaze rises again toward the Freedom Tower, the tallest building in North America.", photos: [["o","20240826_124148","Art and architecture outside the Oculus."],["o","20240826_124500","The white, futuristic forms inside the Oculus."],["v","20240826_124228","One World Trade Center framed by the wings of the Oculus."],["v","20240826_141342","The East River and Brooklyn bridges seen from One World Observatory."],["v","20240826_141633","Manhattan between the Hudson and East Rivers, seen from above."],["o","20240826_125630","The pools of the National September 11 Memorial."]] },
+                    { text: "In the late afternoon we take the subway to Brooklyn. We reach Brooklyn Bridge Park just in time for one of the most spectacular sunsets of the trip, with the sun sinking behind Manhattan. We wait for night to light up, then walk across the legendary bridge toward Manhattan, surrounded by a glowing skyline.", photos: [["v","20240826_191143","The silhouette of Brooklyn Bridge above the East River."],["o","20240826_191731","Sunset between Manhattan and Brooklyn."],["v","20240826_195715","An evening walk beneath the arches of Brooklyn Bridge."],["o","20240826_200009","Lower Manhattan seen from Brooklyn Bridge above the East River."],["o","20240826_200709","The Lower Manhattan skyline between the bridge cables."]] }
+                ]
+            },
+            {
+                number: 3, date: "TUESDAY, AUGUST 27", km: "19,4 km",
+                lead: "A day on the West Side: from futuristic architecture to the poetry of the High Line, ending beautifully on the water.",
+                highlights: [["20240827_090132","Intrepid Museum"],["20240827_114306","Hudson Yards"],["20240827_102347","The Edge"],["20240827_120830","High Line"],["20240827_125158","Chelsea Market"],["20240827_140215","Empire State Building"],["20240827_142940","Bryant Park"]],
+                route: [["Intrepid Museum",40.7645,-73.9995],["Hudson Yards",40.7536,-74.0016],["The Edge",40.7539,-74.0021],["High Line",40.7480,-74.0048],["Chelsea Market",40.7424,-74.0061],["Empire State Building",40.7484,-73.9857],["NY Public Library",40.7532,-73.9822],["Bryant Park",40.7536,-73.9832]],
+                sections: [
+                    { text: "The day is devoted to exploring Midtown West and the Lower West Side. We begin by passing the pier of the majestic air-and-space museum, viewed from outside, to validate our tickets for the evening cruise.", photos: [["o","20240827_090132","The Intrepid Sea, Air & Space Museum on the Hudson River."]] },
+                    { text: "We enter the brand-new Hudson Yards district. Between striking buildings, we treat ourselves to a well-earned Red Velvet cupcake. Then we climb The Edge, whose suspended terrace offers a geometric and dizzying view of the city.", photos: [["v","20240827_112639","The Shops & Restaurants at Hudson Yards."],["v","20240827_114306","The honeycomb structure of The Vessel."],["o","20240827_102347","The suspended terrace of The Edge with the Hudson River behind it."],["v","20240827_102416","The Empire State Building and Midtown seen from The Edge."],["v","20240827_102434","Lower Manhattan, One World Trade Center and the Hudson River seen from The Edge."]] },
+                    { text: "A beautiful elevated walk begins here along the High Line, an extraordinary linear park created from a 1930s freight railway. We walk above Chelsea, surrounded by greenery, contemporary art, picturesque views and landmark architecture, ending with a late lunch at atmospheric Chelsea Market.", photos: [["v","20240827_115933","The silhouette of The Edge seen from below."],["o","20240827_120830","The unusual bird sculptures along the High Line."],["o","20240827_115505","The greenery of the High Line meets contemporary architecture."],["v","20240827_121133","The Chelsea Market Skybridge."],["o","20240827_125158","The industrial atmosphere of Chelsea Market."]] },
+                    { text: "In the afternoon we head toward Midtown to admire the Empire State Building and visit the New York Public Library with its extraordinary Polonsky Exhibition of The New York Public Library's Treasures. Afterwards, we relax in my favourite corner of the city: Bryant Park.", photos: [["v","20240827_140215","The vertical sweep of the Empire State Building."],["v","20240827_140444","The Empire State Building among the towers of Midtown."],["o","20240827_141257","The monumental façade of the New York Public Library."],["v","20240827_142940","The richly decorated interiors of the New York Public Library."]] },
+                    { text: "It is time for a sunset cruise on the Hudson: two simply perfect and moving hours, rocked by the waves as the sky turns pink and orange behind the skyscrapers.", photos: [["o","20240827_190506","Jersey City and the iconic Ellipse building."],["v","20240827_192005","Passing close to Brooklyn Bridge by boat."],["v","20240827_194216","The Empire State Building between the American Copper Buildings."],["o","20240827_195504","A magnificent view of Brooklyn Bridge."],["v","20240827_200647","The Statue of Liberty at night."],["o","20240827_203602","The lights of the Lower Manhattan skyline."],["v","20240827_203812","Hudson Yards seen from the water."]] }
+                ]
+            },
+            {
+                number: 4, date: "WEDNESDAY, AUGUST 28", km: "20,1 km",
+                lead: "From modern art to green oases, experiencing the city like true New Yorkers.",
+                highlights: [["20240828_084725","Brooklyn Diner"],["20240828_102823","6th Avenue"],["20240828_150740","Central Park"],["20240828_152903","Guggenheim"],["20240828_194853","Times Square"]],
+                route: [["Times Square",40.7580,-73.9855],["6th Avenue",40.7616,-73.9777],["MoMA",40.7614,-73.9776],["Central Park",40.7712,-73.9742],["Guggenheim",40.7829,-73.9590],["Times Square",40.7580,-73.9855]],
+                sections: [
+                    { text: "We begin with a hearty American-style breakfast before immersing ourselves in art. Walking among Midtown skyscrapers, we pass iconic corners such as the fountain with its glass tunnel.", photos: [["v","20240828_084725","The classic atmosphere of the Brooklyn Diner in Times Square."],["v","20240828_100609","The rhythm of Manhattan along Sixth Avenue."],["v","20240828_102823","The skyscrapers of Sixth Avenue seen from below."],["v","20240828_101237","The Paparazzi Dogman sculpture near the waterfall."]] },
+                    { text: "We devote the next few hours to the extraordinary MoMA collection and the famous spiral architecture of the Guggenheim Museum. At lunchtime we enjoy a classic local break: food from a street cart, eaten on a bench along Sixth Avenue in the flow of the city and in excellent company.", photos: [["v","20240828_125656","Our New York street food."],["o","20240828-WA0039","A souvenir photo in excellent company."],["o","20240828_150740","The Jacqueline Kennedy Onassis Reservoir in the heart of Central Park."],["o","20240828_152512","The famous spiral façade of the Guggenheim Museum."],["o","20240828_152903","The grand interior spiral of the Guggenheim Museum."]] },
+                    { text: "We return to Times Square to be dazzled by the neon and do some people-watching at this crossroads of the world. We finish with a generous and delicious barbecue dinner.", photos: [["o","20240828_194853","Times Square amid rain, traffic and glowing screens."],["v","20240828_195013","The heart of Times Square lit up at night."],["o","20240828_204419","The smoked ribs at Virgil's Real BBQ."],["o","20240828_204425","A mountain of fries at Virgil's Real BBQ."]] }
+                ]
+            },
+            {
+                number: 5, date: "THURSDAY, AUGUST 29", km: "15,6 km",
+                lead: "Travelling toward the great falls: the power of nature beyond the border.",
+                highlights: [["20240829_113818","Watkins Glen"],["20240829_155752","Niagara Falls USA"],["20240829_213829","Niagara Falls Canada"]],
+                route: [["Watkins Glen",42.3727,-76.8742],["Niagara Falls USA",43.0837,-79.0710],["Niagara Falls Canada",43.0896,-79.0849]],
+                sections: [
+                    { text: "Today the scenery changes: an organised bus tour takes us toward the Canadian border to see Niagara Falls. Along the way we make a beautiful nature stop at Watkins Glen, walking through a striking rocky gorge. In the afternoon we reach Niagara Falls State Park for a first view from the American side—impressive, yet only a taste of the falls’ true majesty.", photos: [["o","20240829_113818","The rocky gorges of Watkins Glen State Park."],["v","20240829_115442","The rocky gorges of Watkins Glen State Park."],["o","20240829_155752","Niagara Falls State Park, US side."],["o","20240829_163554","Niagara Falls State Park, US side."],["o","20240829_173159","Niagara Falls State Park, US side."]] },
+                    { text: "We cross the border into Canada for an overnight stay at Niagara Falls. The town is extremely touristy and eccentric, but fun. We have dinner, take photographs and remain enchanted by the nightly fireworks illuminating the water, despite the cloudy sky.", photos: [["o","20240829_213829","The falls illuminated by fireworks."],["o","20240829_220140","The falls illuminated by fireworks."]] }
+                ]
+            },
+            {
+                number: 6, date: "FRIDAY, AUGUST 30", km: "9 km",
+                lead: "The power of the Canadian side, a shopping spree and the return home.",
+                highlights: [["20240830_092624","Niagara Falls"],["20240830_193005","Manhattan"]],
+                route: [["Niagara Falls Canada",43.0896,-79.0849],["Woodbury Common",41.3170,-74.1250],["New York",40.7128,-74.0060]],
+                sections: [
+                    { text: "The morning is devoted entirely to the Canadian side, undoubtedly the most spectacular and closest viewpoint for appreciating the scale of the falls. Although the surroundings are highly developed and touristy, the power of the water is breathtaking. We take the classic boat trip and get completely soaked, laughing through the spray.", photos: [["o","20240830_092624","The incredible power of Niagara Falls up close."]] },
+                    { text: "In the early afternoon we board the bus back to the Big Apple, stopping to shop at Woodbury Common Premium Outlets. We return in the evening to a New York wrapped in fog, mirroring our slightly melancholy mood as the trip nears its end. Seeing the skyscrapers through the low clouds gives us the wonderful feeling of coming home. That is exactly what New York does.", photos: [["v","20240830_193005","The Manhattan skyline wrapped in evening fog."]] }
+                ]
+            },
+            {
+                number: 7, date: "SATURDAY, AUGUST 31", km: "9,7 km",
+                lead: "A final farewell to the history of the Earth and an unexpected gift in the northern sky.",
+                highlights: [["20240831_120747","Museum of Natural History"],["20240828_194853","Times Square"],["20240831_212935","Northern Lights"]],
+                route: [["American Museum of Natural History",40.7813,-73.9740],["Times Square",40.7580,-73.9855],["Newark Airport",40.6895,-74.1745]],
+                sections: [
+                    { text: "It is departure day, but we still have the entire morning to enjoy the city. We spend it in the extraordinary halls of the Museum of Natural History. Before heading to the airport, we make one very last stop in Times Square to fill our eyes with New York once more. Then back to the hotel: a quick shower, suitcases barely closed, an inevitable tear, and we board the plane. The journey seems over, but the sky has one final spectacular gift: as we fly over Greenland in the darkness, a magnificent aurora dances outside the window. The perfect ending.", photos: [["o","20240831_120747","The halls of the American Museum of Natural History."],["v","20240831_212935","The spectacle of the Northern Lights seen from the plane."]] }
+                ]
+            }
+        ];
+
+        const photoPath = name => `NYAGARA24/FOTO/${name}.jpg`;
+        const renderPhotos = photos => `<div class="universal-media-wrapper"><div class="universal-flex-row">${photos.map(([orientation,name,caption]) => `<figure class="photo-container-frame size-${orientation === 'v' ? 'verticale' : 'orizzontale'}"><img src="${photoPath(name)}" alt="${caption}"><figcaption class="photo-caption">${caption}</figcaption></figure>`).join('')}</div></div>`;
+        const renderDay = day => `<article class="day-block" id="giorno-${day.number}">
+            <header class="day-sticky"><div class="day-number">DAY ${day.number}</div><div class="day-date">${day.date}</div></header>
+            <div class="day-content">
+                <div class="day-one-overview">
+                    <section class="day-route" aria-labelledby="route-title-${day.number}"><h3 class="day-route-title" id="route-title-${day.number}">Route of the day</h3><div id="day-map-${day.number}" class="day-map"></div></section>
+                    <div class="day-one-summary">
+                        <div class="day-highlights" aria-label="Main stops on day ${day.number}">${day.highlights.map(([photo,label]) => `<figure class="highlight-card"><img src="${photoPath(photo)}" alt="${label}"><figcaption>${label}</figcaption></figure>`).join('')}</div>
+                        <div class="day-distance">On foot: ${day.km}</div>
+                    </div>
+                </div>
+                <p class="day-text story-section"><strong>${day.lead}</strong></p>
+                ${day.sections.map(section => `<p class="day-text story-section">${section.text}</p>${renderPhotos(section.photos)}`).join('')}
+            </div>
+        </article>`;
+        document.querySelector('.timeline-container').insertAdjacentHTML('beforeend', nyDays.map(renderDay).join(''));
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ripeto il setup del lightbox DOPO che auto-layout.js ha già
+            // iniettato le foto (i due script sopra girano prima di questo).
+            const images = Array.from(document.querySelectorAll(".photo-container-frame img"));
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            const lightboxClose = document.getElementById("lightbox-close");
+            const lightboxCaption = document.getElementById("lightbox-caption");
+            const prevBtn = document.getElementById("lightbox-prev");
+            const nextBtn = document.getElementById("lightbox-next");
+
+            // Raggruppa le foto per giorno (ogni giorno ha il suo
+            // .universal-media-wrapper), cosi' le frecce avanti/indietro
+            // restano dentro al giorno corrente invece di sconfinare in
+            // quello successivo/precedente.
+            const dayGroups = [];
+            images.forEach(img => {
+                const wrapper = img.closest(".universal-media-wrapper");
+                let group = dayGroups.find(g => g.wrapper === wrapper);
+                if (!group) {
+                    group = { wrapper, imgs: [] };
+                    dayGroups.push(group);
+                }
+                group.imgs.push(img);
+            });
+
+            let currentGroup = 0;
+            let currentPos = 0;
+            let suppressNextClick = false;
+
+            function openLightboxAt(groupIndex, pos) {
+                currentGroup = groupIndex;
+                currentPos = pos;
+                const img = dayGroups[currentGroup].imgs[currentPos];
+                lightboxImg.src = img.src;
+                lightboxImg.classList.remove("is-zoomed");
+
+                const figcaption = img.closest(".photo-container-frame").querySelector("figcaption");
+                lightboxCaption.textContent = figcaption ? figcaption.textContent : "";
+
+                lightbox.style.display = "flex";
+                document.body.style.overflow = "hidden";
+                updateArrows();
+            }
+
+            function updateArrows() {
+                const group = dayGroups[currentGroup];
+                prevBtn.classList.toggle("is-hidden", currentPos <= 0);
+                nextBtn.classList.toggle("is-hidden", currentPos >= group.imgs.length - 1);
+            }
+
+            function closeLightbox() {
+                lightbox.style.display = "none";
+                lightboxImg.classList.remove("is-zoomed");
+                document.body.style.overflow = "auto";
+                // Evita che il click che chiude la lightbox "passi" alla
+                // pagina sottostante aprendo per sbaglio un'altra foto
+                // (o attivando link/pulsanti che si trovano nello stesso punto).
+                suppressNextClick = true;
+                setTimeout(() => { suppressNextClick = false; }, 350);
+            }
+
+            function showPrev() {
+                if (currentPos <= 0) return; // prima foto del giorno: non si passa al giorno prima
+                lightboxImg.classList.remove("is-zoomed");
+                openLightboxAt(currentGroup, currentPos - 1);
+            }
+
+            function showNext() {
+                const group = dayGroups[currentGroup];
+                if (currentPos >= group.imgs.length - 1) return; // ultima foto del giorno: non si passa al giorno dopo
+                lightboxImg.classList.remove("is-zoomed");
+                openLightboxAt(currentGroup, currentPos + 1);
+            }
+
+            lightboxImg.addEventListener("click", function(e) {
+                e.stopPropagation();
+                this.classList.toggle("is-zoomed");
+            });
+
+            dayGroups.forEach((group, gi) => {
+                group.imgs.forEach((img, pi) => {
+                    img.addEventListener("click", function(e) {
+                        if (suppressNextClick) { e.preventDefault(); e.stopPropagation(); return; }
+                        openLightboxAt(gi, pi);
+                    });
+                });
+            });
+
+            lightboxClose.addEventListener("click", closeLightbox);
+            prevBtn.addEventListener("click", function(e) { e.stopPropagation(); showPrev(); });
+            nextBtn.addEventListener("click", function(e) { e.stopPropagation(); showNext(); });
+            lightbox.addEventListener("click", closeLightbox);
+
+            document.addEventListener("keydown", function(e) {
+                if (lightbox.style.display === "flex") {
+                    if (e.key === "Escape") closeLightbox();
+                    if (e.key === "ArrowLeft") showPrev();
+                    if (e.key === "ArrowRight") showNext();
+                }
+            });
+        });
+    </script>
+
+    <!-- ===== MAPPA DEL VIAGGIO (Leaflet.js) ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dayOneStops = [
+                { nome: "Times Square", lat: 40.7580, lng: -73.9855 },
+                { nome: "Fifth Avenue", lat: 40.7587, lng: -73.9767 },
+                { nome: "St. Patrick's Cathedral", lat: 40.7585, lng: -73.9760 },
+                { nome: "Rockefeller Center", lat: 40.7587, lng: -73.9787 },
+                { nome: "Bryant Park", lat: 40.7536, lng: -73.9832 },
+                { nome: "Top of the Rock", lat: 40.7593, lng: -73.9794 },
+                { nome: "Times Square", lat: 40.7580, lng: -73.9855 }
+            ];
+            const dayOneMap = L.map('day-map-1', { scrollWheelZoom: false }).setView([40.757, -73.981], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+            }).addTo(dayOneMap);
+            const dayOneRoute = dayOneStops.map(t => [t.lat, t.lng]);
+            /* Bordo scuro + linea rossa: il tragitto resta leggibile su ogni zona della mappa */
+            L.polyline(dayOneRoute, { color: '#111111', weight: 9, opacity: 0.9 }).addTo(dayOneMap);
+            L.polyline(dayOneRoute, { color: '#e32636', weight: 5, opacity: 1 }).addTo(dayOneMap);
+            dayOneStops.slice(0, -1).forEach(t => L.circleMarker([t.lat, t.lng], {
+                radius: 6, color: '#111111', weight: 2, fillColor: '#e32636', fillOpacity: 1
+            }).addTo(dayOneMap).bindTooltip(t.nome));
+            /* Inquadratura verticale dell'intera Manhattan per dare contesto al percorso */
+            dayOneMap.fitBounds([[40.7000, -74.0220], [40.8800, -73.9000]], { padding: [12, 12] });
+
+            nyDays.forEach(day => {
+                const map = L.map(`day-map-${day.number}`, { scrollWheelZoom: false });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+                }).addTo(map);
+                const route = day.route.map(([,lat,lng]) => [lat,lng]);
+                L.polyline(route, { color: '#111111', weight: 9, opacity: 0.9 }).addTo(map);
+                L.polyline(route, { color: '#e32636', weight: 5, opacity: 1 }).addTo(map);
+                day.route.forEach(([name,lat,lng]) => L.circleMarker([lat,lng], {
+                    radius: 6, color: '#111111', weight: 2, fillColor: '#e32636', fillOpacity: 1
+                }).addTo(map).bindTooltip(name));
+                map.fitBounds(L.latLngBounds(route), { padding: [24, 24] });
+            });
+
+            const tappe = [
+                { nome: "New York", nota: "Departure", lat: 40.7128, lng: -74.0060 },
+                { nome: "Watkins Glen", nota: "", lat: 42.3778, lng: -76.8703 },
+                { nome: "Niagara Falls (Canadian side)", nota: "Return", lat: 43.0896, lng: -79.0849 }
+            ];
+
+            const map = L.map('trip-map', { scrollWheelZoom: false }).setView([42, -77], 6);
+
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Layer di riferimento: confini di stato/contea e nomi città, trasparente sopra il satellite
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 19
+            }).addTo(map);
+
+            const puntoIcon = L.divIcon({ className: 'trip-map-marker', iconSize: [14, 14] });
+
+            const percorso = tappe.map(t => [t.lat, t.lng]);
+            L.polyline(percorso, {
+                color: '#f4a261',
+                weight: 4,
+                opacity: 0.9
+            }).addTo(map);
+
+            tappe.forEach(t => {
+                L.marker([t.lat, t.lng], { icon: puntoIcon })
+                    .addTo(map)
+                    .bindTooltip(t.nome, { permanent: true, direction: 'top', offset: [0, -8], className: 'trip-map-label' })
+                    .bindPopup(`<b>${t.nome}</b>${t.nota ? '<span>' + t.nota + '</span>' : ''}`);
+            });
+
+            map.fitBounds(L.latLngBounds(percorso), { padding: [30, 30] });
+        });
+    </script>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.day-block').forEach(function(dayBlock){
+    const dayNumber=dayBlock.querySelector('.day-number');
+    if(!dayNumber||dayBlock.querySelector('.day-watermark'))return;
+    const watermark=document.createElement('div');
+    watermark.className='day-watermark';
+    watermark.setAttribute('aria-hidden','true');
+    watermark.textContent=dayNumber.textContent.trim();
+    dayBlock.insertBefore(watermark,dayBlock.firstChild);
+  });
+});
+</script>
+</body>
+</html>

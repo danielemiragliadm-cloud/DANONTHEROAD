@@ -255,7 +255,17 @@
         .footer-socials .social-icon:last-child { color:#1877f2; }
         .footer-socials .social-icon svg { width:19px; height:19px; }
         @media(max-width:700px){ .travel-hero{height:410px}.trip-brand{top:7px;width:min(230px,66vw);padding:5px 8px}.language-switch{top:8px;right:8px;padding:6px 10px;font-size:.62rem}.travel-header{padding:100px 8px 10px}.travel-header h1{font-size:2rem;padding:7px 12px 9px}.travel-header .meta-info{margin-top:8px;padding:7px 10px;font-size:.72rem;letter-spacing:1.5px}.trip-recap{width:calc(100% - 10px);max-height:125px;overflow-y:auto;margin-top:8px;padding:9px 10px 11px}.trip-recap-title{margin-bottom:7px}.trip-recap-route{justify-content:flex-start;gap:7px}.trip-recap-place{font-size:.68rem}.timeline-container{padding:34px 14px}.day-block{padding:26px 14px;margin-bottom:46px}.day-sticky{gap:10px 14px}.day-number{font-size:1.35rem}.day-date{font-size:.94rem;padding:8px 12px}.day-text{font-size:1.04rem;line-height:1.75}.size-verticale,.size-orizzontale{width:100%}.photo-container-frame img{height:auto!important}.size-panoramica img{height:auto}.trip-map-section{width:calc(100% - 28px)} }
-    </style>
+    
+/* ===== UNIFICAZIONE GRAFICA DIARI ===== */
+body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E")}
+.day-block{position:relative;overflow:visible}
+.day-watermark{position:sticky;top:46vh;height:0;overflow:visible;display:flex;justify-content:center;align-items:center;z-index:0;pointer-events:none;user-select:none;font-family:'Big Shoulders Display',sans-serif;font-size:clamp(4.5rem,11vw,9rem);font-weight:700;line-height:1;letter-spacing:.08em;color:rgba(255,255,255,.026);text-transform:uppercase;white-space:nowrap}
+.day-sticky,.day-content{position:relative;z-index:1}
+.day-number,.day-date{padding:8px 16px!important;border:1px solid rgba(244,189,103,.45)!important;border-radius:8px!important;background:rgba(255,255,255,.04)!important;box-shadow:none!important;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif!important}
+.day-number{font-size:1.3rem!important;font-weight:800!important;letter-spacing:1.5px!important;color:#fff!important}
+.day-date{font-size:1.1rem!important;font-weight:500!important;letter-spacing:1px!important;color:#ffe5bc!important}
+@media(max-width:900px){.day-watermark{top:44vh;font-size:clamp(3.3rem,17vw,6rem);color:rgba(255,255,255,.032)}}
+</style>
 </head>
 <body>
 

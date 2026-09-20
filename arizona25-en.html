@@ -284,7 +284,17 @@
         .language-switch { position:absolute; z-index:6; top:16px; right:20px; padding:8px 14px; border:1px solid rgba(244,189,103,.72); border-radius:22px; background:rgba(4,24,38,.78); backdrop-filter:blur(6px); color:#fff1d2; font-size:.7rem; font-weight:700; letter-spacing:1.4px; text-decoration:none; }
         .footer-socials{gap:22px}.footer-socials .social-icon{width:38px;height:38px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.045)}.footer-socials .social-icon:first-child{color:#e1306c}.footer-socials .social-icon:last-child{color:#1877f2}.footer-socials .social-icon svg{width:19px;height:19px}
         @media(max-width:700px){.language-switch{top:8px;right:8px;padding:6px 10px;font-size:.62rem}}
-    </style>
+    
+/* ===== UNIFICAZIONE GRAFICA DIARI ===== */
+body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E")}
+.day-block{position:relative;overflow:visible}
+.day-watermark{position:sticky;top:46vh;height:0;overflow:visible;display:flex;justify-content:center;align-items:center;z-index:0;pointer-events:none;user-select:none;font-family:'Big Shoulders Display',sans-serif;font-size:clamp(4.5rem,11vw,9rem);font-weight:700;line-height:1;letter-spacing:.08em;color:rgba(255,255,255,.026);text-transform:uppercase;white-space:nowrap}
+.day-sticky,.day-content{position:relative;z-index:1}
+.day-number,.day-date{padding:8px 16px!important;border:1px solid rgba(244,189,103,.45)!important;border-radius:8px!important;background:rgba(255,255,255,.04)!important;box-shadow:none!important;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif!important}
+.day-number{font-size:1.3rem!important;font-weight:800!important;letter-spacing:1.5px!important;color:#fff!important}
+.day-date{font-size:1.1rem!important;font-weight:500!important;letter-spacing:1px!important;color:#ffe5bc!important}
+@media(max-width:900px){.day-watermark{top:44vh;font-size:clamp(3.3rem,17vw,6rem);color:rgba(255,255,255,.032)}}
+</style>
 </head>
 <body>
 <div class="back-nav">
@@ -1054,5 +1064,19 @@
             map.fitBounds(L.latLngBounds(percorso), { padding: [30, 30] });
         });
     </script>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.day-block').forEach(function(dayBlock){
+    const dayNumber=dayBlock.querySelector('.day-number');
+    if(!dayNumber||dayBlock.querySelector('.day-watermark'))return;
+    const watermark=document.createElement('div');
+    watermark.className='day-watermark';
+    watermark.setAttribute('aria-hidden','true');
+    watermark.textContent=dayNumber.textContent.trim();
+    dayBlock.insertBefore(watermark,dayBlock.firstChild);
+  });
+});
+</script>
 </body>
 </html>
