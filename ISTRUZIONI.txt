@@ -1,0 +1,69 @@
+AREA PRIVATA · DAN ON THE ROAD
+================================
+
+Questo pacchetto aggiunge al sito esistente:
+  /privato/                  ingresso protetto
+  /privato/onthecouch/       OnTheCouch, versione web gia pubblicata
+  /privato/split-with-dan/   Split With Dan, da compilare dal progetto aggiornato
+
+La pagina index.html pubblica non viene modificata. Entrambe le app sono
+protette anche attraverso il dominio tecnico del progetto Cloudflare Pages.
+
+1. COPIA I FILE NEL REPOSITORY DEL SITO
+
+Apri in Esplora file la cartella locale DANONTHEROAD gestita da GitHub
+Desktop. Copia DENTRO quella cartella il contenuto di questo pacchetto
+(functions, privato, PREPARA_SPLIT.ps1). Se Windows chiede di unire la cartella
+functions esistente, scegli di unire: i file functions/api/contact.js e
+functions/api/guestbook.js rimangono al loro posto. Non sostituire la home.
+
+2. COMPILA SPLIT WITH DAN
+
+Apri PowerShell nella cartella DANONTHEROAD. Adatta il percorso alla tua cartella
+Flutter, poi esegui:
+
+  .\PREPARA_SPLIT.ps1 -FlutterProject "C:\PERCORSO\DEL\TUO\PROGETTO_FLUTTER"
+
+Se PowerShell blocca lo script, eseguilo solo in questa sessione con:
+
+  powershell -ExecutionPolicy Bypass -File .\PREPARA_SPLIT.ps1 -FlutterProject "C:\PERCORSO\DEL\TUO\PROGETTO_FLUTTER"
+
+Lo script esegue flutter pub get e flutter build web con il percorso corretto,
+poi copia la build in privato\split-with-dan\. Non modifica il progetto Flutter.
+
+3. CONFIGURA LE DUE CREDENZIALI PRIVATE SU CLOUDFLARE
+
+Prima del Push, nel progetto Cloudflare Pages "danontheroad", apri
+Settings > Variables and Secrets (o Environment variables) e aggiungi
+questi due SECRETS per l'ambiente Production:
+
+  PRIVATE_ACCESS_PASSWORD  = una password lunga e unica scelta da te
+  PRIVATE_SESSION_KEY      = una stringa casuale di almeno 32 caratteri
+
+Non scrivere questi valori nei file del repository o in questa chat.
+Per creare PRIVATE_SESSION_KEY in PowerShell:
+
+  $b = New-Object byte[] 32
+  [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b)
+  [BitConverter]::ToString($b).Replace('-', '')
+
+Copia il risultato solo nella casella del secret Cloudflare.
+La sessione dura 30 giorni nel browser. Cambiare la password invalida le
+sessioni precedenti. Puoi anche usare il gestore password del browser.
+
+4. PUBBLICA
+
+In GitHub Desktop controlla che la home e i diari NON compaiano fra i file
+modificati. Fai Commit to main e Push origin. Cloudflare Pages pubblica il
+nuovo commit come gia avviene per il tuo sito.
+
+Apri prima https://danontheroad.com/privato/ in una finestra in incognito:
+deve chiedere la password. Poi prova entrambe le app e verifica che le spese
+aggiunte su Split With Dan siano ancora visibili sul telefono.
+
+La protezione e sul server: non basta nascondere i collegamenti dalla home.
+Se mancano i due secrets, la zona privata risponde 503 invece di aprirsi.
+
+NOTA: Per una protezione aggiuntiva contro tentativi ripetuti di password,
+configura una regola Cloudflare WAF di rate limiting sul percorso
+/privato/entra. Il codice non contiene limiti globali distribuiti.
