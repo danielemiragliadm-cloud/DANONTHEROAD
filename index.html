@@ -19,21 +19,54 @@
     .choice a::after{content:"";position:absolute;inset:-45% auto -45% -45%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.72),transparent);transform:skewX(-18deg);animation:button-shine 3.6s ease-in-out infinite}
     .choice a:hover,.choice a:focus-visible{outline:0;box-shadow:0 0 22px rgba(255,222,174,.62),0 10px 28px rgba(0,0,0,.36);transform:translateY(-2px);animation-play-state:paused}
     .choice a:active{transform:scale(.98)}.it{left:36.25%;width:11.7%}.en{left:48.9%;width:11%;animation-delay:1.4s}.en::after{animation-delay:1.8s}
+    .mobile-go,.mobile-language{display:none}
     @keyframes arrival{from{transform:scale(1.045);filter:brightness(.55)}to{transform:scale(1);filter:brightness(1)}}@keyframes button-call{0%,100%{box-shadow:0 0 0 rgba(255,240,214,0)}18%{box-shadow:0 0 24px rgba(255,215,158,.58)}36%{box-shadow:0 0 0 rgba(255,240,214,0)}}@keyframes button-shine{0%,42%{left:-45%;opacity:0}52%{opacity:1}66%,100%{left:125%;opacity:0}}
+    @keyframes panel-call{0%,100%{box-shadow:0 0 10px rgba(255,153,65,.25),inset 0 0 8px rgba(255,210,145,.12)}50%{box-shadow:0 0 30px rgba(255,134,33,.82),0 0 55px rgba(255,164,70,.32),inset 0 0 18px rgba(255,221,165,.28)}}
     @media(prefers-reduced-motion:reduce){.visual,.choice a,.choice a::after{animation:none}.choice a{box-shadow:0 0 18px rgba(255,220,170,.34)}}
-    @media(max-width:620px){.eyebrow{display:none}.brand{margin-left:auto}.visual{width:100vw}}
+    @media(max-width:620px){
+      .hero{height:100vh;height:100dvh;min-height:520px;background:#5f1c17}
+      .hero::before,.hero::after,.top,.choice{display:none}
+      .visual{width:100vw;height:100vh;height:100dvh;aspect-ratio:auto;box-shadow:none;animation:none}
+      .visual picture,.visual img{display:block;width:100%;height:100%}
+      .visual img{object-fit:cover;object-position:center}
+      .mobile-go{display:block;position:absolute;z-index:3;left:13.4%;top:21.6%;width:73.2%;height:29.8%;border:2px solid rgba(255,174,85,.72);border-radius:3px;background:transparent;color:transparent;text-decoration:none;animation:panel-call 2.5s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+      .mobile-go:focus-visible{outline:3px solid #fff2dc;outline-offset:5px}
+      .mobile-go:active{transform:scale(.985)}
+      .mobile-language{display:flex;position:absolute;z-index:5;top:calc(12px + env(safe-area-inset-top));right:12px;align-items:center;padding:5px 7px;border:1px solid rgba(255,235,207,.65);border-radius:999px;background:rgba(10,18,24,.72);box-shadow:0 4px 16px rgba(0,0,0,.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+      .mobile-language a{min-width:43px;padding:8px 7px;color:rgba(255,242,220,.68);font-size:.76rem;font-weight:700;line-height:1;text-align:center;letter-spacing:.09em;text-decoration:none;border-radius:999px}
+      .mobile-language a+a{border-left:1px solid rgba(255,235,207,.3);border-radius:0}
+      .mobile-language a.active{color:#fff;background:rgba(213,105,37,.8);text-shadow:0 0 10px rgba(255,220,175,.75)}
+    }
+    @media(max-width:620px) and (prefers-reduced-motion:reduce){.mobile-go{animation:none;box-shadow:0 0 18px rgba(255,153,65,.55)}}
   </style>
 </head>
 <body>
   <main class="hero">
     <header class="top"><span class="brand">Dan On The Road</span><span class="eyebrow">Diari di viaggio · Travel journals</span></header>
     <div class="visual">
-      <img src="home-dan-on-the-road.png" alt="Il salotto di Dan On The Road con fotografie di viaggio e una valigia blu">
+      <picture>
+        <source media="(max-width:620px)" srcset="home-dan-on-the-road-mobile.png">
+        <img src="home-dan-on-the-road.png" alt="Il salotto di Dan On The Road con fotografie di viaggio e una valigia blu">
+      </picture>
       <nav class="choice" aria-label="Scegli la lingua · Choose your language">
         <a class="it" href="index-it.html" lang="it" aria-label="Entra nel sito in italiano">ITALIANO</a>
         <a class="en" href="index-en.html" lang="en" aria-label="Enter the website in English">ENGLISH</a>
       </nav>
+      <a class="mobile-go" id="mobile-go" href="index-en.html" aria-label="Apri il viaggio · Open the journey">GO</a>
+      <nav class="mobile-language" aria-label="Scegli la lingua · Choose your language">
+        <a id="mobile-it" href="index-it.html" lang="it">ITA</a>
+        <a id="mobile-en" href="index-en.html" lang="en">ENG</a>
+      </nav>
     </div>
   </main>
+  <script>
+    (function () {
+      const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+      const italian = languages.some(language => String(language).toLowerCase().startsWith('it'));
+      const destination = italian ? 'index-it.html' : 'index-en.html';
+      document.getElementById('mobile-go').href = destination;
+      document.getElementById(italian ? 'mobile-it' : 'mobile-en').classList.add('active');
+    }());
+  </script>
 </body>
 </html>
