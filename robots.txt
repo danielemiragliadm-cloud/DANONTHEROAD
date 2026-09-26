@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /privato/
+
+Sitemap: https://danontheroad.com/sitemap.xml
