@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /privato/
 
-Sitemap: https://danontheroad.com/sitemap.xml
+Sitemap: https://danontheroad.com/sitemap.txt
