@@ -699,7 +699,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             { src: 'ARIZONA25/FOTO/20250820_110114.jpg', alt: 'Saguaro National Park', caption: 'Un saguaro monumentale nel deserto', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250820_111025.jpg', alt: 'Saguaro National Park', caption: 'Cactus protesi verso il cielo dell’Arizona', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250820_105740.jpg', alt: 'Saguaro National Park', caption: 'Il paesaggio del Saguaro National Park', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250820_110615.jpg', alt: 'Avvoltoio dalla testa rossa', caption: 'Avvoltoio dalla testa rossa', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250820_110615.jpg', alt: 'Ecosistema del Deserto di Sonora', caption: 'Il tipico ecosistema del Deserto di Sonora, caratterizzato da una fitta presenza di imponenti cactus saguaro', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250820_111431.jpg', alt: 'Saguaro National Park', caption: 'Sentieri tra i cactus giganti', orientation: 'orizzontale' }
         ]);
         renderPhotoDay('#giorno2-foto-b', [
@@ -736,7 +736,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             { src: 'ARIZONA25/FOTO/20250822_184454.jpg', alt: 'Airport Mesa Loop Trail', caption: 'La vallata di Sedona dall’Airport Mesa Loop', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250822_184846.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Bell Rock vista dall’Airport Mesa Loop', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250822_184057.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Il tramonto accende le rocce di Sedona', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250822_193503.jpg', alt: 'Sedona', caption: 'Sedona incorniciata dalla vegetazione', orientation: 'orizzontale' }
+            { src: 'ARIZONA25/FOTO/20250822_193503.jpg', alt: 'Vespa Healthy Italian Café, Sedona', caption: 'Vespa Healthy Italian Café — Sedona', orientation: 'orizzontale' }
         ]);
 
         // ===== GIORNO 05 =====
@@ -763,7 +763,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
 
         // ===== GIORNO 06 =====
         renderPhotoDay('#giorno6-foto', [
-            { src: 'ARIZONA25/FOTO/20250824_081551.jpg', alt: 'South Rim Grand Canyon', caption: 'Il South Rim nelle prime ore del mattino', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250824_081551.jpg', alt: 'Scoiattolo al Grand Canyon', caption: 'Un affamato scoiattolo fa colazione al South Rim', orientation: 'verticale' },
             { type: 'youtube', videoId: '6XTUlYUtzMs', alt: 'Grand Canyon Village', caption: 'Grand Canyon Village', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250824_140814.jpg', alt: 'Navajo Point Grand Canyon', caption: 'Navajo Point Grand Canyon — orizzonti senza fine', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250824_083731.jpg', alt: 'South Rim Grand Canyon', caption: 'Camminando lungo il bordo del Grand Canyon', orientation: 'orizzontale' },
@@ -995,18 +995,29 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             const popupWrap = document.getElementById("youtube-popup-wrap");
             const popupIframe = document.getElementById("youtube-popup-iframe");
             const popupClose = document.getElementById("youtube-popup-close");
+            let popupHistoryActive = false;
 
             function openYoutubePopup(videoId, orientation) {
+                if (popup.style.display !== "flex") {
+                    history.pushState({ danVideoPopup: true }, "", location.href);
+                    popupHistoryActive = true;
+                }
                 popupWrap.classList.toggle("is-landscape", orientation === "orizzontale" || orientation === "panoramica");
                 popupIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
                 popup.style.display = "flex";
                 document.body.style.overflow = "hidden";
             }
 
-            function closeYoutubePopup() {
+            function closeYoutubePopup(fromHistory) {
                 popup.style.display = "none";
                 popupIframe.src = "";
                 document.body.style.overflow = "auto";
+                if (popupHistoryActive && !fromHistory && history.state && history.state.danVideoPopup) {
+                    popupHistoryActive = false;
+                    history.back();
+                } else {
+                    popupHistoryActive = false;
+                }
             }
 
             document.querySelectorAll(".youtube-trigger").forEach(trigger => {
@@ -1022,6 +1033,9 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             });
             document.addEventListener("keydown", function(e) {
                 if (popup.style.display === "flex" && e.key === "Escape") closeYoutubePopup();
+            });
+            window.addEventListener("popstate", function() {
+                if (popup.style.display === "flex") closeYoutubePopup(true);
             });
         });
     </script>

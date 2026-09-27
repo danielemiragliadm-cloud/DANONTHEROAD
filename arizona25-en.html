@@ -699,7 +699,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             { src: 'ARIZONA25/FOTO/20250820_110114.jpg', alt: 'Saguaro National Park', caption: 'A monumental saguaro in the desert', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250820_111025.jpg', alt: 'Saguaro National Park', caption: 'Cacti reaching towards the Arizona sky', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250820_105740.jpg', alt: 'Saguaro National Park', caption: 'The landscape of Saguaro National Park', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250820_110615.jpg', alt: 'Turkey vulture', caption: 'A turkey vulture above the Sonoran Desert', orientation: 'orizzontale' },
+            { src: 'ARIZONA25/FOTO/20250820_110615.jpg', alt: 'Sonoran Desert ecosystem', caption: 'The typical Sonoran Desert ecosystem, characterised by a dense stand of towering saguaro cacti', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250820_111431.jpg', alt: 'Saguaro National Park', caption: 'Trails among giant cacti', orientation: 'orizzontale' }
         ]);
         renderPhotoDay('#giorno2-photo-b', [
@@ -736,7 +736,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             { src: 'ARIZONA25/FOTO/20250822_184454.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Sedona valley fromAirport Mesa Loop', orientation: 'orizzontale' },
             { src: 'ARIZONA25/FOTO/20250822_184846.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Bell Rock seen fromAirport Mesa Loop', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250822_184057.jpg', alt: 'Airport Mesa Loop Trail', caption: 'Sunset lights up Sedona’s rocks', orientation: 'orizzontale' },
-            { src: 'ARIZONA25/FOTO/20250822_193503.jpg', alt: 'Sedona', caption: 'Sedona framed by vegetation', orientation: 'orizzontale' }
+            { src: 'ARIZONA25/FOTO/20250822_193503.jpg', alt: 'Vespa Healthy Italian Café, Sedona', caption: 'Vespa Healthy Italian Café — Sedona', orientation: 'orizzontale' }
         ]);
 
         // ===== DAY 05 =====
@@ -763,7 +763,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
 
         // ===== DAY 06 =====
         renderPhotoDay('#giorno6-photo', [
-            { src: 'ARIZONA25/FOTO/20250824_081551.jpg', alt: 'South Rim Grand Canyon', caption: 'The South Rim in the early morning', orientation: 'verticale' },
+            { src: 'ARIZONA25/FOTO/20250824_081551.jpg', alt: 'Squirrel at the Grand Canyon', caption: 'A hungry squirrel has breakfast at the South Rim', orientation: 'verticale' },
             { type: 'youtube', videoId: '6XTUlYUtzMs', alt: 'Grand Canyon Village', caption: 'Grand Canyon Village', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250824_140814.jpg', alt: 'Navajo Point Grand Canyon', caption: 'Navajo Point Grand Canyon — endless horizons', orientation: 'verticale' },
             { src: 'ARIZONA25/FOTO/20250824_083731.jpg', alt: 'South Rim Grand Canyon', caption: 'Walking along the rim of the Grand Canyon', orientation: 'orizzontale' },
@@ -995,18 +995,29 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             const popupWrap = document.getElementById("youtube-popup-wrap");
             const popupIframe = document.getElementById("youtube-popup-iframe");
             const popupClose = document.getElementById("youtube-popup-close");
+            let popupHistoryActive = false;
 
             function openYoutubePopup(videoId, orientation) {
+                if (popup.style.display !== "flex") {
+                    history.pushState({ danVideoPopup: true }, "", location.href);
+                    popupHistoryActive = true;
+                }
                 popupWrap.classList.toggle("is-landscape", orientation === "orizzontale" || orientation === "panoramica");
                 popupIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
                 popup.style.display = "flex";
                 document.body.style.overflow = "hidden";
             }
 
-            function closeYoutubePopup() {
+            function closeYoutubePopup(fromHistory) {
                 popup.style.display = "none";
                 popupIframe.src = "";
                 document.body.style.overflow = "auto";
+                if (popupHistoryActive && !fromHistory && history.state && history.state.danVideoPopup) {
+                    popupHistoryActive = false;
+                    history.back();
+                } else {
+                    popupHistoryActive = false;
+                }
             }
 
             document.querySelectorAll(".youtube-trigger").forEach(trigger => {
@@ -1022,6 +1033,9 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
             });
             document.addEventListener("keydown", function(e) {
                 if (popup.style.display === "flex" && e.key === "Escape") closeYoutubePopup();
+            });
+            window.addEventListener("popstate", function() {
+                if (popup.style.display === "flex") closeYoutubePopup(true);
             });
         });
     </script>
