@@ -1003,7 +1003,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
                     popupHistoryActive = true;
                 }
                 popupWrap.classList.toggle("is-landscape", orientation === "orizzontale" || orientation === "panoramica");
-                popupIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+                popupIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
                 popup.style.display = "flex";
                 document.body.style.overflow = "hidden";
             }

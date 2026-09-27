@@ -374,9 +374,9 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
                         <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_182253.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Santa Monica Pier stretches into the Pacific</figcaption></figure>
                     </div>
                     <div class="universal-flex-row">
-                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_182329.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Route 66 on Santa Monica Pier — and an unusual request for weed donations</figcaption></figure>
+                        <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_182329.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Route 66 on Santa Monica Pier — and an unusual request for a donation</figcaption></figure>
                         <figure class="photo-container-frame size-orizzontale"><img src="OTR25/FOTO/20250330_183217.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">Pacific Wheel — the colours of the amusement park</figcaption></figure>
-                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_183528.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">End of the Trail — the finishing point of legendary Route 66</figcaption></figure>
+                        <figure class="photo-container-frame size-verticale"><img src="OTR25/FOTO/20250330_183528.jpg" alt="Santa Monica Pier"><figcaption class="photo-caption">A timeless Southern California classic: the compass rose on the legendary Santa Monica Pier.</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -1477,7 +1477,7 @@ body{background-color:#141618;background-image:url("data:image/svg+xml,%3Csvg vi
                     history.pushState({ danVideoPopup: true }, '', location.href);
                     modalHistoryActive = true;
                 }
-                player.innerHTML = '<iframe src="https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1&rel=0" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                player.innerHTML = '<iframe src="https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1&rel=0&playsinline=1" title="Video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen playsinline></iframe>';
                 modal.classList.add('is-open');
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.classList.add('youtube-modal-open');
