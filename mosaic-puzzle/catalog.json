@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "imageBasePath": "images/",
+  "puzzles": [
+    {"id":"puzzle-001","title":"Ombrelli colorati","image":"puzzle-001.webp","order":1,"source":"guy-stevens-dEGu-oCuB1Y-unsplash.jpg"},
+    {"id":"puzzle-002","title":"Rulli arcobaleno","image":"puzzle-002.webp","order":2,"source":"david-pisnoy-46juD4zY1XA-unsplash.jpg"},
+    {"id":"puzzle-003","title":"Muro geometrico","image":"puzzle-003.webp","order":3,"source":"fatih-kgqu_qs3B78-unsplash.jpg"},
+    {"id":"puzzle-004","title":"Raggi di colore","image":"puzzle-004.webp","order":4,"source":"katie-rainbow-9TjLrmMJIoY-unsplash.jpg"},
+    {"id":"puzzle-005","title":"Fiori pop","image":"puzzle-005.webp","order":5,"source":"hi-estudio-kyhdJUoxfho-unsplash.jpg"},
+    {"id":"puzzle-006","title":"Case colorate","image":"puzzle-006.webp","order":6,"source":"film-qgaCFGFa0hQ-unsplash.jpg"},
+    {"id":"puzzle-007","title":"Caramelle colorate","image":"puzzle-007.webp","order":7,"source":"katie-rainbow-xwqTSc14hD4-unsplash.jpg"},
+    {"id":"puzzle-008","title":"Torta pastello","image":"puzzle-008.webp","order":8,"source":"roam-in-color-wP7mvol0tKg-unsplash.jpg"},
+    {"id":"puzzle-009","title":"Matite arcobaleno","image":"puzzle-009.webp","order":9,"source":"serge-le-strat-a7TbA0zPGzo-unsplash.jpg"},
+    {"id":"puzzle-010","title":"Linee cromatiche","image":"puzzle-010.webp","order":10,"source":"timo-c-dinger-7Ep2Iwc_95c-unsplash.jpg"},
+    {"id":"puzzle-011","title":"Tunnel luminoso","image":"puzzle-011.webp","order":11,"source":"nazarizal-mohammad-JI9X-zv0ND8-unsplash.jpg"},
+    {"id":"puzzle-012","title":"Corridoio al neon","image":"puzzle-012.webp","order":12,"source":"diego-ph-bHBPv4ecW9Q-unsplash.jpg"},
+    {"id":"puzzle-013","title":"Portale di luce","image":"puzzle-013.webp","order":13,"source":"efe-kurnaz-RnCPiXixooY-unsplash.jpg"},
+    {"id":"puzzle-014","title":"Fantasie geometriche","image":"puzzle-014.webp","order":14,"source":"image_2387d517.jpg"},
+    {"id":"puzzle-015","title":"Agrumi","image":"puzzle-015.webp","order":15,"source":"odiseo-castrejon-1CsaVdwfIew-unsplash.jpg"},
+    {"id":"puzzle-016","title":"Cristalli colorati","image":"puzzle-016.webp","order":16,"source":"odysseas-chloridis-Oa6ctZV9LkA-unsplash.jpg"},
+    {"id":"puzzle-017","title":"Sfere blu","image":"puzzle-017.webp","order":17,"source":"ecliptic-graphic-DhJQRgyC_70-unsplash.jpg"},
+    {"id":"puzzle-018","title":"Forme sospese","image":"puzzle-018.webp","order":18,"source":"george-kedenburg-iii-UltFSouabKM-unsplash.jpg"},
+    {"id":"puzzle-019","title":"Labirinto pop","image":"puzzle-019.webp","order":19,"source":"omar-lopez-rincon-tJfM_0rBroE-unsplash.jpg"},
+    {"id":"puzzle-020","title":"Matite a raggiera","image":"puzzle-020.webp","order":20,"source":"umesh-soni-yFdo3qAZFuU-unsplash.jpg"},
+    {"id":"puzzle-021","title":"Architettura blu","image":"puzzle-021.webp","order":21,"source":"cristian-negraia-MRL8J4hgKDY-unsplash.jpg"},
+    {"id":"puzzle-022","title":"Cucina rossa","image":"puzzle-022.webp","order":22,"source":"bilal-mansuri-d8lt6imCLMA-unsplash.jpg"},
+    {"id":"puzzle-023","title":"Interno minimale","image":"puzzle-023.webp","order":23,"source":"bilal-mansuri-1C9l7AIkLBg-unsplash.jpg"},
+    {"id":"puzzle-024","title":"Sole astratto","image":"puzzle-024.webp","order":24,"source":"nathan-dumlao-WDjNsJWIxVE-unsplash.jpg"},
+    {"id":"puzzle-025","title":"Studio minimale","image":"puzzle-025.webp","order":25,"source":"paul-seling-tfjZfJcwxws-unsplash.jpg"},
+    {"id":"puzzle-026","title":"Vaso blu","image":"puzzle-026.webp","order":26,"source":"shubham-dhage-8rtuZqAuYY4-unsplash.jpg"}
+  ]
+}
